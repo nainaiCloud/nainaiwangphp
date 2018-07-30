@@ -205,7 +205,7 @@ class FreeOrder extends Order{
 		$account = $this->base_account->createFund($info['retainage_payment']);
 		$res = $account->freezePay($buyer,$seller,$info['amount'],'合同'.$info['order_no'].'的款项￥'.$info['amount'],$info['order_no'],1,strtotime($info['create_time']));
         if($res===true){
-			$data = array('contract_status'=>self::CONTRACT_COMPLETE,'id'=>$info['id']);
+			$data = array('contract_status'=>self::CONTRACT_EFFECT,'id'=>$info['id']);
             $data['end_time'] =  date('Y-m-d H:i:s',time());
 
             $res1 = $this->orderUpdate($data);
