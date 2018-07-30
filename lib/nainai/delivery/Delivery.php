@@ -208,9 +208,15 @@ class Delivery{
 				case self::DELIVERY_COMPLETE:
 					$title = '全部提货完成';
 					break;
-				case self::DELIVERY_ADMIN_DECLINE;
+                case self::DELIVERY_ADMIN_DECLINE:
 					$title = '后台审核驳回';
 					break;
+                case self::DELIVERY_SELLER_AGREE:
+                    $title = '卖方审核通过';
+                    break;
+                case self::DELIVERY_SELLER_UNAGREE:
+                    $title = '卖方拒绝提货';
+                    break;
 				default:
 					$title = '未知状态';
 					break;
