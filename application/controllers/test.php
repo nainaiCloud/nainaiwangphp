@@ -12,7 +12,7 @@ class TestController extends \Yaf\Controller_Abstract{
 
     public function indexAction(){
         $cond = array('start'=>'20180724');
-        $jsMock = new \nainai\fund\jsMock();
+        $jsMock = new \nainai\fund\js();
         $data = $jsMock->marketFlow($cond);
         print_r($data);
     }
