@@ -286,27 +286,43 @@ function biddetailData(){
                    }
 
     //竞价详情数据获取 end
- 
+//保证金数据
 function bzj(){
-     $.ajax({
-            /*'url':$('input[name=jingjiaPost]').val(),*/
-           'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',
-            'type':'get',
-            'dataType':'json',
-            'data':{
-                offer_id:id//报盘id
-            },
-            success: function(data){
-                if(data.success==1){
-                    location.url='/bidbond/?id='+id
-                }else{
-                    alert(data.info)
-                    location.url=data.returnUrl
-                }
-            },error:function(data){
-                 console.log("网络错误")  
+    $.ajax({
+       /* 'url':pastUrl+'/offers/jingjiadeposit',  */
+        'url':$('input[name=bidInfo]').val(),
+        'type':'get',
+        'dataType':'json',
+        'data':{
+            id:id,//报盘id
+        },
+        success: function(bzjDatas){ 
+            if(bzjDatas.user!=null){
+                 $.ajax({
+                    'url':$('input[name=jingjiaPost]').val(),
+                   /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',*/
+                    'type':'get',
+                    'dataType':'json',
+                    'data':{
+                        offer_id:id//报盘id
+                    },
+                    success: function(data){
+                        if(data.success==0){
+                             location.url='/bidbond/?id='+id 
+                        }else{
+                            alert(data.info)
+                        }
+                    },error:function(data){
+                         console.log("网络错误")  
+                    }
+                })
+            }else{
+                alert("请先登录")
+                //location.url=data.returnUrl 跳转回登录界面
             }
-        })
+        }
+    })
+    
 }
 
 //出价接口

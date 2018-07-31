@@ -27,6 +27,8 @@
 				<div class="bidBond_cont clear">
 					<div class="bidbond_left">
 						<div class="bidbondtitle">转账人信息</div>
+						 <input type="hidden" name="bidInfo" value="{url:/offers/jingjiadeposit}">
+                		 <input type="hidden" name="bidyz" value="{url:/ajaxdata/alrealyDeposit}">
 						<div id="BankInfo"></div>
 						<script type="text/html" id="banktemplat">
 						 	
@@ -34,52 +36,31 @@
 							<% if(bankInfo.bank!=null) { %>
 							<!-- 若用户有过转账信息则显示已有的账户信息 -->
 							<div class="bidbondInfo">
-								<from id="bankData">
+			
 								<div class="bidbondInput">
 									<span class="spanName">转账用户名称:</span>
 									<span class="spanCont"><%=bankInfo.bank.true_name%></span>
-									<input class="inputText" type="hidden" value="<%=bankInfo.bank.true_name%>" name="true_name">
+									
 								</div>
 								<div class="bidbondInput">
 									<span class="spanName">开户银行:</span>
 									<span class="spanCont"><%=bankInfo.bank.bank_name%></span>
-									<input class="inputText" type="hidden" value="<%=bankInfo.bank.bank_name%>" name="bank_name">
+									
 								</div>
 								<div class="bidbondInput">
 									<span class="spanName">开户银行账号:</span>
 									<span class="spanCont"><%=bankInfo.bank.card_no%></span>
-									<input class="inputText" type="hidden" value="<%=bankInfo.bank.card_no%>" name="card_no">
+							
 								</div>
 								<div class="bidbond_btn">
-									<input class="submitIn" type="submit" value="缴纳完成" name="bankBut">
+									<input class="submitIn" type="button" value="缴纳完成" name="bankBut">
 								</div>
-								</from>
 							</div>
 							<!-- 若用户有过转账信息则显示已有的账户信息 end-->
 							
 							<% } else { %>
 							<div class="bidbondInfo">
-								<from id="bankData">
-								<div class="bidbondInput">
-									<span class="inputName">转账用户名称:</span>
-									<input class="inputText" type="text" placeholder="请输入您转账单位名称" name="true_name">
-								</div>
-								<div class="bidbondInput">
-									<span class="inputName">开户银行:</span>
-									<input class="inputText" type="text" placeholder="请输入您转账开户银行" name="">
-								</div>
-								<div class="bidbondInput">
-									<span class="inputName">开户银行账号:</span>
-									<input class="inputText" type="text" placeholder="请输入您转账开户银行账号" name="">
-								</div>
-								<div class="bidbond_btn">
-									<input class="submitIn" type="submit" value="缴纳完成" name="bankBut">
-								</div>
-								</from>
-								<div class="bidBond_tip">
-									<b class="prompt_b">*</b>
-									<span>必须使用上述银行账户进行汇款，并且汇款金额同需缴纳金额完全一致。否则导致的缴纳不成功自行负责</span>
-								</div>
+								<div>暂无数据</div>
 							</div>
 							<% } %>
 							<% } %>
@@ -127,7 +108,10 @@
 			提示
 			<i class="close"></i>
 		</div>
-		<div id="resule_success" class="result_cont">
+		<div class="tipCont">
+			
+		</div>
+		<!-- <div id="resule_success" class="result_cont">
 			<div class="result_img"><img src="{views:images/icon/successIcon.png}"/></div>
 			<div class="result_tip">恭喜，您的保证金已缴纳成功，现在可以去竞价！</div>
 			<div class="result_tip success_tip">系统将自动在3秒内跳转到竞价页面</div>
@@ -136,6 +120,14 @@
 			<div class="result_img"><img src="{views:images/icon/failIcon.png}"/></div>
 			<div class="result_tip">很抱歉，系统未收到帐的保证金，请先进行保证金缴纳！</div>
 			<div class="result_tip fail_tip">若有疑问，联系客服热线400-6238086</div>
-		</div>
+		</div> -->
+		<!-- 未开户提示信息 -->
+		<!-- <div id="resule_fail" class="result_cont" style="display: none;">
+			<div class="result_img"><img src="{views:images/icon/money_icon.png}"/></div>
+			<div class="result_tip">很抱歉，您还未开户，需要开户后才能缴纳保证金！</div>
+			<div class="result_tip">缴纳保证金必须使用开户账号关联的银行账户进行汇款</div>
+			<div class="result_tip success_tip">系统将自动在3秒后跳转去开户</div>
+		</div> -->
+		<!-- 未开户提示信息 end -->
 	</div>
 </div>
