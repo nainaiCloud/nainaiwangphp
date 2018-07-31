@@ -150,6 +150,39 @@ class DeliveryController extends UcenterBaseController {
 
     }
 
+    /**
+     * 自由报盘同意提货
+     */
+    public function freeAgreeAction(){
+        $delivery_id = $this->_request->getParam('delivery_id','int');
+
+        //设置提货状态为同意
+        $deliveryObj = new \nainai\delivery\FreeDelivery();
+
+        $res = $deliveryObj->sellerCheck($delivery_id,1,'');
+        if($res['success'] == 1){
+            $this->success('已同意提货');
+        }else{
+            $this->error($res['info']);
+        }
+        return false;
+
+    }
+
+    /**
+     * 自由报盘提货的卖家审核
+     */
+    public function freeDeliveryAction(){
+        $deliveryId = safe::filterPost('id','int');
+        $status = safe::filterPost('status','int',1);//1同意，0不同意
+        $msg = safe::filterPost('msg');
+
+        $deliveryObj = new \nainai\delivery\FreeDelivery();
+
+        $res = $deliveryObj->sellerCheck($deliveryId,$status,$msg);
+        die(JSON::encode($res));
+    }
+
 
 
 }

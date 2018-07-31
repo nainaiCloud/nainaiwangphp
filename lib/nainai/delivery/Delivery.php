@@ -22,6 +22,8 @@ class Delivery{
 	const DELIVERY_AGAIN = 4;//余量大于20% 需再次提货
 	const DELIVERY_COMPLETE = 5;//余量小于20%，提货结束，等待买方确认质量
 	const DELIVERY_ADMIN_DECLINE = 44; //后台审核驳回
+    const DELIVERY_SELLER_AGREE = 6;//卖方同意提货
+    const DELIVERY_SELLER_UNAGREE = 7;//卖方拒绝提货
 	
 	protected $delivery;//提货表M对象
 	protected $order;//订单表M对象
@@ -54,6 +56,12 @@ class Delivery{
 			case self::DELIVERY_ADMIN_DECLINE:
 				$title = '后台审核驳回';
 				break;
+            case self::DELIVERY_SELLER_AGREE:
+                $title = '卖方审核通过';
+                break;
+            case self::DELIVERY_SELLER_UNAGREE:
+                $title = '卖方拒绝提货';
+                break;
 			default:
 				$title = '异常状态';
 				break;
@@ -108,13 +116,13 @@ class Delivery{
 		$a->storeFees(15);
 		$t = $is_seller ? 'off' : 'po';
 		$t2 = $is_seller ? 'po' : 'off';
-		$query = new Query('order_sell as po');
-		$query->join = 'left join product_delivery as pd on po.id = pd.order_id
+		$query = new Query('product_delivery as pd');
+		$query->join = 'left join order_sell as po on po.id = pd.order_id 
 		                left join product_offer as off on po.offer_id = off.id
 		                left join products as p on off.product_id = p.id
 		                left join store_products as sp on sp.product_id = off.product_id
 		                left join store_list as sl on sl.id = sp.store_id';
-		$query->where = '(('.$t.'.user_id=:user_id and off.type=1) or ('.$t2.'.user_id = :tmp_id and off.type=2)) and po.mode in ('.order\Order::ORDER_DEPOSIT.','.order\Order::ORDER_STORE.','.order\Order::ORDER_PURCHASE.') and po.contract_status in ('.order\Order::CONTRACT_COMPLETE.','.order\Order::CONTRACT_EFFECT.','.order\Order::CONTRACT_VERIFY_QAULITY.','.order\Order::CONTRACT_DELIVERY_COMPLETE.')';
+		$query->where = '(('.$t.'.user_id=:user_id and off.type=1) or ('.$t2.'.user_id = :tmp_id and off.type=2)) and po.mode in ('.order\Order::ORDER_FREE.','.order\Order::ORDER_DEPOSIT.','.order\Order::ORDER_STORE.','.order\Order::ORDER_PURCHASE.') and po.contract_status in ('.order\Order::CONTRACT_COMPLETE.','.order\Order::CONTRACT_EFFECT.','.order\Order::CONTRACT_VERIFY_QAULITY.','.order\Order::CONTRACT_DELIVERY_COMPLETE.')';
 		$query->fields = 'po.*,sp.store_id,pd.num as delivery_num,pd.create_time as delivery_time,pd.status,pd.id as delivery_id,p.name,p.unit,sl.name as store_name';
 		$query->order = 'pd.create_time desc';
 		// $query->order = 'po.order_no,pd.status asc';
@@ -162,7 +170,11 @@ class Delivery{
 						$title = '已申请提货';
 					}else{
 						$title = '买家申请提货';
-						if($mode != order\Order::ORDER_STORE){
+						if($mode == order\Order::ORDER_FREE){
+                            $href = url::createUrl("/delivery/freeAgree?id={$value['id']}&delivery_id={$value['delivery_id']}");
+                            $action []= array('name'=>'同意提货','url'=>$href,'confirm'=>1);
+                        }
+						elseif($mode != order\Order::ORDER_STORE){
 							//卖家发货（保证金提货）
 							// $href = url::createUrl("/depositDelivery/sellerConsignment?id={$value['delivery_id']}&action_confirm=1&info=确认发货");
 							$href = url::createUrl("/delivery/consignment?id={$value['id']}&delivery_id={$value['delivery_id']}");
@@ -196,9 +208,15 @@ class Delivery{
 				case self::DELIVERY_COMPLETE:
 					$title = '全部提货完成';
 					break;
-				case self::DELIVERY_ADMIN_DECLINE;
+                case self::DELIVERY_ADMIN_DECLINE:
 					$title = '后台审核驳回';
 					break;
+                case self::DELIVERY_SELLER_AGREE:
+                    $title = '卖方审核通过';
+                    break;
+                case self::DELIVERY_SELLER_UNAGREE:
+                    $title = '卖方拒绝提货';
+                    break;
 				default:
 					$title = '未知状态';
 					break;
@@ -338,7 +356,7 @@ class Delivery{
 			if($buyer == $deliveryData['user_id']){
 				$contract_status = $order_info['contract_status'];
 				//订单合同状态须为已生效,订单类型须为保证金或者仓单
-				if(isset($contract_status) && $contract_status == order\Order::CONTRACT_EFFECT && in_array($order_info['mode'],array(order\Order::ORDER_DEPOSIT,order\Order::ORDER_STORE,order\Order::ORDER_PURCHASE))){
+				if(isset($contract_status) && $contract_status == order\Order::CONTRACT_EFFECT && in_array($order_info['mode'],array(order\Order::ORDER_DEPOSIT,order\Order::ORDER_FREE,order\Order::ORDER_STORE,order\Order::ORDER_PURCHASE))){
 					$product_valid = $this->orderNumValid($deliveryData['order_id'],$deliveryData['num']);
 					if($product_valid !== true){
 						$error = '提货数量有误';

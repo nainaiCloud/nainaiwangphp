@@ -1,4 +1,4 @@
-<script type="text/javascript" src="{root:js/jquery/jquery-1.7.2.min.js}"></script>
+
 <script type="text/javascript" src='{root:js/area/Area.js}'></script>
 <script type="text/javascript" src='{root:js/area/AreaData_min.js}'></script>
 
@@ -114,20 +114,48 @@
                                 <td colspan="2"> 
                                     {$info['title']}
                                 </td>
-                            </tr>   
-                            
-                            <tr>
-                                <td></td>
-                                <td colspan="2" class="btn">
-
-                                    {foreach:items=$info['action']}
-                                        <!-- {if:$item['name'] != '查看'} -->
-                                        <a href="{$item['url']}" confirm>{$item['name']}</a>
-                                        <!-- {/if} -->
-                                    {/foreach}
-                                    
-                                </td>
                             </tr>
+                            {if:$info['order']['mode'] == \nainai\order\Order::ORDER_FREE && $info['status']==0}
+                                <form action="{url:/delivery/freeDelivery}" method="post" auto_submit="1" >
+                                    <input type="hidden" name="id" value="{$info['delivery_id']}" />
+                                    <tr >
+                                        <td nowrap="nowrap"><span></span>审核意见：</td>
+                                        <td colspan="2">
+                                            <textarea name="msg"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr >
+                                        <td nowrap="nowrap"><span></span>审核状态：</td>
+                                        <td colspan="2">
+                                            <label><input type="radio" name="status" value="1" checked/>同意</label>
+                                            <label><input type="radio" name="status" value="0"/>不同意</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="2" class="btn">
+                                            <input type="submit" value="提交审核"/>
+
+
+                                        </td>
+                                    </tr>
+                                </form>
+
+                            {else:}
+                                <tr>
+                                    <td></td>
+                                    <td colspan="2" class="btn">
+
+                                        {foreach:items=$info['action']}
+                                            {if:$item['name'] != '查看'}
+                                                <a href="{$item['url']}" confirm>{$item['name']}</a>
+                                                 {/if}
+                                        {/foreach}
+
+                                    </td>
+                                </tr>
+                            {/if}
+
                          </table>
                          </div>
                          </div>

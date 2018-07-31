@@ -596,7 +596,7 @@ class Order{
 				if($confirm === true){
 					//卖家确认收款
 					
-					$order_type = $info['mode'] != self::ORDER_FREE && $info['mode'] != self::ORDER_ENTRUST;
+					$order_type =  $info['mode'] != self::ORDER_ENTRUST;
 					//合同状态置为生效
 					$orderData['contract_status'] = $order_type ? self::CONTRACT_EFFECT : self::CONTRACT_COMPLETE;
 					$orderData['end_time'] = $order_type ? NULL : date('Y-m-d H:i:s',time());
@@ -1585,6 +1585,7 @@ class Order{
 						$title = '提货列表';
 						$href = url::createUrl("/delivery/deliBuyList");
 						$action []= array('action'=>$title,'url'=>$href);
+                        $action []= array('action'=>'提货完成','url'=>url::createUrl("/Order/freeOrderComplete?order_id={$value['id']}"),'confirm'=>1);
 					}
 					break;
 				case self::CONTRACT_COMPLETE:
