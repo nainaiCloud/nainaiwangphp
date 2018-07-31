@@ -222,4 +222,16 @@ class OrderController extends UcenterBaseController{
 			$this->error($res['info']);
 		return false;
 	}
+
+	public function freeOrderCompleteAction(){
+        $order_id = safe::filter($this->_request->getParam('order_id'));
+        $order = new \nainai\order\FreeOrder();
+        $res = $order->contractComplete($order_id,$this->user_id);
+        if($res['success'] == 1){
+            $this->success('合同已完成');
+        }else{
+            $this->error($res['info']);
+        }
+        return false;
+    }
 }

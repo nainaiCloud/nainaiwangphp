@@ -1585,6 +1585,7 @@ class Order{
 						$title = '提货列表';
 						$href = url::createUrl("/delivery/deliBuyList");
 						$action []= array('action'=>$title,'url'=>$href);
+                        $action []= array('action'=>'提货完成','url'=>url::createUrl("/Order/freeOrderComplete?order_id={$value['id']}"),'confirm'=>1);
 					}
 					break;
 				case self::CONTRACT_COMPLETE:

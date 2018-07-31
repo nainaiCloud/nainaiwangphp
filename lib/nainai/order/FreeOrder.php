@@ -219,6 +219,43 @@ class FreeOrder extends Order{
 		return tool::getSuccInfo(0,$res);
 	}
 
+	public function contractComplete($order_id,$user_id){
+        if($this->orderComplain($order_id)) return tool::getSuccInfo(0,'申述处理中');
+        $order = $this->orderInfo($order_id);
+        $error = '';
+        if($order && $order['mode']==self::ORDER_FREE){
+            if($order['contract_status'] == self::CONTRACT_EFFECT){
+                $buyer  =  $order['user_id'];
+                if($buyer != $user_id)
+                    return tool::getSuccInfo(0,'操作用户错误');
+
+                $orderData['contract_status'] = self::CONTRACT_COMPLETE;
+                $orderData['end_time'] = date('Y-m-d H:i:s',time());
+                $orderData['id'] = $order_id;
+
+                try {
+                    $this->order->beginTrans();
+                    $res = $this->orderUpdate($orderData);
+                    if($res['success'] == 1){
+                        $this->order->commit();
+                        return tool::getSuccInfo();
+                    }else{
+                        $error = $res['info'];
+                    }
+                } catch (\PDOException $e) {
+                    $error = $e->getMessage();
+                    $this->order->rollBack();
+                }
+            }else{
+                $error = '合同状态有误';
+            }
+        }else{
+            $error = '无效订单';
+        }
+
+        return tool::getSuccInfo(0,$error);
+    }
+
 }
 
 

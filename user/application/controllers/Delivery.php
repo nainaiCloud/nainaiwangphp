@@ -160,7 +160,12 @@ class DeliveryController extends UcenterBaseController {
         $deliveryObj = new \nainai\delivery\FreeDelivery();
 
         $res = $deliveryObj->sellerCheck($delivery_id,1,'');
-        die(JSON::encode($res));
+        if($res['success'] == 1){
+            $this->success('已同意提货');
+        }else{
+            $this->error($res['info']);
+        }
+        return false;
 
     }
 
