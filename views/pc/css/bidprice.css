@@ -677,6 +677,16 @@ hr{
 	height: 32px;
 	font-size: 14px;
 }
+.bidbond_btn input.no_submit{
+	margin-left: 100px;
+	margin-top: 35px;
+	background: #bbb;
+	color: #fff;
+	border:0px;
+	width: 200px;
+	height: 32px;
+	font-size: 14px;
+}
 .bidbondInfo .bidBond_tip{
 	margin-left: 96px;
 	margin-top: 18px;

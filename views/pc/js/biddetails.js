@@ -183,8 +183,8 @@ function biddetailData(){
 //竞价列表
 function baojiaList(data){
     $.ajax({
-         'url':$('input[name=baojiaList]').val(),
-        /*'url':'http://ceshi.nainaiwang.com//offers/baojiadata',*/
+        'url':$('input[name=baojiaList]').val(),
+      /*  'url':'http://ceshi.nainaiwang.com//offers/baojiadata',*/
         'type':'get',
         'dataType':'json',
         'data':{
@@ -286,43 +286,10 @@ function baojiaList(data){
 //竞价详情数据获取 end
 //保证金数据
 function bzj(){
-    $.ajax({
-       /* 'url':'http://124.166.246.120:3000/mock/9/offers/jingjiadeposit',  */
-        'url':$('input[name=bidInfo]').val(),
-        'type':'get',
-        'dataType':'json',
-        'data':{
-            id:id,//报盘id
-        },
-        success: function(bzjDatas){ 
-            if(bzjDatas.user!=null){
-                 $.ajax({
-                    'url':$('input[name=jingjiaPost]').val(),
-                    /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',*/
-                    'type':'get',
-                    'dataType':'json',
-                    'data':{
-                        offer_id:id//报盘id
-                    },
-                    success: function(data){
-                        if(data.success==0){
-                             location.url='/bidbond/?id='+id 
-                        }else{
-                            alert(data.info)
-                        }
-                    },error:function(data){
-                         console.log("网络错误")  
-                    }
-                })
-            }else{
-                alert("请先登录")
-                //location.url=data.returnUrl 跳转回登录界面
-            }
-        }
-    })
-    
+    var bidUrls=$("input[name='bidUrl']").val()
+     console.log("d",bidUrls)
+    location.href=bidUrls+"?id="+id;
 }
-
 //出价接口
 function yescj(){
     var bidprice = $("#num").val();
@@ -332,8 +299,6 @@ function yescj(){
         console.log(inputPay,"-",bidprice,"报价")
         baojiaPost(inputPay,bidprice)
     })
-               
-  
 }
     function baojiaPost(pass,curprice){
         $.ajax({

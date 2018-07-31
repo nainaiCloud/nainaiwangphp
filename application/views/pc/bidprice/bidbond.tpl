@@ -27,8 +27,12 @@
 				<div class="bidBond_cont clear">
 					<div class="bidbond_left">
 						<div class="bidbondtitle">转账人信息</div>
-						 <input type="hidden" name="bidInfo" value="{url:/offers/jingjiadeposit}">
-                		 <input type="hidden" name="bidyz" value="{url:/ajaxdata/alrealyDeposit}">
+						<!-- 是否缴纳保证金 -->
+						<input type="hidden" name="jingjiaPost" value="{url:/ajaxdata/jingjiadeposit}">
+						<!-- 保证金信息 -->
+						<input type="hidden" name="bidInfo" value="{url:/offers/jingjiadeposit}">
+                		<!-- 匹配保证金 -->
+                		<input type="hidden" name="bidmatch" value="{url:/ajaxdata/alrealyDeposit}">
 						<div id="BankInfo"></div>
 						<script type="text/html" id="banktemplat">
 							<% if(bankInfo!=null) { %>
@@ -51,7 +55,7 @@
 							
 								</div>
 								<div class="bidbond_btn">
-									<input class="submitIn" type="button" value="缴纳完成" name="bankBut">
+									
 								</div>
 							</div>
 							<!-- 若用户有过转账信息则显示已有的账户信息 end-->

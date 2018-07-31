@@ -10,9 +10,9 @@
 	}
 	var id =getUrlParam("id");
 	console.log(id,"dd")
- /* var pastUrl = "http://124.166.246.120:3000/mock/9"*/
+ // var pastUrl = "http://124.166.246.120:3000/mock/9"
 //开户信息
- bzjData()
+ 	bzjData()
 	function bzjData(){
 	    $.ajax({
 	        /*'url':pastUrl+'/offers/jingjiadeposit',*/
@@ -22,7 +22,8 @@
 	        'data':{
 	            id:id,//报盘id
 	        },
-	        success: function(bzjDatas){ 
+	        success: function(bzjDatas){
+
 	        	var tiphtml=''
 	        	console.log(bzjDatas.user.bank,"user")
 	        	$(".bzjProduct").text(bzjDatas.jingjia.pro_name);//商品名字
@@ -30,7 +31,7 @@
 	        	if(bzjDatas.user.bank!=null){
 	        		var BankInfo = template.render('banktemplat',{bankInfo:bzjDatas.user.bank});
 			        $('#BankInfo').html(BankInfo);
-	        		clickBzj();
+	        		
 	        	}else{
 	        		$('#BankInfo').html('<div class="bidbondInfo"><div>暂无数据</div></div>');
 	        		tiphtml='<div id="resule_fail" class="result_cont">'
@@ -44,13 +45,32 @@
 				        },3000)
                    	)
 	        	}
-			    
-	        	
-	          
+	        	bzjyz();
 	        }
 	    })
-	} //是否缴纳保证金，是否登录 end
-/*保证金遮罩层提示*/
+	} 
+
+/*保证金验证*/
+function bzjyz(){
+	$.ajax({
+		/*'url':pastUrl+'/ajaxdata/jingjiadeposit',*/
+	    'url':$('input[name=bidInfo]').val(),
+	    'type':'get',
+	    'dataType':'json',
+	    'data':{
+	        id:id,//报盘id
+	    },
+	    success: function(datas){
+	    	console.log(datas,"bzjyz")
+	    	if(datas.success == 0){
+	    		$(".bidbond_btn").html('<input class="submitIn" type="button" value="缴纳完成" name="bankBut">')
+	    	}else{
+	    		$(".bidbond_btn").html('<input class="no_submit" disabled="disabled" type="button" value="缴纳完成" name="bankBut">')
+	    	}
+	    	clickBzj();
+	    }
+	})
+}
 function clickBzj(){
 	$(".bidbond_btn .submitIn").click(function(){
 		$.ajax({
@@ -58,7 +78,7 @@ function clickBzj(){
                 type: "POST",//方法类型
                 dataType: "json",//预期服务器返回的数据类型
                /* url: pastUrl+"/ajaxdata/alrealyDeposit" ,*///匹配数据url
-                url:$('input[name=bidyz]').val(),
+                url:$('input[name=bidmatch]').val(),
                 data:{
 	            	id:id,//报盘id
 	        	},
@@ -85,7 +105,7 @@ function clickBzj(){
                     }
                 },
                 error : function() {
-                    alert("异常！");
+                    console.log("异常！");
                 }
             });
 	})
