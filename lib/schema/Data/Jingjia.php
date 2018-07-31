@@ -14,7 +14,9 @@ class Jingjia extends Template
 
     protected  $except = array('seller','baojia','product');//ÅÅ³ýµÄ×Ö¶Î
 
-
+    protected $relyFeild = array(
+        'product'=>'product_id'
+    );
     protected  $table = 'product_offer';
 
     protected  $primaryKey = 'id';

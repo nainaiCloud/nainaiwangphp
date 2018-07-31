@@ -22,7 +22,7 @@ class TestController extends \Yaf\Controller_Abstract{
               {
                         jingjia(id:16068){
                             pro_name,
-                            max_num,accept_area,end_time,product_id,accept_area_code,
+                            max_num,accept_area,end_time,accept_area_code,
                             product{
                                produce_area,produce_address,note,unit,
                                attribute{

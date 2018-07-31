@@ -14,6 +14,9 @@ abstract class Template
     protected  $fields = array();
 
     protected  $except = array();//排除的字段
+
+    //array(f1=>f2,),f1依赖f2,如果查询有f1,则必须有f2
+    protected $relyFeild = array();//字段之间的依赖
     protected  $table = '';
 
     protected  $primaryKey = 'id';
@@ -85,6 +88,14 @@ abstract class Template
      */
     protected   function getFields($fields=array()){
         if(!empty($fields)){
+            if(!empty($this->relyFeild)){
+                //将依赖的字段加进去
+                foreach($this->relyFeild as $key=>$f){
+                    if(in_array($key,$fields) && !in_array($f,$fields)){
+                        $fields[] = $f;
+                    }
+                }
+            }
             if(!empty($this->except)){
                 foreach($fields as $key=>$val){
                     if(in_array($val,$this->except)){
