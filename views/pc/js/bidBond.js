@@ -10,13 +10,13 @@
 	}
 	var id =getUrlParam("id");
 	console.log(id,"dd")
-  /*var pastUrl = "http://124.166.246.120:3000/mock/9"*/
+ /* var pastUrl = "http://124.166.246.120:3000/mock/9"*/
 //开户信息
  bzjData()
 	function bzjData(){
 	    $.ajax({
 	        /*'url':pastUrl+'/offers/jingjiadeposit',*/
-	         'url':$('input[name=bidInfo]').val(),
+	        'url':$('input[name=bidInfo]').val(),
 	        'type':'get',
 	        'dataType':'json',
 	        'data':{
@@ -24,24 +24,27 @@
 	        },
 	        success: function(bzjDatas){ 
 	        	var tiphtml=''
-	        	if(bzjDatas.user!=null){
-	        		var BankInfo = template.render('banktemplat',{bankInfo:bzjDatas.user});
-			          //  console.log(BankInfo,"shuj")
-			         $('#BankInfo').html(BankInfo);
-			         $(".bidbondprice .bzjPrice").text(bzjDatas.jingjia.jingjia_deposit);//需缴纳保证金
+	        	console.log(bzjDatas.user.bank,"user")
+	        	$(".bzjProduct").text(bzjDatas.jingjia.pro_name);//商品名字
+	        	$(".bidbondprice .bzjPrice").text(bzjDatas.jingjia.jingjia_deposit);//需缴纳保证金
+	        	if(bzjDatas.user.bank!=null){
+	        		var BankInfo = template.render('banktemplat',{bankInfo:bzjDatas.user.bank});
+			        $('#BankInfo').html(BankInfo);
 	        		clickBzj();
 	        	}else{
+	        		$('#BankInfo').html('<div class="bidbondInfo"><div>暂无数据</div></div>');
 	        		tiphtml='<div id="resule_fail" class="result_cont">'
 	        			+'<div class="result_img"><img src="../views/pc/images/icon/money_icon.png"/></div>'
-	        			+'div class="result_tip">很抱歉，您还未开户，需要开户后才能缴纳保证金！</div>'
-	        			+'<div class="result_tip">缴纳保证金必须使用开户账号关联的银行账户进行汇款</div>'
+	        			+'<div class="result_tip">很抱歉，您还未开户，需要开户后才能缴纳保证金！</div>'
+	        			+'<div class="result_tip fail_tip">缴纳保证金必须使用开户账号关联的银行账户进行汇款</div>'
 	        			+'<div class="result_tip success_tip">系统将自动在3秒后跳转去开户</div></div>'
                     	$(".bidbond_result .tipCont").html(tiphtml)
-	        		$(".bidbond_result").fadeIn(1000,setTimeout(function () {
-				            location.href = result.returnUrl; //开户界面
+	        			$(".bidbond_result").fadeIn(1000,setTimeout(function () {
+				           // location.href = result.returnUrl; //开户界面
 				        },3000)
                    	)
 	        	}
+			    
 	        	
 	          
 	        }
@@ -77,6 +80,8 @@ function clickBzj(){
 	        			+'<div class="result_img"><img src="../views/pc/images/icon/failIcon.png"/></div>'
 	        			+'<div class="result_tip">很抱歉，系统未收到帐的保证金，请先进行保证金缴纳！</div>'
 	        			+'<div class="result_tip fail_tip">若有疑问，联系客服热线400-6238086</div></div>'
+                    	$(".bidbond_result .tipCont").html(tiphtml)
+                    	$(".bidbond_result").fadeIn()
                     }
                 },
                 error : function() {

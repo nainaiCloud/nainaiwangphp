@@ -74,8 +74,8 @@ console.log(id,pass,"dd")
 biddetailData();
 function biddetailData(){
     $.ajax({
-       /* 'url':$('input[name=detail]').val(),*/
-      'url':'http://ceshi.nainaiwang.com/offers/jingjiadetail',
+        'url':$('input[name=detail]').val(),
+      /*'url':'http://ceshi.nainaiwang.com/offers/jingjiadetail',*/
         'type':'get',
         'dataType':'json',
         'data':{
@@ -180,116 +180,114 @@ function biddetailData(){
         }
     })
 }
-                //竞价列表
-                 function baojiaList(data){
-                     $.ajax({
-                       /* 'url':$('input[name=baojiaList]').val(),*/
-                        'url':'http://ceshi.nainaiwang.com//offers/baojiadata',
-                        'type':'get',
-                        'dataType':'json',
-                        'data':{
-                            id:id,//报盘id
-                        },
-                        success: function(res){
-                            var bjListData = res.data//列表数据
-                            console.log(res,"res数据")
-                        
-                                //竞拍状态，价格
-                                var priceText=""//价格
-                                var bidType ="" //竞价状态
-                                var cprice =""//出价人
-                                var curprice;//input价格
-                                var but=""//按钮
-                                var tip=""//提示
-                                var bid_time=""//时间说明
-                                if(data.status ==1){
-                                     console.log(data.status,"res数据1")
-                                    priceText = "起拍价："+data.price_l
-                                    bidType ="竞价暂未开始"
-                                    cprice="出价人：竞价暂未开始，目前没有出价的人"
-                                    curprice=data.price_l//input价格
-                                    tip="*提示：出价需要先交支付保证金"
-                                    bid_time ="距离开始还有"
-                                    //是否登录，需要判断是否缴纳保证金error
-                                    but='<input class="submitBut yes" type="button" name="bzj" value="支付保证金">'
-                                }else if (data.status ==2){
-                                    console.log(data.status,"res数据2")
-                                    if(bjListData.length>0){
-                                      priceText = "当前价："+bjListData[0].price
-                                      curprice=bjListData[0].price
-                                      cprice="出价人："+bjListData[0].true_name //出价人字段
-                                    }else{
-                                      priceText = "当前价："+data.price_l
-                                      curprice=data.price_l
-                                      cprice="出价人：无出价"//出价人字段
-                                    }
-                                    bidType ="竞价进行中"
-                                    bid_time="距离结束还有"
-                                    but='<input class="submitBut yes" type="button" name="yescj" value="确认出价">'
-                                }else if(data.status ==3){
-                                    if(bjListData.length>0){
-                                     priceText = "成交价"+bjListData[0].price
-                                     cprice="出价人："+bjListData[0].true_name
-                                     curprice=bjListData[0].price
-                                      bidType ="竞价结束,该商品成功竞价!"
-                                    }else{
-                                     priceText = "成交价"+data.price_l
-                                     cprice="出价人：无出价"
-                                     curprice=data.price_l
-                                     bidType ="竞价结束，该商品竞价失败!"
-                                    }
-                                    bid_time="该商品已竞价结束"
-                                    but='<input class="submitBut end" type="button" disabled="disabled" name="jjend" value="竞价已结束">'
-                                }
-                                console.log(res.count,data.views,"res数据k")
-                                $(".bidBottom .bidpricepop .pepNum").text(res.count);//出价人数
-                                $(".bidBottom .bidwk .viewNum").text(data.views);//围观人数
-                                $(".price .price_type .dqprice_con").text(priceText) ;//价格
-                                $(".bidInfor .bidinfortitle .bid_left").text(bidType);//竞价状态提示
-                                $(".price .cprice").text(cprice);//出价人
-                                $(".cj .inputName input#num").val(curprice);//当前价格
-                                $(".bidfor_cont_left .but").html(but);//按钮
-                                $(".introduce_title .numt").text(bjListData.length);//竞价记录条数
-                                $(".bid_right .bid_time").text(bid_time);//时间说明
-                                numprice(data.jing_stepprice,curprice);//价格加减
-                                $(".but input[name='bzj']").click(function(){
-                                    bzj();
-                                });//单击保证金按钮执行事件
-                                $(".but input[name='yescj']").click(function(){
-                                    yescj()
-                                })//单击出价按钮执行事件
+//竞价列表
+function baojiaList(data){
+    $.ajax({
+         'url':$('input[name=baojiaList]').val(),
+        /*'url':'http://ceshi.nainaiwang.com//offers/baojiadata',*/
+        'type':'get',
+        'dataType':'json',
+        'data':{
+            id:id,//报盘id
+        },
+        success: function(res){
+            var bjListData = res.data//列表数据
+            console.log(res,"res数据")
+            //竞拍状态，价格
+            var priceText=""//价格
+            var bidType ="" //竞价状态
+            var cprice =""//出价人
+            var curprice;//input价格
+            var but=""//按钮
+            var tip=""//提示
+            var bid_time=""//时间说明
+            if(data.status ==1){
+                console.log(data.status,"res数据1")
+                priceText = "起拍价："+data.price_l
+                bidType ="竞价暂未开始"
+                cprice="出价人：竞价暂未开始，目前没有出价的人"
+                curprice=data.price_l//input价格
+                tip="*提示：出价需要先交支付保证金"
+                bid_time ="距离开始还有"
+                //是否登录，需要判断是否缴纳保证金error
+                but='<input class="submitBut yes" type="button" name="bzj" value="支付保证金">'
+            }else if (data.status ==2){
+                console.log(data.status,"res数据2")
+                if(bjListData.length>0){
+                priceText = "当前价："+bjListData[0].price
+                curprice=bjListData[0].price
+                cprice="出价人："+bjListData[0].true_name //出价人字段
+            }else{
+                priceText = "当前价："+data.price_l
+                curprice=data.price_l
+                cprice="出价人：无出价"//出价人字段
+            }
+                bidType ="竞价进行中"
+                bid_time="距离结束还有"
+                but='<input class="submitBut yes" type="button" name="yescj" value="确认出价">'
+            }else if(data.status ==3){
+                if(bjListData.length>0){
+                    priceText = "成交价"+bjListData[0].price
+                    cprice="出价人："+bjListData[0].true_name
+                    curprice=bjListData[0].price
+                    bidType ="竞价结束,该商品成功竞价!"
+                }else{
+                    priceText = "成交价"+data.price_l
+                    cprice="出价人：无出价"
+                    curprice=data.price_l
+                    bidType ="竞价结束，该商品竞价失败!"
+                }
+                    bid_time="该商品已竞价结束"
+                    but='<input class="submitBut end" type="button" disabled="disabled" name="jjend" value="竞价已结束">'
+            }
+                console.log(res.count,data.views,"res数据k")
+                $(".bidBottom .bidpricepop .pepNum").text(res.count);//出价人数
+                $(".bidBottom .bidwk .viewNum").text(data.views);//围观人数
+                $(".price .price_type .dqprice_con").text(priceText) ;//价格
+                $(".bidInfor .bidinfortitle .bid_left").text(bidType);//竞价状态提示
+                $(".price .cprice").text(cprice);//出价人
+                $(".cj .inputName input#num").val(curprice);//当前价格
+                $(".bidfor_cont_left .but").html(but);//按钮
+                $(".introduce_title .numt").text(bjListData.length);//竞价记录条数
+                $(".bid_right .bid_time").text(bid_time);//时间说明
+                numprice(data.jing_stepprice,curprice);//价格加减
+                $(".but input[name='bzj']").click(function(){
+                    bzj();
+                });//单击保证金按钮执行事件
+                $(".but input[name='yescj']").click(function(){
+                    yescj()
+                })//单击出价按钮执行事件
     
-                            //竞拍状态，价格 end
-                                //出价列表
-                                var baojiaListone=""//领先报价
-                                var baojiaList ="" //报价列表
-                                if(res.count==0){
-                                    baojiaList +="暂未出价"
-                                }else{
-                                    baojiaListone="<ul class='auction_cont first'><li><span>"
-                                    +bjListData[0].true_name +"</span></li><li><span>"
-                                    +bjListData[0].price+"</span></li><li><span>"
-                                    +bjListData[0].time+"</span></li><li><span>领先</span></li></ul>"
-                                    for(var i=1;i<bjListData.length;i++){
-                                     baojiaList+="<ul class='auction_cont'><li><span>"
-                                    +bjListData[i].username +"</span></li><li><span>"
-                                    +bjListData[i].price+"</span></li><li><span>"
-                                    +bjListData[i].time+"</span></li><li><span>出局</span></li></ul>"
-                                    }
-                                }
-                                $("#baojiaList").html(baojiaListone+baojiaList)
-
-                        },error:function(res){
-                               console.log("报价列表出错")    
+                //竞拍状态，价格 end
+                //出价列表
+                var baojiaListone=""//领先报价
+                var baojiaList ="" //报价列表
+                if(res.count==0){
+                    baojiaList +="<div class='no_baojia'>暂未出价</div>"
+                }else{
+                    baojiaListone="<ul class='auction_cont first'><li><span>"
+                    +bjListData[0].true_name +"</span></li><li><span>"
+                    +bjListData[0].price+"</span></li><li><span>"
+                    +bjListData[0].time+"</span></li><li><span>领先</span></li></ul>"
+                    for(var i=1;i<bjListData.length;i++){
+                        baojiaList+="<ul class='auction_cont'><li><span>"
+                        +bjListData[i].username +"</span></li><li><span>"
+                        +bjListData[i].price+"</span></li><li><span>"
+                        +bjListData[i].time+"</span></li><li><span>出局</span></li></ul>"
                         }
-                    })
-                   }
+                    }
+                    $("#baojiaList").html(baojiaListone+baojiaList)
 
-    //竞价详情数据获取 end
+        },error:function(res){
+            console.log("报价列表出错")    
+        }
+    })
+}
+//竞价详情数据获取 end
 //保证金数据
 function bzj(){
     $.ajax({
-       /* 'url':pastUrl+'/offers/jingjiadeposit',  */
+       /* 'url':'http://124.166.246.120:3000/mock/9/offers/jingjiadeposit',  */
         'url':$('input[name=bidInfo]').val(),
         'type':'get',
         'dataType':'json',
@@ -300,7 +298,7 @@ function bzj(){
             if(bzjDatas.user!=null){
                  $.ajax({
                     'url':$('input[name=jingjiaPost]').val(),
-                   /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',*/
+                    /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',*/
                     'type':'get',
                     'dataType':'json',
                     'data':{

@@ -8,9 +8,9 @@
 			<div class="bidbond">
 				<div class="bidbond_top clear">
 					<div class="bidbond_left">
-						<div class="bidbondname">竞价物品名称：铝矾土一级生矿混料</div>
+						<div class="bidbondname">竞价物品名称：<span class="bzjProduct"></span></div>
 						<div class="bidbondprice">
-							需要缴纳保证金：<span>￥<span class="bzjPrice">3000.00</span>元</span>
+							需要缴纳保证金：<span>￥<span class="bzjPrice"></span>元</span>
 						</div>
 					</div>
 					<div class="bidbond_right">
@@ -31,25 +31,23 @@
                 		 <input type="hidden" name="bidyz" value="{url:/ajaxdata/alrealyDeposit}">
 						<div id="BankInfo"></div>
 						<script type="text/html" id="banktemplat">
-						 	
 							<% if(bankInfo!=null) { %>
-							<% if(bankInfo.bank!=null) { %>
 							<!-- 若用户有过转账信息则显示已有的账户信息 -->
 							<div class="bidbondInfo">
 			
 								<div class="bidbondInput">
 									<span class="spanName">转账用户名称:</span>
-									<span class="spanCont"><%=bankInfo.bank.true_name%></span>
+									<span class="spanCont"><%=bankInfo.true_name%></span>
 									
 								</div>
 								<div class="bidbondInput">
 									<span class="spanName">开户银行:</span>
-									<span class="spanCont"><%=bankInfo.bank.bank_name%></span>
+									<span class="spanCont"><%=bankInfo.bank_name%></span>
 									
 								</div>
 								<div class="bidbondInput">
 									<span class="spanName">开户银行账号:</span>
-									<span class="spanCont"><%=bankInfo.bank.card_no%></span>
+									<span class="spanCont"><%=bankInfo.card_no%></span>
 							
 								</div>
 								<div class="bidbond_btn">
@@ -58,12 +56,8 @@
 							</div>
 							<!-- 若用户有过转账信息则显示已有的账户信息 end-->
 							
-							<% } else { %>
-							<div class="bidbondInfo">
-								<div>暂无数据</div>
-							</div>
 							<% } %>
-							<% } %>
+			
 							
 						</script>
 						

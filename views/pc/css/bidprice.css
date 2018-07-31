@@ -588,6 +588,12 @@ hr{
 .auction ul.first{
 	color: #c81623;
 }
+.auction .no_baojia{
+    padding-left: 20px;
+    height: 36px;
+    line-height: 36px;
+    border-bottom: 1px solid #e7e7e7;
+}
 /*竞价详情end*/
 /*保证金*/
 .bidpriceContent .bidbond{
