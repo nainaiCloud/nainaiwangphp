@@ -26,7 +26,13 @@ class JingjiaType extends ObjectType
                     'price'    => Types::float(),//成交后价格
                     'price_l'    => Types::float(),//起拍价
                     'price_r'    => Types::float(),
-                    'accept_area_code' => Types::string(),
+                    'accept_area_code' => [
+                        'type'=>Types::string(),
+                        'description'=>'收货地区',
+                        'resolve' => function($val, $args, $context, ResolveInfo $info){
+                            return Handle::fieldTransfer($val,$args,$context,$info);
+                         }
+                        ],
                     'accept_area'=> Types::string(),
                     'accept_day' => Types::string(),
                     'acc_type'   => Types::string(),

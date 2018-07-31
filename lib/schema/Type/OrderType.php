@@ -19,60 +19,9 @@ class OrderType extends ObjectType
             'fields' => function() {
                 return [
                     'id' => Types::id(),
-                    'type' => Types::int(),
-                    'username' => ['type'=>Types::string()],
-                    'true_name' => Types::string(),
-                    'mobile' => Types::string(),
-                    'email' => Types::string(),
-                    'login_time' => Types::string(),
-
-                    'invoice' => [
-                        'type'=>MyTypes::Invoice(),
-                        'description'=>'开票信息',
-                        'args' => [
-                            'user_id' => Types::id()
-                        ],
-                        'resolve' => function($val, $args, $context, ResolveInfo $info){
-                            $args['user_id'] = $val['id'];
-                            $res = Handle::findOne($val, $args, $context, $info);
-                            return !empty($res)?$res : null;
-                        }
-                    ],
-
-                    'company' => [
-                        'type'=>MyTypes::Company(),
-                        'description'=>'企业信息',
-                        'args' => [
-                            'user_id' => Types::id()
-                        ],
-                        'resolve' => function($val, $args, $context, ResolveInfo $info){
-                            $args['user_id'] = $val['id'];
-                            $res = Handle::findOne($val, $args, $context, $info);
-                            return !empty($res)?$res : null;
-                        }
-
-                    ],
-
-                    'bank' => [
-                        'type' => MyTypes::bank(),
-                        'description'=>'开户信息',
-                        'args' => [
-                            'user_id' => Types::id()
-                        ],
-                        'resolve' => function($val, $args, $context, ResolveInfo $info){
-                            Handle::bufferAdd($val['id'],$info);
-                            return new Deferred(function () use ($val, $args, $context, $info) {
-                                Handle::loadBuffer($args,$context,$info);
-                                $args['user_id'] = $val['id'];
-                                $res = Handle::findOne($val, $args, $context, $info);
-                                return !empty($res)?$res : null;
-                            });
 
 
 
-
-                        }
-                    ]
 
 
 

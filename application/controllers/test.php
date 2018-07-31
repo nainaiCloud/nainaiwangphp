@@ -19,20 +19,18 @@ class TestController extends \Yaf\Controller_Abstract{
 
     public function graphqlAction(){
         $query = '
-               {
-                  jingjia(id:16068){
-                    product_id,pro_name,price_l,user_id,
-                    product{
-                      user_id,name,market_id,produce_area,
-                      attribute{
-                        name,note,value
-                      }
-                    },
-                    seller{
-                     username,true_name
-                    }
-                  },
-               }
+              {
+                        jingjia(id:16068){
+                            pro_name,
+                            max_num,accept_area,end_time,product_id,accept_area_code,
+                            product{
+                               produce_area,produce_address,note,unit,
+                               attribute{
+                                 name,value
+                               }
+                            }
+                        }
+                   }
         ';
         $graphqlObj = new \nainai\graphqls();
         $res = $graphqlObj->query($query);
