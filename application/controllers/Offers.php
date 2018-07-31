@@ -385,18 +385,21 @@ class OffersController extends PublicController {
         $query = '{
                         jingjia(id:'.$offer_id.'){
                             pro_name,
-                            max_num,accept_area,end_time,product_id,accept_area_code,
+                            max_num,accept_area,end_time,product_id,accept_area_code,user_id,
                             product{
                                produce_area,produce_address,note,unit,
                                attribute{
                                  name,value
                                }
+                            },
+                            seller{
+                              true_name
                             }
                         }
                    }';
 
         $data = $graphql->query($query);
-        die(JSON::encode($data['data']));
+        die(JSON::encode($data['data']['jingjia']));
     }
 
 
