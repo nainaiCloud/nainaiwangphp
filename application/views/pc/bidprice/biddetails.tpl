@@ -10,8 +10,8 @@
                 </div>
                 <input type="hidden" name="detail" value="{url:/offers/jingjiadetail}">
                 <input type="hidden" name="baojiaList" value="{url:/offers/baojiadata}">
-                <input type="hidden" name="jingjiaPost" value="{url:/ajaxdata/jingjiadeposit}">
                 <input type="hidden" name="baojiaPost" value="{url:/trade/jingjiabaojia}">
+                <input type="hidden" name="bidUrl" value="{url:/bidprice/bidbond}"> <!-- 支付保证金界面 -->
                 <!-- 保证金用户信息 -->
                 <input type="hidden" name="bidInfo" value="{url:/offers/jingjiadeposit}">
                 <div class="biddetails_top clear" id="commodityTop">
