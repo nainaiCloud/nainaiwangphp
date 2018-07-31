@@ -6,6 +6,7 @@ use schema\MyTypes;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use schema\Data\Handle;
+use GraphQL\Deferred;
 
 class JingjiaType extends ObjectType
 {
@@ -61,6 +62,20 @@ class JingjiaType extends ObjectType
                             $args['offer_id'] = $val['id'];
                             $res = Handle::findlist($val, $args, $context, $info);
                             return !empty($res)?$res : null;
+                        }
+                    ],
+                    'product'   => [
+                        'type' => MyTypes::product(),
+                        'description' => '竞价的产品数据',
+
+                        'resolve' => function($val,$args,$context,ResolveInfo $info){
+                            Handle::bufferAdd($val['product_id'],$info);
+                            return new Deferred(function () use ($val, $args, $context, $info) {
+                                Handle::loadBuffer($args,$context,$info);
+                                $args['id'] = $val['product_id'];
+                                $res = Handle::findOne($val, $args, $context, $info);
+                                return !empty($res)?$res : null;
+                            });
                         }
                     ]
                 ];

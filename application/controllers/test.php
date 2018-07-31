@@ -17,6 +17,28 @@ class TestController extends \Yaf\Controller_Abstract{
         print_r($data);
     }
 
+    public function graphqlAction(){
+        $query = '
+               {
+                  jingjia(id:16068){
+                    product_id,pro_name,price_l,user_id,
+                    product{
+                      user_id,name,market_id,produce_area,
+                      attribute{
+                        name,note,value
+                      }
+                    },
+                    seller{
+                     username,true_name
+                    }
+                  },
+               }
+        ';
+        $graphqlObj = new \nainai\graphqls();
+        $res = $graphqlObj->query($query);
+        print_r($res);
+    }
+
 
     public function jsMockAction(){
         if(IS_POST){
