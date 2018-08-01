@@ -1,6 +1,8 @@
 <?php
 namespace schema;
 
+use nainai\order\Order;
+use PHPUnit\Util\PHP\AbstractPhpProcessTest;
 use schema\Type\QueryType;
 use schema\Type\UserType;
 use schema\Type\InvoiceType;
@@ -8,6 +10,9 @@ use schema\Type\CompanyType;
 use schema\Type\BankType;
 use schema\Type\JingjiaType;
 use schema\Type\JingjiaBaojiaType;
+use schema\Type\OrderType;
+use schema\Type\ProductType;
+use schema\Type\AttributeType;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\Type;
@@ -34,6 +39,12 @@ class MyTypes extends Types
     private static $jingjia;
 
     private static $jingjiaBaojia;
+
+    private static $order;
+
+    private static $product;
+
+    private static $attribute;
 
     /**
      * @return UserType
@@ -64,5 +75,16 @@ class MyTypes extends Types
         return self::$jingjiaBaojia ?:(self::$jingjiaBaojia = new JingjiaBaojiaType());
     }
 
+    public static function order(){
+        return self::$order ?:(self::$order = new OrderType());
+    }
+
+    public static function product(){
+        return self::$product ?:(self::$product = new ProductType());
+    }
+
+    public static function attribute(){
+        return self::$attribute ?:(self::$attribute = new AttributeType());
+    }
 
 }

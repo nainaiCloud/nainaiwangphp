@@ -6,6 +6,7 @@ use schema\MyTypes;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use schema\Data\Handle;
+use GraphQL\Deferred;
 
 class JingjiaType extends ObjectType
 {
@@ -25,7 +26,13 @@ class JingjiaType extends ObjectType
                     'price'    => Types::float(),//成交后价格
                     'price_l'    => Types::float(),//起拍价
                     'price_r'    => Types::float(),
-                    'accept_area_code' => Types::string(),
+                    'accept_area_code' => [
+                        'type'=>Types::string(),
+                        'description'=>'收货地区',
+                        'resolve' => function($val, $args, $context, ResolveInfo $info){
+                            return Handle::fieldTransfer($val,$args,$context,$info);
+                         }
+                        ],
                     'accept_area'=> Types::string(),
                     'accept_day' => Types::string(),
                     'acc_type'   => Types::string(),
@@ -61,6 +68,20 @@ class JingjiaType extends ObjectType
                             $args['offer_id'] = $val['id'];
                             $res = Handle::findlist($val, $args, $context, $info);
                             return !empty($res)?$res : null;
+                        }
+                    ],
+                    'product'   => [
+                        'type' => MyTypes::product(),
+                        'description' => '竞价的产品数据',
+
+                        'resolve' => function($val,$args,$context,ResolveInfo $info){
+                            Handle::bufferAdd($val['product_id'],$info);
+                            return new Deferred(function () use ($val, $args, $context, $info) {
+                                Handle::loadBuffer($args,$context,$info);
+                                $args['id'] = $val['product_id'];
+                                $res = Handle::findOne($val, $args, $context, $info);
+                                return !empty($res)?$res : null;
+                            });
                         }
                     ]
                 ];

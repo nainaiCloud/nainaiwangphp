@@ -8,20 +8,16 @@ use \Library\Query;
  *
 
  */
-class Jingjia extends Template
+class Attribute extends Template
 {
 
-
-    protected  $except = array('seller','baojia','product');//排除的字段
-
-    protected $relyFeild = array(
-        'product'=>'product_id'
-    );
-    protected  $table = 'product_offer';
+    protected  $table = 'product_attribute';
 
     protected  $primaryKey = 'id';
 
     protected  $buffer = array();
+
+
 
     protected  function selectData($args, $context, $ids=array() ,$fields = '*')
     {
@@ -35,9 +31,15 @@ class Jingjia extends Template
         return $data;
     }
 
+
+    /**
+     * 根据参数，从buffer中查找一条数据
+     * @param $args
+     * @return array|mixed
+     */
     protected  function getOneBuffer($args){
         $id = $args['id'];
-        if(!empty( $this->buffer) && isset($this->$buffer[$id])){
+        if(!empty( $this->buffer) && isset($this->buffer[$id])){
             return $this->buffer[$id];
         }else{
             return array();
@@ -50,35 +52,30 @@ class Jingjia extends Template
      * @param array $fields
      * @return mixed
      */
-    protected  function getOneData($args,$fields=array())
+    protected  function getOneData($args,$fields='*')
     {
-        if(isset($args['id']) && $args['id']){
-            $where['id'] = $args['id'];
-        }
-
-
+        $id = $args['id'];
+        $where = array('id'=>$id);
         $obj = new M($this->table);
-        if(empty($where)){
-            return array();
-        }
-
         $data = $obj->fields($fields)->where($where)->getObj();
         return $data;
     }
 
-    protected  function getMoreData($args, $context, $fields='*'){
-        $obj = new Query($this->table);
-        $obj->page = isset($args['page']) ? $args['page'] : 1;
-        $obj->pagesize = isset($args['pagesize']) ? $args['pagesize'] : 20;
-        $obj->fields = $fields;
-        $list = $obj->find();
-        return $list;
+
+    protected  function getMoreData($args, $context, $fields='*')
+    {
+        $ids = $args['ids'];//id的数组
+        $attrs = array();
+        if(empty($this->buffer)){
+            return array();
+        }
+        foreach($this->buffer as $key=>$val){
+            if(in_array($key,$ids)){
+                $attrs[] = $this->buffer[$key];
+            }
+        }
+        return $attrs;
     }
-
-
-
-
-
 
 
 }
