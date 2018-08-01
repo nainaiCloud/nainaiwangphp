@@ -38,6 +38,12 @@ class BidpriceController extends PublicController {
 		$this->getView()->assign('cur','bidprice');
 	}
 	public function bidContractAction(){
+		if(!isset($this->login['user_id'])){
+	        $id = safe::filterGet('id','int');
+	        $callBack = url::createUrl('/bidprice/bidContract').'?id='.$id;
+	        $redirect = url::createUrl('/login/login@user').'?callback='.$callBack;
+	        $this->redirect($redirect);
+        }
 		$this->getView()->setLayout('');
 	}
 	

@@ -54,7 +54,7 @@
 function bzjyz(){
 	$.ajax({
 		/*'url':pastUrl+'/ajaxdata/jingjiadeposit',*/
-	    'url':$('input[name=bidInfo]').val(),
+	    'url':$('input[name=jingjiaPost]').val(),
 	    'type':'get',
 	    'dataType':'json',
 	    'data':{
@@ -67,7 +67,7 @@ function bzjyz(){
 	    	}else{
 	    		$(".bidbond_btn").html('<input class="no_submit" disabled="disabled" type="button" value="缴纳完成" name="bankBut">')
 	    	}
-	    	clickBzj();
+	    	clickBzj();//点击验证接口
 	    }
 	})
 }

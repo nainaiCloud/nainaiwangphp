@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="bidfor_cont_right">
                                     <p class="seller">卖方：<span><%=detailtop.user.true_name%><!-- 阳泉耐火厂 --></span></p>
-                                    <p>合同：<a href="{url:/bidprice/bidContract}/offer_id=<%==detailtop.id%>&num=<%==detailtop.max_num%>">预览合同协议</a></p>
+                                    <p>合同：<a href="{url:/bidprice/bidContract}?id=<%==detailtop.id%>">预览合同协议</a></p>
                                 </div>
                             </div>
 
