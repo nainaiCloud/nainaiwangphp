@@ -2,9 +2,10 @@
 <script src="{views:js/jquery-1.9.1.min.js}" type="text/javascript" language="javascript"></script>
 
 
-<input type="text" name="username" />
-<input type="text" name="amount" />
+用户名：<input type="text" name="username" />
+支付金额：<input type="text" name="amount" />
 <button type="button" >支付</button>
+
 <script type="text/javascript">
 
     var url = '{url:/test/jsMock}';
