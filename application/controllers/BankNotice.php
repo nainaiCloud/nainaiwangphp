@@ -6,11 +6,11 @@
 class BankNoticeController extends \Yaf\Controller_Abstract{
 
    public function jiansheAction(){
-       if(IS_POST){
-           $jiansheObj = new \nainai\fund\jianshe\bankRequestHandle();
-           $res = $jiansheObj->handleRequest();
-           die($res);
-       }
+//       if(IS_POST){
+//           $jiansheObj = new \nainai\fund\jianshe\bankRequestHandle();
+//           $res = $jiansheObj->handleRequest();
+//           die($res);
+//       }
 
    }
 
