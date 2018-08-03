@@ -202,7 +202,7 @@
 .bidrule_content .bidrule_qy{
 	text-indent: 20px;
 	line-height: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 .bidrule_content .bidrule_bt{
 	display: inline-block;
@@ -212,7 +212,7 @@
 		#ffffff 100%);
 	border-radius: 9px;
 	font-size: 14px;
-
+	margin:10px 0;
 }
 .bidrule_content .bidruletk{
 	line-height: 20px;

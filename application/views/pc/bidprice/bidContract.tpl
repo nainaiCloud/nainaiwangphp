@@ -53,7 +53,10 @@
                             <%=contDatas.product.attribute[i].name%>: <%=contDatas.product.attribute[i].value%>
                           <%}%>
                         </td>
-                        <td style="padding:0 10px" id='areatextarea'><%=contDatas.product.produce_address%></td>
+                        <td style="padding:0 10px" id='areatextarea'>
+                            <%=contDatas.product.produce_area%> &nbsp;
+                            <%=contDatas.product.produce_address%>    
+                        </td>
                     </tr>
                 </table>
                 <div style="text-align:center">（以竞价交易中的相关商品描述为准，或买卖双方自行约定）</div>
@@ -82,7 +85,7 @@
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">五、交收地点
                 <ol style=" margin-top:5px;">
-                    <li style="text-indent: 20px;"> 本合同项下货物的交收地点在交易所指定的交收地，该商品交收地为___<%=contDatas.accept_area%>____________。（以竞价交易中约定的交收地点，或买卖双方自行约定的交收地点为准）</li>
+                    <li style="text-indent: 20px;"> 本合同项下货物的交收地点在交易所指定的交收地，该商品交收地为___<%=contDatas.accept_area_code%>_<%=contDatas.accept_area%>____________。（以竞价交易中约定的交收地点，或买卖双方自行约定的交收地点为准）</li>
                 </ol>
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">六、交收时间及期限

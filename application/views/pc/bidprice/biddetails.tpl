@@ -1,5 +1,9 @@
 <link rel="stylesheet" type="text/css" href="{views:css/bidprice.css}">
-
+<script type="text/javascript" src="{views:js/biddetails.js}"></script>
+<script type="text/javascript">
+var now = {echo:time()};
+var s = 0;
+</script>
     <!--主要内容 开始-->
     <div id="mainContent">
         <div class="page_width">
@@ -70,7 +74,7 @@
                                     <div class="cj">
                                         <span>出价</span>
                                         <span class="reduce" id="jian"><i class="reduce_icon"></i></span>
-                                        <span class="inputName"><input id="num" type="text" name="" value="890.00"></span>
+                                        <span class="inputName"><input id="num" type="text" name="" value="0.00"></span>
                                         <span class="add" id="add">
                                             <i class="add_l"></i>
                                             <i class="add_h"></i>
@@ -139,7 +143,7 @@
                             </tr>
                             <tr class="attrAfter">
                                 <td>产地</td>
-                                <td><span id="area"><%=detailData.produce_address%></span></td>
+                                <td><span id="area"><%=detailData.produce_area%>&nbsp;<%=detailData.produce_address%></span></td>
                             </tr>
                             <!-- <tr class="attr">
                                 属性
@@ -185,7 +189,7 @@
                             </tr>
                             <tr>
                                 <td>交收地点</td>
-                                <td><%=detailData.accept_area%></td>
+                                <td><%=detailData.accept_area_code%>&nbsp;<%=detailData.accept_area%></td>
                             </tr>
                             <tr>
                                 <td>补充条款</td>
@@ -250,8 +254,3 @@
        <div class="pay_but"><input type="button" name="butPassword" value="确定"/></div>
    </div>
 </div>
-<script type="text/javascript" src="{views:js/biddetails.js}"></script>
-<script type="text/javascript">
-var now = {echo:time()};
-var s = 0;
-</script>

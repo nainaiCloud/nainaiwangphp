@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="{views:css/bidprice.css}">
+<script type="text/javascript" src="{views:js/bidBond.js}"></script>
 <div id="mainContent" class="">
 	<div class="page_width">
 		<div class="bidpriceContent">
@@ -97,7 +98,7 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="{views:js/bidBond.js}"></script>
+
 <!-- 遮罩层 -->
 <div class="bidbond_result">
 	<div class="mark"></div>
