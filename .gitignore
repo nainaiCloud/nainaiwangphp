@@ -19,3 +19,4 @@
 conf/configs.php
 nnys-admin/conf/configs.php
 user/conf/*
+.idea/*
