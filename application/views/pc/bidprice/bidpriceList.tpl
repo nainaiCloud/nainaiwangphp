@@ -178,17 +178,13 @@
 		    }else{
 		        alert("亲,口令错误，请重新输入！")
 		   }
-		   //回车键执行函数
-		   /*$("#"+obj.id).parents(".yzm_con").find(".jijaPass").on('keydown',function(e){
-		   	 if (e.which === 13) {
-		   		if(pass == jingjia_pass){
-		        	location.href=href+'?pass='+pass;
-			    }else{
-			        alert("亲口令错误，请重新输入！")
-			   }
-			  }
-		   })*/
         }
+//回车键执行函数
+$(document).keydown(function(event){ 
+if(event.keyCode==13){ 
+ $("button.jijiaBut").click(); 
+} 
+});
     //输入口令验证end
 		
 </script>
