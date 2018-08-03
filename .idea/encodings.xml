@@ -15,6 +15,6 @@
     <file url="file://$PROJECT_DIR$/user/application/views/pc/layout/product.tpl" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user/application/views/pc/message" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user/views/pc/js/cert/storecert.js" charset="UTF-8" />
-    <file url="PROJECT" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
