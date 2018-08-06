@@ -17,7 +17,7 @@ BEGIN
        DECLARE offerUserId INT(11);
        SELECT price,mode,user_id INTO orderPrice,modeId,offerUserId FROM product_offer   WHERE id=offerId;
        SET totalAmt = orderPrice * buyNum;
-         SET contractStatus=1;/*等待卖家支付保证金*/
+         SET contractStatus=3;/*等待买家支付*/
        SET random =  FLOOR(0 + (RAND() * 99));
       SET orderNo = CONCAT(FROM_UNIXTIME(UNIX_TIMESTAMP(), '%Y%m%d%H%i%s') ,  random );
       SET orderTime = FROM_UNIXTIME(UNIX_TIMESTAMP(), '%Y-%m-%d %H:%i:%s') ;
@@ -46,7 +46,7 @@ BEGIN
                buyNum,/*参数*/
                totalAmt,/*生成*/
                buyer_id,/*参数*/
-               payDeposit,/*参数*/
+               0,/*参数*/
                payWay,/*参数*/
                contractStatus,/*生成*/
                1,/*默认值1*/
@@ -104,7 +104,7 @@ BEGIN
                buyNum,/*参数*/
                totalAmt,/*生成*/
                buyer_id,/*参数*/
-               payDeposit,/*参数*/
+               0,/*参数*/
                payWay,/*参数*/
                contractStatus,/*生成*/
                1,/*默认值1*/
@@ -135,11 +135,9 @@ BEGIN
        DECLARE offerUserId INT(11);
        SELECT price,mode,user_id INTO orderPrice,modeId ,offerUserId FROM product_offer   WHERE id=offerId;
        SET totalAmt = orderPrice * buyNum;
-       IF pay_times=1 THEN
-         SET contractStatus=4;/*合同生效*/
-       ELSE
-         SET contractStatus=3;/*等待支付尾款*/
-       END IF;
+
+       SET contractStatus=3;/*等待支付尾款*/
+
        SET random =  FLOOR(0 + (RAND() * 99));
       SET orderNo = CONCAT(FROM_UNIXTIME(UNIX_TIMESTAMP(), '%Y%m%d%H%i%s') ,  random );
       SET orderTime = FROM_UNIXTIME(UNIX_TIMESTAMP(), '%Y-%m-%d %H:%i:%s') ;
@@ -168,7 +166,7 @@ BEGIN
                buyNum,/*参数*/
                totalAmt,/*生成*/
                buyer_id,/*参数*/
-               payDeposit,/*参数*/
+               0,/*参数*/
                payWay,/*参数*/
                contractStatus,/*生成*/
                1,/*默认值1*/
@@ -215,11 +213,11 @@ BEGIN
         UPDATE product_offer SET status=offer_status,price=max_price,sell_num=offer_num  WHERE id=offerID;
 
         IF mode_id=4 THEN
-         CALL  createStoreOrder(offerID,baojia_user, offer_num,1,max_price*offer_num,1);
+         CALL  createStoreOrder(offerID,baojia_user, offer_num,1,0,1);
         ELSEIF mode_id=2 THEN
-          CALL  createDepositOrder(offerID,baojia_user, offer_num,1,max_price*offer_num,1);
+          CALL  createDepositOrder(offerID,baojia_user, offer_num,1,0,1);
         ELSEIF mode_id=1 THEN
-          CALL createFreeOrder(offerID,baojia_user, offer_num,1,max_price*offer_num,1);
+          CALL createFreeOrder(offerID,baojia_user, offer_num,1,0,1);
         END IF;
         set return_status=6;
    ELSE  #报盘改成已过期
@@ -237,3 +235,59 @@ END
 DELIMITER ;
 
 
+DROP PROCEDURE IF EXISTS `jingjiaHandle`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `jingjiaHandle`(IN `offerid` int,IN `userid` int,IN `maxprice` decimal)
+BEGIN
+  DECLARE selected_user INT default 0;
+    DECLARE offer_status INT(11);
+    DECLARE old_offer_id INT(11);
+    DECLARE maxnum DECIMAL(15,2);
+    DECLARE max_price DECIMAL(15,2);
+    DECLARE mode_id INT(11);
+    DECLARE offerStatus TINYINT(2);
+    IF userid>0  THEN
+     SET selected_user = userid;
+     SET max_price = maxprice;
+     ELSE
+      start TRANSACTION;/*传入的用户id为0时开启事务,因为userid>0时是客户端程序调用的，客户端程序有事务*/
+      SELECT   user_id ,price INTO selected_user,max_price  from product_jingjia  WHERE offer_id=offerid order by price desc limit 1;
+    END IF;
+   /*获取旧报盘和报盘数量,报盘模式*/
+      SELECT old_offer,max_num ,mode,status  INTO old_offer_id,maxnum,mode_id,offerStatus FROM product_offer WHERE id=offerid;
+      /*判断商品剩余量，只有在剩余大于0的时候才操作*/
+    IF offerStatus=1 THEN
+            IF selected_user>0  THEN
+               SET offer_status= 6;
+               UPDATE product_jingjia SET win=1 WHERE offer_id=offerid AND user_id=selected_user ORDER BY price desc LIMIT 1;
+               UPDATE product_offer SET status=offer_status,price=max_price,sell_num=maxnum  WHERE id=offerid;
+
+              /*调用生成订单的程序,出入参数依次是报盘id,买方id,购买数量，支付类型（全款、订金），支付金额，支付方式*/
+              IF mode_id=4 THEN
+               CALL  createStoreOrder(offerid,selected_user, maxnum,1,0,1);
+              ELSEIF mode_id=2 THEN
+                CALL  createDepositOrder(offerid,selected_user, maxnum,1,0,1);
+              ELSEIF mode_id=1 THEN
+                CALL createFreeOrder(offerid,selected_user, maxnum,1,0,1);
+               END IF;
+            ELSE
+                SET offer_status=5;
+
+                  UPDATE product_offer SET max_num=max_num +   maxnum WHERE id=old_offer_id;
+                  #如果报盘未过期，改为正常状态
+                  UPDATE product_offer SET `status`=1  WHERE id=old_offer_id AND NOW() < expire_time;
+                  #如果报盘已过期，改为过期状态
+                  UPDATE product_offer SET `status`=5  WHERE id=old_offer_id AND NOW() >= expire_time;
+                  UPDATE product_offer SET status=offer_status ,max_num=0 WHERE id=offerid;
+            END IF;
+    END IF;
+
+
+
+
+    IF userid=0 THEN
+       commit;
+    END IF;
+END
+;;
+DELIMITER ;

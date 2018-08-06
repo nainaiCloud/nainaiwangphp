@@ -293,7 +293,7 @@ class offersModel extends \nainai\offer\product{
         $query->join = "left join products as p on o.product_id = p.id  LEFT JOIN product_category as c ON p.cate_id=c.id 
                         left join user as u on o.user_id=u.id ";
         $query->fields = "o.*,u.true_name,p.img,p.cate_id,p.attr_json,p.name,p.quantity,p.freeze,p.sell,p.unit,p.produce_area,p.produce_address, c.name as cname";
-        $where = 'o.sub_mode=1  and o.is_del = 0 ';
+        $where = 'o.sub_mode=1  and o.is_del = 0 and o.status in (1,5,6,7) ';
         $bind = array();
 
         //获取分类条件

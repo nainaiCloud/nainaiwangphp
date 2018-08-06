@@ -362,7 +362,7 @@ class jingjiaOffer extends product{
                 $endDate = new \DateTime($res['end_time']);
                 $now = new \DateTime($insertData['time']);
                 $interval = $now->diff($endDate);
-                $sellerData['remain'] = $interval->format('h:i:s');
+                $sellerData['remain'] = $interval->format('H:i:s');
                 foreach($buyers as $buyer){
                     if($buyer['user_id']==$user_id){//给出价人发送短信
                         $sellerData['name'] = $buyer['true_name'];
@@ -564,6 +564,9 @@ class jingjiaOffer extends product{
         $rate = 0.1;
         $amount = round(bcmul($offerData['price_l'],$offerData['max_num'],0)*$rate);
 
+        if($amount<1){
+            $amount = 1;
+        }
         if($amount>100){
             $amount = round($amount,-2);
         }

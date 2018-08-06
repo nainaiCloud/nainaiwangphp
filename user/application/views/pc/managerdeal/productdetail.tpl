@@ -187,7 +187,7 @@
                            <tr>
                                <td>交收时间</td>
                                {if:is_numeric($offer['accept_day'])}
-                                   <td>T+{$offer['accept_day']}天</td>
+                                   <td>成交后{$offer['accept_day']}天完成交收</td>
                                {else:}
                                    <td>{$offer['accept_day']}</td>
                                {/if}
@@ -272,7 +272,7 @@
                                    <!-- 保存竞价模式的修改按钮 -->
 
                                <input type="hidden" name="id" value="{$offer['id']}" />
-                                  {if: ($product['quantity'] - $product['sell'] - $product['freeze']) > 0}
+                                  {if:$offer['sub_mode']==0 && ($product['quantity'] - $product['sell'] - $product['freeze']) > 0}
                                   <div class="pay_bton">
                                       <a href="javascript:void(0)" class="submit_chag"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？">撤销报盘</a>
                                   </div>

@@ -174,7 +174,7 @@
                  <td>{$info['accept_area']}</td>
                  {if: $info['type'] == \nainai\offer\product::TYPE_SELL}
                  <th>交收时间</th>
-                 <td>{$info['accept_day']}</td>
+                 <td>成交后{$info['accept_day']}天完成交收</td>
                  {else:}
                  <th></th>
                  <td></td>

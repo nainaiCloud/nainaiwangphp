@@ -185,7 +185,7 @@ var s = 0;
                             </tr>
                             <tr>
                                 <td>交收时间</td>
-                                <td>成交后顺延<%=detailData.accept_day%>天开始交收</td>
+                                <td>成交后<%=detailData.accept_day%>天完成交收</td>
                             </tr>
                             <tr>
                                 <td>交收地点</td>
