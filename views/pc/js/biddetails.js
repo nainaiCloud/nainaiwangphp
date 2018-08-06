@@ -75,7 +75,7 @@ biddetailData();
 function biddetailData(){
     $.ajax({
         'url':$('input[name=detail]').val(),
-      /*'url':'http://ceshi.nainaiwang.com/offers/jingjiadetail',*/
+     /* 'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadetail',*/
         'type':'get',
         'dataType':'json',
         'data':{
@@ -86,7 +86,7 @@ function biddetailData(){
             if(data !=null){
                   $.ajax({
                     'url':$('input[name=baojiaList]').val(),
-                   /* 'url':'http://ceshi.nainaiwang.com//offers/baojiadata',*/
+                   /* 'url':'http://ceshi.nainaiwang.com//ajaxdata/baojiadata',*/
                     'type':'get',
                     'dataType':'json',
                     'data':{
@@ -290,16 +290,27 @@ function bzj(){
 function yescj(){
     var bidprice = $("#num").val();
     $(".pay_password").fadeIn();
+    /*在事件执行的时候在同一个元素上注册执行的事件执行了多次。
+    * 1绑定之前先解绑
+    */
+    //解除 $().off()
+    $("input[name='butPassword']").off().click(function(){
+        console.log('内部事件触发')
+    })
+    //绑定
     $("input[name='butPassword']").click(function(){
         var inputPay = $(".pay_input input[name='payPassword']").val();
-        console.log(inputPay,"-",bidprice,"报价")
+         console.log(inputPay,"-",bidprice,"报价")
         baojiaPost(inputPay,bidprice)
+
+       
     })
+
 }
     function baojiaPost(pass,curprice){
         $.ajax({
             'url':$('input[name=baojiaPost]').val(),
-           /*'url':'http://ceshi.nainaiwang.com/trade/jingjiabaojia',*/
+          /* 'url':'http://ceshi.nainaiwang.com/trade/jingjiabaojia',*/
             'type':'post',
             'dataType':'json',
             'data':{
@@ -312,10 +323,12 @@ function yescj(){
                 var times = data.time;//跳转时间
                 console.log(data.success,"success")
                 if(data.success==1){
-                    location.href = url;
+                    biddetailData()
+                    $(".pay_password").fadeOut()
                 }else{
-                    alert(data.info)  
-                    location.href = url;
+                    alert(data.info) 
+                    $(".pay_password").fadeOut() 
+                    
                 }
             },error:function(data){
                   alert(data.info)     
