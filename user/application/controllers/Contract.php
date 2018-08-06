@@ -125,6 +125,12 @@ class ContractController extends UcenterBaseController{
 		// echo '<pre>';var_dump($order_info);exit;
 
 		$this->getView()->assign('info',$order_info);
+		if($order_info['sub_mode']==1){
+            $this->getView()->display('contract/jingjiacontract.tpl');
+            exit;
+        }
+
+
 	}
 
 	/**
