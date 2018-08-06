@@ -31,7 +31,7 @@
 						<!-- 是否缴纳保证金 -->
 						<input type="hidden" name="jingjiaPost" value="{url:/ajaxdata/jingjiadeposit}">
 						<!-- 保证金信息 -->
-						<input type="hidden" name="bidInfo" value="{url:/offers/jingjiadeposit}">
+						<input type="hidden" name="bidInfo" value="{url:/ajaxdata/jingjiadepositpage}">
                 		<!-- 匹配保证金 -->
                 		<input type="hidden" name="bidmatch" value="{url:/ajaxdata/alrealyDeposit}">
 						<div id="BankInfo"></div>
