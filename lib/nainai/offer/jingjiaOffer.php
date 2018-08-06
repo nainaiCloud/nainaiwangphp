@@ -279,10 +279,10 @@ class jingjiaOffer extends product{
     {
         //检验是否已经缴纳保证金
         $payLog = $payLogObj==null ? new \nainai\user\UserPaylog() : $payLogObj;
-//        $payRes = $payLog->existPayLog('jingjia',$offer_id,$user_id);
-//        if(!$payRes){
-//            return tool::getSuccInfo(0,'您未支付保证金，请先支付保证金然后再竞价');
-//        }
+        $payRes = $payLog->existPayLog('jingjia',$offer_id,$user_id);
+        if(!$payRes){
+            return tool::getSuccInfo(0,'您未支付保证金，请先支付保证金然后再竞价');
+        }
 
         $offerObj = new M('product_offer');
         $offerObj->beginTrans();

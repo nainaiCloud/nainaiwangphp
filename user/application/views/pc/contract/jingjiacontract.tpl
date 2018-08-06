@@ -9,7 +9,7 @@
         <span class="pop_con_tit"></span>
         <div class="main">
             <p align="center"><strong style="font-size:20px;">耐耐网电子交易平台竞价交易电子合同</strong></p>
-           <input type="hidden" name="bidContract" value="{url:/offers/jingjiaContract}"/>
+
           <!--   <div id="bidContract"></div> -->
             <div style="padding-left:20px;margin-top:10px;">
                 买卖双方根据《中华人民共和国合同法》、《耐耐网交易规则》的相关规则，通过耐耐网电子交易平台进行交易，签订本电子交易合同。               
@@ -17,15 +17,15 @@
                 style="border:1px #000 solid; border-collapse:collapse; margin:10px 0px;">
                     <tr style="height:35px">
                         <td style="padding:0 10px; " width="110px">卖方（甲方）</td>
-                        <td style="padding:0 10px; " width="110px"></td>
+                        <td style="padding:0 10px; " width="110px">{$info['seller_name']}</td>
                         <td style="padding:0 10px; " width="110px">合同编号</td>
-                        <td style="padding:0 10px; " width="110px"></td>
+                        <td style="padding:0 10px; " width="110px">{$info['order_no']}</td>
                     </tr>
                     <tr style="height:35px">
                         <td style="padding:0 10px;" width="110px">买方（乙方）</td>
-                        <td style="padding:0 10px;" width="110px"></td>
+                        <td style="padding:0 10px;" width="110px">{$info['buyer_name']}</td>
                         <td style="padding:0 10px; " width="110px">签约时间</td>
-                        <td style="padding:0 10px;" width="110px"> </td>
+                        <td style="padding:0 10px;" width="110px"> {$info['create_time']}</td>
                     </tr>
                 </table>
             </div>
@@ -42,12 +42,12 @@
                         
                     </tr>
                     <tr style="height:35px">
-                       <td style="padding:0 10px"> </td>
+                       <td style="padding:0 10px"> {$info['name']}</td>
                         <td style="padding:0 10px">
-                          
+                            {$info['attrs']}
                         </td>
                         <td style="padding:0 10px" id='areatextarea'>
-                         
+                            {areatext:id=area data=$info['produce_area']}{$info['produce_address']}
                         </td>
                     </tr>
                 </table>
@@ -56,9 +56,9 @@
 
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">二、数量
                 <ol style=" margin-top:5px;">
-                    <li style="text-indent: 20px;">第二条 买卖双方通过交易平台电子交易平台成交的数量：__________________。（以竞价交易中双方达成的交易数量为准） 。（以竞价交易中双方达成的约定为准）</li>
+                    <li style="text-indent: 20px;">第二条 买卖双方通过交易平台电子交易平台成交的数量：_______{$info['num']}{$info['unit']}________。（以竞价交易中双方达成的交易数量为准） 。（以竞价交易中双方达成的约定为准）</li>
                     <li style="text-indent: 20px;">第三条 产品质量补充说明（以竞价交易中的相关商品描述为准，或双方自行约定）
-                    ______________________________</li>
+                    _____________{$info['other']}____________</li>
                 </ol>
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">三、保证金
@@ -71,13 +71,18 @@
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">四、成交价格与成交时间
                 <ol style=" margin-top:5px;">
-                    <li style="text-indent: 20px;">第七条 买卖双方通过交易平台电子交易系统成交的产品的含税单价为_____________元（人民币）/____(单位)。（以挂牌竞价交易中买卖双方达成的交易价格为准）</li>
-                    <li style="text-indent: 20px;">第八条 成交时间:___________（以竞价交易中双方约定的竞价结束时间为准）</li>
+                    <li style="text-indent: 20px;">第七条 买卖双方通过交易平台电子交易系统成交的产品的含税单价为_____
+                        {if:isset($info['price_unit'])&& $info['price_unit']>0}
+                            {$info['price_unit']}
+                        {elseif:$info['price']>0}
+                            {$info['price']}
+                        {/if}______元（人民币）/_{$info['unit']}_(单位)。（以挂牌竞价交易中买卖双方达成的交易价格为准）</li>
+                    <li style="text-indent: 20px;">第八条 成交时间:____{$info['create_time']}______（以竞价交易中双方约定的竞价结束时间为准）</li>
                 </ol>
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">五、交收地点
                 <ol style=" margin-top:5px;">
-                    <li style="text-indent: 20px;"> 本合同项下货物的交收地点在交易所指定的交收地，该商品交收地为_______________。（以竞价交易中约定的交收地点，或买卖双方自行约定的交收地点为准）</li>
+                    <li style="text-indent: 20px;"> 本合同项下货物的交收地点在交易所指定的交收地，该商品交收地为______{areatext:id=accept_area data=$info['accept_area_code']}{$info['accept_area']}_______。（以竞价交易中约定的交收地点，或买卖双方自行约定的交收地点为准）</li>
                 </ol>
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">六、交收时间及期限
