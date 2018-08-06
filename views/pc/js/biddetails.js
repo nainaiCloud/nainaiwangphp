@@ -298,6 +298,10 @@ function bzjyz(){
             }else{
                 $(".bidfor_cont_left .but").html('<input class="submitBut yes" type="button" name="yescj" value="确认出价">')
             }
+            $(".but input[name='bzj']").click(function(){
+                bzj();
+                console.log("s")
+            });
         }
     })
                             
