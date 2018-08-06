@@ -15,6 +15,7 @@ var s = 0;
                 <input type="hidden" name="detail" value="{url:/ajaxdata/jingjiadetail}">
                 <input type="hidden" name="baojiaList" value="{url:/ajaxdata/baojiadata}">
                 <input type="hidden" name="baojiaPost" value="{url:/trade/jingjiabaojia}">
+                <input type="hidden" name="jingjiaPost" value="{url:/ajaxdata/jingjiadeposit}"><!-- 是否缴纳保证金 -->
                 <input type="hidden" name="bidUrl" value="{url:/bidprice/bidbond}"> <!-- 支付保证金界面 -->
                 <!-- 保证金用户信息 -->
                 <input type="hidden" name="bidInfo" value="{url:/ajaxdata/jingjiadepositpage}">
