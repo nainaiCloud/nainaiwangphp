@@ -239,7 +239,8 @@ class OffersController extends PublicController {
             //获取产品数据
             $pro = new \nainai\offer\product();
             $info = array_merge($info,$pro->getProductDetails($info['product_id']));
-
+            $info['produce_area'] = tool::areaText($info['produce_area']);
+            $info['accept_area_code'] = tool::areaText($info['accept_area_code']);
             //获取卖方数据
             $mem = new \nainai\member();
             $info['user'] = $mem->getUserDetail($info['user_id']);
