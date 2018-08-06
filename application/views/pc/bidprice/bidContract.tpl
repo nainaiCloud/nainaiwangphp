@@ -12,7 +12,7 @@
 
         <div class="main">
             <p align="center"><strong style="font-size:20px;">耐耐网电子交易平台竞价交易电子合同</strong></p>
-           <input type="hidden" name="bidContract" value="{url:/offers/jingjiaContract}"/>
+           <input type="hidden" name="bidContract" value="{url:/ajaxdata/jingjiaContract}"/>
             <div id="bidContract"></div>
         <script type="text/html" id="contractTemplat">
 
