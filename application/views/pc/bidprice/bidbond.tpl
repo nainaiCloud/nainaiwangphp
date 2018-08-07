@@ -11,7 +11,7 @@
 					<div class="bidbond_left">
 						<div class="bidbondname">竞价物品名称：<span class="bzjProduct"></span></div>
 						<div class="bidbondprice">
-							需要缴纳保证金：<span>￥<span class="bzjPrice"></span>元</span>
+							需要缴纳保证金：<span>￥<span class="bzjPrice"></span></span>
 						</div>
 					</div>
 					<div class="bidbond_right">
@@ -34,6 +34,8 @@
 						<input type="hidden" name="bidInfo" value="{url:/ajaxdata/jingjiadepositpage}">
                 		<!-- 匹配保证金 -->
                 		<input type="hidden" name="bidmatch" value="{url:/ajaxdata/alrealyDeposit}">
+						<input type="hidden" name="qkh" value="{url:/user/fund/bank}"><!-- 去开户 -->
+						<input type="hidden" name="biddetail" value="{url:/bidprice/biddetails}">
 						<div id="BankInfo"></div>
 						<script type="text/html" id="banktemplat">
 							<% if(bankInfo!=null) { %>
@@ -58,9 +60,18 @@
 								<div class="bidbond_btn">
 									
 								</div>
+								<div class="bidBond_tip">
+									<b class="prompt_b">*</b>必须使用开户账户关联的银行账户进行汇款，否则导致的缴纳不成功自行负责。
+								</div>
 							</div>
 							<!-- 若用户有过转账信息则显示已有的账户信息 end-->
 							
+							<% } else{%>
+							<div class="bidbondInfo">
+								<div class="bidBond_tip">
+									<b class="prompt_b">*</b>必须使用开户账户关联的银行账户进行汇款，否则导致的缴纳不成功自行负责。
+								</div>
+							</div>
 							<% } %>
 			
 							

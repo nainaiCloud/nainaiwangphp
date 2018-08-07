@@ -104,7 +104,7 @@
 							<%if(data[i].jingjia_mode==1) { %>
 						<a alt="<%=data[i].jingjia_mode%>" href="javascript:void(0);">
 						<% } else { %>
-						<a alt="<%=data[i].jingjia_mode" href="{url:/bidprice/biddetails}?id=<%==data[i].id%>&pid=<%=data[i].product_id%>&pass=<%=data[i].jingjia_pass%>">
+						<a alt="<%=data[i].jingjia_mode" href="{url:/bidprice/biddetails}?id=<%==data[i].id%>&pass=<%=data[i].jingjia_pass%>">
 						<% } %>
 							<div class="commodity_text">
 								<div class="commoditycont">
@@ -112,7 +112,7 @@
 								</div>
 								<div class="commoditycont">
 									<%if(data[i].status==1) { %>
-									<span class="bidType zwks">暂无开始</span>
+									<span class="bidType zwks">暂未开始</span>
 									<span class="commprice dqj">起拍价:<%=data[i].price_l%></span>
 									<% } %>
 									<%if(data[i].status==2) { %>
@@ -143,7 +143,11 @@
 								</div>
 								<div class="commoditycont">
 									<span class="committime">
+										<%if(data[i].status==1) { %>
+										<%=data[i].start_time%>&nbsp;开始
+										<% } else{%>
 										<%=data[i].end_time %>&nbsp;结束
+										<% } %>
 									</span>
 								</div>
 								<%if(data[i].jingjia_mode==1) { %>
@@ -155,7 +159,7 @@
 										<input type="text"  class="jijaPass" placeholder="请输入验证码" name="">
 									</div>
 									<div class="yzm_but">
-										<button  class="but_ok jijiaBut" id="<%=data[i].id%>" onclick="checkPass(this,<%=data[i].id%>,<%=data[i].product_id%>,<%=data[i].jingjia_pass%>)">确定</button>
+										<button  class="but_ok jijiaBut" id="<%=data[i].id%>" onclick="checkPass(this,<%=data[i].id%>,<%=data[i].jingjia_pass%>)">确定</button>
 									</div>
 								</div>
 								<% } %>
@@ -169,14 +173,14 @@
 				</script>
 <script type="text/javascript">
 	//输入口令验证
-		function checkPass(obj,offer_id,product_id,jingjia_pass){
-            var href = '{url:/bidprice/biddetails}?id='+offer_id+'&pid='+product_id;
+		function checkPass(obj,offer_id,jingjia_pass){
+            var href = '{url:/bidprice/biddetails}?id='+offer_id
           	var pass =$("#"+obj.id).parents(".yzm_con").find(".jijaPass").val()
           	console.log(jingjia_pass)
 		    if(pass == jingjia_pass){
 		        location.href=href+'&pass=' +pass;
 		    }else{
-		        alert("亲,口令错误，请重新输入！")
+		        alert("口令错误，请重新输入！")
 		   }
         }
 //回车键执行函数

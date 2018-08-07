@@ -75,7 +75,7 @@ var s = 0;
                                     <div class="cj">
                                         <span>出价</span>
                                         <span class="reduce" id="jian"><i class="reduce_icon"></i></span>
-                                        <span class="inputName"><input id="num" type="text" name="" value="0.00"></span>
+                                        <span class="inputName"><input id="num" type="text" name="" value="0.00" autocomplete="off"/></span>
                                         <span class="add" id="add">
                                             <i class="add_l"></i>
                                             <i class="add_h"></i>
@@ -139,58 +139,24 @@ var s = 0;
                            <%if (detailData!=null) { %>
                             <tr> <th colspan="2">商品明细</th></tr>
                             <tr>
-                                <td>品名</td>
+                                <td>商品品名</td>
                                 <td><%=detailData.pro_name%></td>
                             </tr>
+                             <!-- <tr class="attr">
+                                属性
+                            </tr> -->
                             <tr class="attrAfter">
                                 <td>产地</td>
                                 <td><span id="area"><%=detailData.produce_area%>&nbsp;<%=detailData.produce_address%></span></td>
                             </tr>
-                            <!-- <tr class="attr">
-                                属性
-                            </tr> -->
                             <tr>
-                                <td style="width:15%;">详情</td>
-                                <td><%=detailData.note%></td>
-                            </tr>
-                            <tr>
-                                <th colspan="2">报盘详情</th>
-                            </tr>
-                            <tr>
-                                <td>报盘类型</td>
-                                <td><%=detailData.mode_text%></td>
-                            </tr>
-                            <tr>
-                                <td>交易方式</td>
-                                <td>卖盘</td>
+                                <td>交货地点</td>
+                                <td><%=detailData.accept_area_code%>&nbsp;<%=detailData.accept_area%></td>
                             </tr>
                            
                             <tr>
-                                <td>计重方式</td>
-                                <td><%=detailData.weight_type%></td>
-                            </tr>
-                            <tr>
-                                <td>是否拆分</td>
-                                <td>否</td>
-                            </tr>
-                            <tr>
-                                <td>报盘数量</td>
-                                <td><%=detailData.max_num%><%=detailData.unit%></td>
-                            </tr>
-                            <tr>
-                                <td>起订量</td>
-                                <td><%=detailData.max_num%><%=detailData.unit%></td>
-                            </tr>
-                            <tr>
-                                <th colspan="2">交收详情</th>
-                            </tr>
-                            <tr>
-                                <td>交收时间</td>
-                                <td>成交后<%=detailData.accept_day%>天完成交收</td>
-                            </tr>
-                            <tr>
-                                <td>交收地点</td>
-                                <td><%=detailData.accept_area_code%>&nbsp;<%=detailData.accept_area%></td>
+                                <td style="width:15%;">商品描述</td>
+                                <td><%=detailData.note%></td>
                             </tr>
                             <tr>
                                 <td>补充条款</td>

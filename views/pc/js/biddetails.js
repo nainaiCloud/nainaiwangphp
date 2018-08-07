@@ -75,7 +75,7 @@ biddetailData();
 function biddetailData(){
     $.ajax({
         'url':$('input[name=detail]').val(),
-      /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadetail',*/
+        /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadetail',*/
         'type':'get',
         'dataType':'json',
         'data':{
@@ -86,7 +86,7 @@ function biddetailData(){
             if(data !=null){
                   $.ajax({
                     'url':$('input[name=baojiaList]').val(),
-                  /*  'url':'http://ceshi.nainaiwang.com/ajaxdata/baojiadata',*/
+                    /*'url':'http://ceshi.nainaiwang.com/ajaxdata/baojiadata',*/
                     'type':'get',
                     'dataType':'json',
                     'data':{
@@ -107,7 +107,7 @@ function biddetailData(){
                             +attritem.name+"</td><td>"
                             +attritem.value+"</td></tr>"
                         })
-                        $("tr.attrAfter").after(attrItems)
+                        $("tr.attrAfter").before(attrItems)
                         //商品图片strat
                         var imgList=""
                         $.each(data.origphotos,function(index,item){
@@ -193,7 +193,7 @@ function biddetailData(){
                             console.log(data.status,"res数据1")
                             priceText = "起拍价："+data.price_l
                             bidType ="竞价暂未开始"
-                            cprice="出价人：竞价暂未开始，目前没有出价的人"
+                            cprice="出价人：竞价暂未开始，目前没有出价人"
                             curprice=data.price_l//input价格
                             tip="*提示：出价需要先交支付保证金"
                             bid_time ="距离开始还有"
@@ -300,8 +300,10 @@ function bzjyz(){
             }
             $(".but input[name='bzj']").click(function(){
                 bzj();
-                console.log("s")
-            });
+             });//单击保证金按钮执行事件
+            $(".but input[name='yescj']").click(function(){
+                yescj()
+            })//单击出价按钮执行事件
         }
     })
                             
@@ -310,7 +312,7 @@ function bzjyz(){
 function bzj(){
     var bidUrls=$("input[name='bidUrl']").val()
      console.log("d",bidUrls)
-    location.href=bidUrls+"?id="+id;
+    location.href=bidUrls+"?id="+id+"&pass="+pass;
 }
 //出价接口
 function yescj(){
@@ -333,7 +335,7 @@ function yescj(){
     function baojiaPost(pass,curprice){
         $.ajax({
             'url':$('input[name=baojiaPost]').val(),
-          /* 'url':'http://ceshi.nainaiwang.com/trade/jingjiabaojia',*/
+           /*'url':'http://ceshi.nainaiwang.com/trade/jingjiabaojia',*/
             'type':'post',
             'dataType':'json',
             'data':{
@@ -375,7 +377,7 @@ function yescj(){
                $("#num").val(numPrice.toFixed(2)); 
             }else{
                 $("#num").val(cursprice); 
-                 alert("亲当前已是最低出价")
+                 alert("当前已是最低出价")
             }
 
         })

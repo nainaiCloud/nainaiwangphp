@@ -9,13 +9,14 @@
        if (r != null) return unescape(r[2]); return null; //返回参数值
 	}
 	var id =getUrlParam("id");
-	console.log(id,"dd")
- // var pastUrl = "http://124.166.246.120:3000/mock/9"
+	var pass =getUrlParam("pass")
+	console.log("dd",id,"-",pass)
+	console.log("去开户",$('input[name=biddetail]').val())
 //开户信息
  	bzjData()
 	function bzjData(){
 	    $.ajax({
-	        /*'url':pastUrl+'/offers/jingjiadeposit',*/
+	        /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadepositpage',*/
 	        'url':$('input[name=bidInfo]').val(),
 	        'type':'get',
 	        'dataType':'json',
@@ -25,7 +26,7 @@
 	        success: function(bzjDatas){
 
 	        	var tiphtml=''
-	        	console.log(bzjDatas.user.bank,"user")
+	        	//console.log(bzjDatas.user.bank,"user")
 	        	$(".bzjProduct").text(bzjDatas.jingjia.pro_name);//商品名字
 	        	$(".bidbondprice .bzjPrice").text(bzjDatas.jingjia.jingjia_deposit);//需缴纳保证金
 	        	if(bzjDatas.user.bank!=null){
@@ -41,7 +42,7 @@
 	        			+'<div class="result_tip success_tip">系统将自动在3秒后跳转去开户</div></div>'
                     	$(".bidbond_result .tipCont").html(tiphtml)
 	        			$(".bidbond_result").fadeIn(1000,setTimeout(function () {
-				           // location.href = result.returnUrl; //开户界面
+				            location.href =$('input[name=qkh]').val()  //开户界面
 				        },3000)
                    	)
 	        	}
@@ -53,7 +54,7 @@
 /*保证金验证*/
 function bzjyz(){
 	$.ajax({
-		/*'url':pastUrl+'/ajaxdata/jingjiadeposit',*/
+		/*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',*/
 	    'url':$('input[name=jingjiaPost]').val(),
 	    'type':'get',
 	    'dataType':'json',
@@ -77,7 +78,7 @@ function clickBzj(){
             //几个参数需要注意一下
                 type: "POST",//方法类型
                 dataType: "json",//预期服务器返回的数据类型
-               /* url: pastUrl+"/ajaxdata/alrealyDeposit" ,*///匹配数据url
+              /*  url: "http://ceshi.nainaiwang.com/ajaxdata/alrealydeposit" ,*///匹配数据url
                 url:$('input[name=bidmatch]').val(),
                 data:{
 	            	id:id,//报盘id
@@ -92,13 +93,14 @@ function clickBzj(){
 	        			+'<div class="result_tip success_tip">系统将自动在3秒内跳转到竞价页面</div></div>'
                     	$(".bidbond_result .tipCont").html(tiphtml)
                     	$(".bidbond_result").fadeIn(1000,setTimeout(function () {
-					            //location.href = result.returnUrl; //缴纳成功返回
+                    		var biddetail =$('input[name=biddetail]').val()
+					           location.href=bidUrls+"?id="+id+"&pass="+pass;
 					        },3000)
                     	)
                     }else{
                     	tiphtml='<div id="resule_fail" class="result_cont">'
 	        			+'<div class="result_img"><img src="../views/pc/images/icon/failIcon.png"/></div>'
-	        			+'<div class="result_tip">很抱歉，系统未收到帐的保证金，请先进行保证金缴纳！</div>'
+	        			+'<div class="result_tip">很抱歉，系统未收到到账的保证金，请先进行保证金缴纳！</div>'
 	        			+'<div class="result_tip fail_tip">若有疑问，联系客服热线400-6238086</div></div>'
                     	$(".bidbond_result .tipCont").html(tiphtml)
                     	$(".bidbond_result").fadeIn()
