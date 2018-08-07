@@ -156,9 +156,9 @@
         <td><b class="required">*</b>竞价开始时间：</td>
         <td colspan="2">
             <span><input name="start_time" class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd  HH:mm:ss',minDate:'%y-%M-#{%d}'})"  >
-           <span class="tip">竞价开始时间说明：竞价信息发布选择的日期必须在距离开始竞价日期三日以上，距离，若在2018年6月5日16:21 
-发布竞价信息，竞价开始最早的时间为2018年6月8日16:21。，若没选择正确，则提示：竞价开始时间为当前时间
-的3个工作日后，请您重新选择时间</span>
+           <span class="tip">竞价信息发布选择的日期必须在距离开始竞价日期三日以上
+            <!-- 若没选择正确，则提示语： -->
+            <!-- 竞价开始时间为当前时间的3个工作日后，请您重新选择时间 --></span>
         </td>
     </tr>
     <tr>
