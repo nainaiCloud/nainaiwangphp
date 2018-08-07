@@ -93,7 +93,7 @@ var s = 0;
                                 </div>
                                 <div class="bidfor_cont_center">
                                     <p>加价幅度：<span class="jsfd"><%=detailtop.jing_stepprice%></span>元</p>
-                                    <p>竞拍数量：<span class="bidnum"><%=detailtop.max_num%></span>元</p>
+                                    <p>竞拍数量：<span class="bidnum"><%=detailtop.max_num%></span><%=detailtop.unit%></p>
                                     <p>起拍价：<span class="qpmoney"><%=detailtop.price_l%><!-- 360.00 --></span>元</p>
                                 </div>
                                 <div class="bidfor_cont_right">
