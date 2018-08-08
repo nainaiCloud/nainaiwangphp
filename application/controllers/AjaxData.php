@@ -145,7 +145,15 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
              $condition['status'] = "now()>o.end_time";
          }
          $data = $this->offer->jingjiaList($page, $condition,$order);
-
+         if(!empty($data['data'])){
+             foreach($data['data'] as $key=>$item){
+                 if(isset($this->login['user_id']) && $this->login['user_id']==$item['user_id']){
+                     $data['data'][$key]['pass'] = $item['jingjia_pass'];
+                 }else{
+                     $data['data'][$key]['pass'] = 0;
+                 }
+             }
+         }
          die(json_encode($data));
      }
 
