@@ -75,7 +75,7 @@ biddetailData();
 function biddetailData(){
     $.ajax({
         'url':$('input[name=detail]').val(),
-        /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadetail',*/
+       /* 'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadetail',*/
         'type':'get',
         'dataType':'json',
         'data':{
@@ -217,16 +217,30 @@ function biddetailData(){
                             bzjyz()
 
                         }else if(data.status ==3){
-                            if(bjListData.length>0){
-                                priceText = "成交价"+bjListData[0].price
-                                cprice="出价人："+bjListData[0].true_name
-                                curprice=bjListData[0].price
-                                bidType ="竞价结束,该商品成功竞价!"
-                            }else{
+                            if(data.order_status0 == 0){//未成交
                                 priceText = "成交价"+data.price_l
                                 cprice="出价人：无出价"
                                 curprice=data.price_l
                                 bidType ="竞价结束，该商品竞价失败!"
+                                tip=""
+                            }else if(data.order_status0 == 1){//待付款
+                                priceText = "成交价"+bjListData[0].price
+                                cprice="出价人："+bjListData[0].true_name
+                                curprice=bjListData[0].price
+                                bidType ="竞价已截止,待货款交纳!"
+                                tip="*提示：竞价成功后请尽快完成货款交纳。"
+                            }else if(data.order_status0 == 2){//未缴纳货款
+                                priceText = "成交价"+bjListData[0].price
+                                cprice="出价人："+bjListData[0].true_name
+                                curprice=bjListData[0].price
+                                bidType ="竞价结束，该商品竞价失败！"
+                                tip=""
+                            }else if(data.order_status0 == 3){//已缴纳
+                                 priceText = "成交价"+bjListData[0].price
+                                cprice="出价人："+bjListData[0].true_name
+                                curprice=bjListData[0].price
+                                bidType ="竞价结束，该商品成功竞价！"
+                                tip=""
                             }
                                 bid_time="该商品已竞价结束"
                                 but='<input class="submitBut end" type="button" disabled="disabled" name="jjend" value="竞价已结束">'
@@ -287,7 +301,7 @@ function biddetailData(){
 /*保证金是否缴纳验证*/
 function bzjyz(){
    $.ajax({
-       /* 'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',*/
+        /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',*/
         'url':$('input[name=jingjiaPost]').val(),
         'type':'get',
         'dataType':'json',
