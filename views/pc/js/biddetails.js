@@ -217,25 +217,25 @@ function biddetailData(){
                             bzjyz()
 
                         }else if(data.status ==3){
-                            if(data.order_status0 == 0){//未成交
+                            if(data.order_status == 0){//未成交
                                 priceText = "成交价"+data.price_l
                                 cprice="出价人：无出价"
                                 curprice=data.price_l
                                 bidType ="竞价结束，该商品竞价失败!"
                                 tip=""
-                            }else if(data.order_status0 == 1){//待付款
+                            }else if(data.order_status == 1){//待付款
                                 priceText = "成交价"+bjListData[0].price
                                 cprice="出价人："+bjListData[0].true_name
                                 curprice=bjListData[0].price
                                 bidType ="竞价已截止,待货款交纳!"
                                 tip="*提示：竞价成功后请尽快完成货款交纳。"
-                            }else if(data.order_status0 == 2){//未缴纳货款
+                            }else if(data.order_status == 2){//未缴纳货款
                                 priceText = "成交价"+bjListData[0].price
                                 cprice="出价人："+bjListData[0].true_name
                                 curprice=bjListData[0].price
                                 bidType ="竞价结束，该商品竞价失败！"
                                 tip=""
-                            }else if(data.order_status0 == 3){//已缴纳
+                            }else if(data.order_status == 3){//已缴纳
                                  priceText = "成交价"+bjListData[0].price
                                 cprice="出价人："+bjListData[0].true_name
                                 curprice=bjListData[0].price
