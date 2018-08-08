@@ -29,7 +29,7 @@ class jingjiaSocket
 
     public function __construct()
     {
-        $this->worker = new Worker("http://localhost:89");
+        $this->worker = new Worker();
 
         $db_config = \Library\tool::getConfig(array('database','master'));
         $this->db = new \Workerman\MySQL\Connection($db_config['host'], '3306', $db_config['user'], $db_config['password'], $db_config['database']);
