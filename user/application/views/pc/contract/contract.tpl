@@ -51,7 +51,7 @@
                     <tr style="height:35px">
                        <td style="padding:0 10px">{$info['name']}</td>
                         <td style="padding:0 10px">{$info['attrs']}</td>
-                        <td style="padding:0 10px" id='areatextarea'>{areatext:id=area data=$info['produce_area']}{$info['produce_address']}</td>
+                        <td style="padding:0 10px" >{$info['produce_area']}{$info['produce_address']}</td>
                     </tr>
                 </table>
                 <div style="text-align:center">（以挂牌交易中的相关商品描述为准，或买卖双方自行约定）</div>
@@ -80,7 +80,7 @@
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">四、交收地点
                 <ol style=" margin-top:5px;">
-                    <li style="text-indent: 20px;">第六条 本合同项下货物的交收地点在交易所指定的交收地，该商品交收地为_______{areatext:id=accept_area data=$info['accept_area_code']}{$info['accept_area']}_________。（以挂牌交易中约定的交收地点，或买卖双方自行约定的交收地点为准）</li>
+                    <li style="text-indent: 20px;">第六条 本合同项下货物的交收地点在交易所指定的交收地，该商品交收地为_______{$info['accept_area_code']}{$info['accept_area']}_________。（以挂牌交易中约定的交收地点，或买卖双方自行约定的交收地点为准）</li>
                 </ol>
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">五、交收时间及期限

@@ -123,7 +123,8 @@ class ContractController extends UcenterBaseController{
 		$order_info['product_cate'] = rtrim($tmp,'/');
 		
 		// echo '<pre>';var_dump($order_info);exit;
-
+        $order_info['accept_area_code'] = tool::areaText($order_info['accept_area_code']);
+        $order_info['produce_area'] = tool::areaText($order_info['produce_area']);
 		$this->getView()->assign('info',$order_info);
 		if($order_info['sub_mode']==1){
             $this->getView()->display('contract/jingjiacontract.tpl');

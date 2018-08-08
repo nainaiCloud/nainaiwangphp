@@ -562,14 +562,12 @@ class jingjiaOffer extends product{
      */
     private function getDeposit($offerData){
         $rate = 0.1;
-        $amount = round(bcmul($offerData['price_l'],$offerData['max_num'],0)*$rate);
+        $amount = bcmul(bcmul($offerData['price_l'],$offerData['max_num'],2),$rate,2);
 
-        if($amount<1){
-            $amount = 1;
+        if($amount<=0){
+            $amount = 0.01;
         }
-        if($amount>100){
-            $amount = round($amount,-2);
-        }
+
         return $amount;
     }
 
