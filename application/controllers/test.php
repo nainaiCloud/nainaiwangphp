@@ -11,10 +11,9 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
-        $cond = array('start'=>'20180724');
-        $jsMock = new \nainai\fund\js();
-        $data = $jsMock->marketFlow($cond);
-        print_r($data);
+        $data = array(3,4,5);
+        $data = join($data,',');
+        echo $data;
     }
 
     public function graphqlAction(){

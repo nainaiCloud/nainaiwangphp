@@ -226,7 +226,8 @@ BEGIN
        set return_status=5;
    END IF;
 
-
+   #将报盘加入通知表
+   INSERT INTO order_notice (offer_id,auto_notice) VALUES (offerID,0);
   COMMIT;
 
 

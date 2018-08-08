@@ -2,6 +2,7 @@
 
 //ÅäÖÃyaf
 define('APPLICATION_PATH', __DIR__);
+error_reporting(0);
 date_default_timezone_set('Asia/Shanghai');
 $app = new Yaf\Application(APPLICATION_PATH."/conf/application.ini");
 $config = Yaf\Application::app()->getConfig();
@@ -12,7 +13,7 @@ $config = Yaf\Application::app()->getConfig();
 use \nainai\jingjiaSocket;
 
 $jingjia=new jingjiaSocket();
-$jingjia->receiveMessage();
+//$jingjia->receiveMessage();
 
 $jingjia->run();
 ?>
