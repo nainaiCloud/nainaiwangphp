@@ -324,12 +324,25 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
             $startTime = strtotime($info['start_time']);
             $now = time();
             $endTime = strtotime($info['end_time']);
+            $info['order_status'] = 0;
             if($now<$startTime){
                 $offerStatus=1;
             }elseif($now>=$startTime && $now<=$endTime){
                 $offerStatus=2;
             }else{
                 $offerStatus=3;
+                //判断订单缴纳情况
+                $dbObj = new \Library\M('order_sell');
+                $order = $dbObj->where(array('offer_id'=>$id))->fields('contract_status,id')->getObj();
+                if(!empty($order)){
+                    if($order['contract_status']==3){
+                        $info['order_status'] = 1;//待缴纳货款
+                    }elseif($order['contract_status']==2){
+                        $info['order_status'] = 2;//超时未缴纳货款
+                    }else{
+                        $info['order_status'] = 3;//已缴纳货款
+                    }
+                }
             }
             $info['status'] = $offerStatus;
             $info['attr'] = array();
