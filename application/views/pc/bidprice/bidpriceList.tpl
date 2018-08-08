@@ -156,7 +156,7 @@
 										此竞价需输入竞价口令进入，请在卖家处获取竞价口令 ，在此输入。
 									</div>
 									<div class="yzm_input">
-										<input type="text"  class="jijaPass" placeholder="请输入验证码" name="">
+										<input type="text"  class="jijaPass" placeholder="请输入竞价口令" name="">
 									</div>
 									<div class="yzm_but">
 										<button  class="but_ok jijiaBut" id="<%=data[i].id%>" onclick="checkPass(this,<%=data[i].id%>,<%=data[i].jingjia_pass%>)">确定</button>
