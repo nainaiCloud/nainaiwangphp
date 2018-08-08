@@ -75,7 +75,7 @@ biddetailData();
 function biddetailData(){
     $.ajax({
         'url':$('input[name=detail]').val(),
-        /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadetail',*/
+       /* 'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadetail',*/
         'type':'get',
         'dataType':'json',
         'data':{
@@ -86,7 +86,7 @@ function biddetailData(){
             if(data !=null){
                   $.ajax({
                     'url':$('input[name=baojiaList]').val(),
-                    /*'url':'http://ceshi.nainaiwang.com/ajaxdata/baojiadata',*/
+                   /* 'url':'http://ceshi.nainaiwang.com/ajaxdata/baojiadata',*/
                     'type':'get',
                     'dataType':'json',
                     'data':{
@@ -169,6 +169,8 @@ function biddetailData(){
                             $("#time_m").text(int_minute); 
                             $("#time_s").text(int_second); 
                             setTimeout(show_time,1000);
+                            }else if(time_distance==0){
+                                window.location.reload();//倒计时为0 刷新页面
                             }else{
                                  // 显示时间 
                                 $("#time_d").text("00"); 
@@ -215,16 +217,30 @@ function biddetailData(){
                             bzjyz()
 
                         }else if(data.status ==3){
-                            if(bjListData.length>0){
-                                priceText = "成交价"+bjListData[0].price
-                                cprice="出价人："+bjListData[0].true_name
-                                curprice=bjListData[0].price
-                                bidType ="竞价结束,该商品成功竞价!"
-                            }else{
+                            if(data.order_status == 0){//未成交
                                 priceText = "成交价"+data.price_l
                                 cprice="出价人：无出价"
                                 curprice=data.price_l
                                 bidType ="竞价结束，该商品竞价失败!"
+                                tip=""
+                            }else if(data.order_status == 1){//待付款
+                                priceText = "成交价"+bjListData[0].price
+                                cprice="出价人："+bjListData[0].true_name
+                                curprice=bjListData[0].price
+                                bidType ="竞价已截止,待货款交纳!"
+                                tip="*提示：竞价成功后请尽快完成货款交纳。"
+                            }else if(data.order_status == 2){//未缴纳货款
+                                priceText = "成交价"+bjListData[0].price
+                                cprice="出价人："+bjListData[0].true_name
+                                curprice=bjListData[0].price
+                                bidType ="竞价结束，该商品竞价失败！"
+                                tip=""
+                            }else if(data.order_status == 3){//已缴纳
+                                 priceText = "成交价"+bjListData[0].price
+                                cprice="出价人："+bjListData[0].true_name
+                                curprice=bjListData[0].price
+                                bidType ="竞价结束，该商品成功竞价！"
+                                tip=""
                             }
                                 bid_time="该商品已竞价结束"
                                 but='<input class="submitBut end" type="button" disabled="disabled" name="jjend" value="竞价已结束">'
@@ -239,6 +255,7 @@ function biddetailData(){
                             $(".bidfor_cont_left .but").html(but);//按钮
                             $(".introduce_title .numt").text(bjListData.length);//竞价记录条数
                             $(".bid_right .bid_time").text(bid_time);//时间说明
+                            $(".tip .tipcolor1").text(tip);
                             numprice(data.jing_stepprice,curprice);//价格加减
                             $(".but input[name='bzj']").click(function(){
                                 bzj();
@@ -260,7 +277,7 @@ function biddetailData(){
                                 +bjListData[0].time+"</span></li><li><span>领先</span></li></ul>"
                                 for(var i=1;i<bjListData.length;i++){
                                     baojiaList+="<ul class='auction_cont'><li><span>"
-                                    +bjListData[i].username +"</span></li><li><span>"
+                                    +bjListData[i].true_name +"</span></li><li><span>"
                                     +bjListData[i].price+"</span></li><li><span>"
                                     +bjListData[i].time+"</span></li><li><span>出局</span></li></ul>"
                                     }
@@ -295,8 +312,10 @@ function bzjyz(){
             console.log(datas,"bzjyz")
             if(datas.success == 0){
             $(".bidfor_cont_left .but").html('<input class="submitBut yes" type="button" name="bzj" value="支付保证金">')
+               $(".tip .tipcolor1").text("*提示：出价需要先交支付保证金")
             }else{
                 $(".bidfor_cont_left .but").html('<input class="submitBut yes" type="button" name="yescj" value="确认出价">')
+                 $(".tip .tipcolor1").text("*提示：您已支付保证金可以出价竞拍")
             }
             $(".but input[name='bzj']").click(function(){
                 bzj();
