@@ -75,7 +75,7 @@ var s = 0;
                                     <div class="cj">
                                         <span>出价</span>
                                         <span class="reduce" id="jian"><i class="reduce_icon"></i></span>
-                                        <span class="inputName"><input id="num" type="text" name="" value="0.00" autocomplete="off"/></span>
+                                        <span class="inputName"><input type="text" name="" style="display: none"><input id="num" type="text" name="" value="0.00" autocomplete="off"/></span>
                                         <span class="add" id="add">
                                             <i class="add_l"></i>
                                             <i class="add_h"></i>
