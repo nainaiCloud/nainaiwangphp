@@ -94,7 +94,7 @@ function clickBzj(){
                     	$(".bidbond_result .tipCont").html(tiphtml)
                     	$(".bidbond_result").fadeIn(1000,setTimeout(function () {
                     		var biddetail =$('input[name=biddetail]').val()
-					           location.href=bidUrls+"?id="+id+"&pass="+pass;
+					           location.href=biddetail+"?id="+id+"&pass="+pass;
 					        },3000)
                     	)
                     }else{

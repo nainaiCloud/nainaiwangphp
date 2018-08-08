@@ -104,7 +104,7 @@ var s = 0;
 
                         </div>
                         <div class="bidContent">
-                            <p>保证金金额：<span class="bzjprice"><%=detailtop.jingjia_deposit%><!-- 10000元 --></span></p>
+                            <p>保证金金额：<span class="bzjprice">￥<%=detailtop.jingjia_deposit%><!-- 10000元 --></span></p>
                             <p>竞拍开始时间：<span class="stratTime"><%=detailtop.start_time%></span></p>
                             <p>竞拍结束时间：<span class="endTime"><%=detailtop.end_time%></span></p>
                         </div>
