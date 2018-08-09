@@ -403,6 +403,9 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
                          bank(status:1){
                            bank_name,card_no,true_name
                          },
+                        },
+                        jingjia(id:'.$offer_id.'){
+                            pro_name,jingjia_deposit
                         }
                        
                    }';
