@@ -10,6 +10,7 @@ use Library\Query;
 use \Library\tool;
 use \Library\M;
 use \Library\time;
+use \nainai\syslog;
 class jingjiaOffer extends product{
 
     protected $limitTimes = 1;//同一个报盘设置竞价交易的限制次数，1表示限制1次，0不限制
@@ -577,12 +578,15 @@ class jingjiaOffer extends product{
 
         $offerData = $this->offerDetail($offerId);
         if(empty($offerData)){
+            syslog::info("用户".$user_id."匹配竞价保证金，竞价不存在，竞价id".$offerId);
             return tool::getSuccInfo(0,'竞价不存在');
         }
 
         if($offerData['user_id']==$user_id){
+            syslog::info("用户".$user_id."匹配自己的竞价保证金，竞价id".$offerId);
             return tool::getSuccInfo(0,'不能给自己的竞价支付保证金');
         }
+        syslog::info("用户".$user_id."开始匹配竞价保证金，竞价id".$offerId);
         $payLogObj = new \nainai\user\UserPaylog();
         $payLogObj->subject = 'jingjia';
         $payLogObj->user_id = $user_id;
