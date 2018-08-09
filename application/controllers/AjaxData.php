@@ -410,7 +410,7 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
                        
                    }';
 
-        $data = $graphql->query($query);print_r($data);
+        $data = $graphql->query($query);
         die(JSON::encode($data['data']));
 
     }
