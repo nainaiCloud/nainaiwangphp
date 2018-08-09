@@ -327,7 +327,11 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
             $mem = new \nainai\member();
             $info['user'] = $mem->getUserDetail($info['user_id']);
 
-
+            if(isset($this->login['user_id'])){
+                $info['login_user'] = $this->login['user_id'];
+            }else{
+                $info['login_user'] = 0;
+            }
             //计算报盘的状态
             $startTime = strtotime($info['start_time']);
             $now = time();
@@ -396,16 +400,14 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
                         user(id:'.$user_id.')
                         {
                         id,
-                         bank{
+                         bank(status:1){
                            bank_name,card_no,true_name
                          },
-                        },
-                        jingjia(id:'.$offer_id.'){
-                            pro_name,jingjia_deposit
                         }
+                       
                    }';
 
-        $data = $graphql->query($query);
+        $data = $graphql->query($query);print_r($data);
         die(JSON::encode($data['data']));
 
     }

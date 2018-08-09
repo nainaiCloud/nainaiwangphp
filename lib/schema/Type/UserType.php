@@ -57,7 +57,8 @@ class UserType extends ObjectType
                         'type' => MyTypes::bank(),
                         'description'=>'开户信息',
                         'args' => [
-                            'user_id' => Types::id()
+                            'user_id' => Types::id(),
+                            'status' => Types::int()
                         ],
                         'resolve' => function($val, $args, $context, ResolveInfo $info){
                             Handle::bufferAdd($val['id'],$info);

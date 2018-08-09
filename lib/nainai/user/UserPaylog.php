@@ -78,6 +78,7 @@ class UserPaylog
         $matchFlow = $this->findMatchFlow($startDate,$endDate,$compareData['acc_no'],$amount);
 
         if($matchFlow['acc_no']){//有匹配的流水
+
             $where = array('subject'=>'jingjia','subject_id'=>$this->subject_id,'user_id'=>$this->user_id);
             $res = $this->existUpdateElseInsert($matchFlow,$where);
             if($res){

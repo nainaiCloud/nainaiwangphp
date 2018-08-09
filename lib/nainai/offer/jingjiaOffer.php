@@ -580,7 +580,9 @@ class jingjiaOffer extends product{
             return tool::getSuccInfo(0,'竞价不存在');
         }
 
-
+        if($offerData['user_id']==$user_id){
+            return tool::getSuccInfo(0,'不能给自己的竞价支付保证金');
+        }
         $payLogObj = new \nainai\user\UserPaylog();
         $payLogObj->subject = 'jingjia';
         $payLogObj->user_id = $user_id;
