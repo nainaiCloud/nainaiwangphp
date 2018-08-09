@@ -101,8 +101,14 @@
 								</div>							
 								<% } %>
 							</div>
-							<%if(data[i].jingjia_mode==1) { %>
-						<a alt="<%=data[i].jingjia_mode%>" href="javascript:void(0);">
+						<%if(data[i].jingjia_mode==1) { %>
+							<% if(data[i].pass == 0){%>
+								<a alt="<%=data[i].jingjia_mode%>" href="javascript:void(0);">
+							<%} else if(data[i].pass != 0){%>
+								<a alt="<%=data[i].jingjia_mode" href="{url:/bidprice/biddetails}?id=<%==data[i].id%>&pass=<%=data[i].pass%>">
+								
+							<% } %>
+						
 						<% } else { %>
 						<a alt="<%=data[i].jingjia_mode" href="{url:/bidprice/biddetails}?id=<%==data[i].id%>&pass=<%=data[i].jingjia_pass%>">
 						<% } %>
@@ -150,7 +156,8 @@
 										<% } %>
 									</span>
 								</div>
-								<%if(data[i].jingjia_mode==1) { %>
+								<%if(data[i].jingjia_mode==1 ) { %>
+								<%if(data[i].pass==0 ) { %>
 								<div class="yzm_con">
 									<div class="yzm_tip">
 										此竞价需输入竞价口令进入，请在卖家处获取竞价口令 ，在此输入。
@@ -162,6 +169,7 @@
 										<button  class="but_ok jijiaBut" id="<%=data[i].id%>" onclick="checkPass(this,<%=data[i].id%>,<%=data[i].jingjia_pass%>)">确定</button>
 									</div>
 								</div>
+								<% } %>
 								<% } %>
 							</div>
 						</a>
