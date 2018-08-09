@@ -113,6 +113,7 @@
                                 <div class="yListr" id="yListr" >
                                       <ul>
                                           <li>
+                                              {set:$show_online=0}
                                             {if:$show_online}
                                             <em name="chooice" class="yListrclickem" payment='online'>线上支付<i></i></em> 
                                            
