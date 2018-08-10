@@ -603,9 +603,9 @@ class Order{
 					$log_res = $this->payLog($order_id,$user_id,1,'卖家确认线下支付凭证');
 					
 					if($sim_oper){
-						$content = '合同'.$info['order_no'].'卖家已确认收款,合同完成。交收流程请您在线下进行操作。';
+						$content = '合同'.$info['order_no'].'卖家已确认收款,合同已生效。交收流程请您在线下进行操作。';
 						$mess_buyer->send('common',$content);
-						$content = '合同'.$info['order_no'].'，合同已完成。交收流程请您在线下进行操作。';
+						$content = '合同'.$info['order_no'].'，合同已生效。交收流程请您在线下进行操作。';
 						$mess_seller->send('common',$content);
 					}else{
 						$jump_url = "<a href='".url::createUrl('/contract/buyerDetail?id='.$order_id.'@user')."'>跳转到合同详情页</a>";
@@ -1585,8 +1585,13 @@ class Order{
 						$title = '提货列表';
 						$href = url::createUrl("/delivery/deliBuyList");
 						$action []= array('action'=>$title,'url'=>$href);
-                        $action []= array('action'=>'提货完成','url'=>url::createUrl("/Order/freeOrderComplete?order_id={$value['id']}"),'confirm'=>1);
-					}
+
+						$deliLeft = $delivery->deliNumLeft($value['id']);
+						if(is_float($deliLeft) && $deliLeft<=0.2 && $value['mode'] == self::ORDER_FREE){
+                            $action []= array('action'=>'提货完成','url'=>url::createUrl("/Order/freeOrderComplete?order_id={$value['id']}"),'confirm'=>1);
+
+                        }
+                    }
 					break;
 				case self::CONTRACT_COMPLETE:
 					$title = '合同已完成';

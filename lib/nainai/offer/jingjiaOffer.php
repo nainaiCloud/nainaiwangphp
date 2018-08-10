@@ -366,7 +366,7 @@ class jingjiaOffer extends product{
                 $endDate = new \DateTime($res['end_time']);
                 $now = new \DateTime($insertData['time']);
                 $interval = $now->diff($endDate);
-                $sellerData['remain'] = $interval->format('H:i:s');
+                $sellerData['remain'] = $interval->format('%h:%i:%s');
                 foreach($buyers as $buyer){
                     if($buyer['user_id']==$user_id){//给出价人发送短信
                         $sellerData['name'] = $buyer['true_name'];
@@ -397,6 +397,14 @@ class jingjiaOffer extends product{
 
 
 
+
+    }
+
+    /**
+     * 判断是否可撤销
+     * @param $offer_id
+     */
+    public function canCancle($offer_id){
 
     }
 

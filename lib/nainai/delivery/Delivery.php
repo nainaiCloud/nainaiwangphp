@@ -436,7 +436,7 @@ class Delivery{
 		//查询订单商品总数
 		$total_num = $this->order->where(array('id'=>$order_id))->getfield('num');
 		$total_num = floatval($total_num);
-		
+
 		if(empty($total_num)) return '无效订单';
 
 		//查询对应订单id所有提货记录
@@ -471,6 +471,48 @@ class Delivery{
 			return $percent ? ($total_num - $record_num) / $total_num : $total_num - $record_num;
 		}
 	}
+
+    public function deliNumLeft($order_id,$percent = true,$once_complete = false){
+        if(empty(intval($order_id))) return '参数错误';
+
+        //查询订单商品总数
+        $total_num = $this->order->where(array('id'=>$order_id))->getfield('num');
+        $total_num = floatval($total_num);
+
+        if(empty($total_num)) return '无效订单';
+
+        //查询对应订单id所有提货记录
+        $record = $this->delivery->where(array('order_id'=>$order_id,'status'=>6))->select();
+
+        if(empty($record)){
+            return $percent ? 1.0 : $total_num;
+        }else{
+            $record_num = 0.0;
+            foreach ($record as $key => $value) {
+                if(!$once_complete){
+                    $record_num += $value['num'];
+                }
+                switch ($value['status']) {
+                    case self::DELIVERY_AGAIN:
+                        if($once_complete){
+                            $record_num += $value['num'];
+                        }
+                        break;
+                    case self::DELIVERY_COMPLETE:
+                        if($once_complete){
+                            $record_num += $value['num'];
+                            break;
+                        }else{
+                            return '此订单已提货完毕';
+                        }
+                    default:
+                        break;
+                }
+            }
+
+            return $percent ? ($total_num - $record_num) / $total_num : $total_num - $record_num;
+        }
+    }
 
 
 }

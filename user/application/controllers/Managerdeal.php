@@ -669,7 +669,7 @@ class ManagerDealController extends UcenterBaseController {
         $endDate = safe::filterGet('endDate');
 
         //查询组装条件
-        $where = 'c.user_id=:uid';
+        $where = 'c.user_id=:uid and c.sub_mode != 1 ';
         $bind = array('uid' => $this->user_id);
 
         if (!empty($name)) {
@@ -827,6 +827,7 @@ class ManagerDealController extends UcenterBaseController {
             }
 
             //print_r($offerDetail);
+
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);
 
