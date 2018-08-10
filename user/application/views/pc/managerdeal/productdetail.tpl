@@ -272,7 +272,7 @@
                                    <!-- 保存竞价模式的修改按钮 -->
 
                                <input type="hidden" name="id" value="{$offer['id']}" />
-                                  {if:$offer['sub_mode']==0 && ($product['quantity'] - $product['sell'] - $product['freeze']) > 0}
+                                  {if: ($product['quantity'] - $product['sell'] - $product['freeze']) > 0}
                                   <div class="pay_bton">
                                       <a href="javascript:void(0)" class="submit_chag"  id='pay_retainage'  confirm="1" confirm_text="确认撤销报盘？">撤销报盘</a>
                                   </div>

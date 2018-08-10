@@ -68,7 +68,7 @@ class UserPaylog
         $log = $this->getOneLog($where);
         if(!empty($log) && $log['bank_flow']!=''){//已经关联流水号，不能再次关联
             syslog::info("用户".$this->user_id."重复匹配竞价保证金，竞价id".$this->subject_id);
-            return tool::getSuccInfo(2,'当前竞价已支付保证金');
+            return tool::getSuccInfo(1,'当前竞价已支付保证金');
         }
         //获取比对的账号
         $compareData = $this->getCompareAcc($this->user_id);
