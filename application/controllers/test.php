@@ -11,9 +11,7 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function indexAction(){
-        $data = array(3,4,5);
-        $data = join($data,',');
-        echo $data;
+
     }
 
     public function graphqlAction(){

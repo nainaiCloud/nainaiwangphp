@@ -24,10 +24,14 @@ class Bank extends Template
 
     protected  function selectData($args, $context, $ids=array() ,$fields = '*')
     {
+
         if(!empty($ids)){
             $where = array('user_id'=>array('in',join(',',$ids)));
         }else{
             $where = array('user_id'=>$args['user_id']);
+        }
+        if(isset($args['status'])){
+            $where['status'] = $args['status'];
         }
         $obj = new M($this->table);
         $data = $obj->fields($fields)->where($where)->select();
@@ -59,6 +63,9 @@ class Bank extends Template
     {
         $id = $args['user_id'];
         $where = array('user_id'=>$id);
+        if(isset($args['status'])){
+            $where['status'] = $args['status'];
+        }
         $obj = new M($this->table);
         $data = $obj->fields($fields)->where($where)->getObj();
         return $data;

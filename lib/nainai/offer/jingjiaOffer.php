@@ -10,6 +10,7 @@ use Library\Query;
 use \Library\tool;
 use \Library\M;
 use \Library\time;
+use \nainai\syslog;
 class jingjiaOffer extends product{
 
     protected $limitTimes = 1;//同一个报盘设置竞价交易的限制次数，1表示限制1次，0不限制
@@ -577,10 +578,15 @@ class jingjiaOffer extends product{
 
         $offerData = $this->offerDetail($offerId);
         if(empty($offerData)){
+            syslog::info("用户".$user_id."匹配竞价保证金，竞价不存在，竞价id".$offerId);
             return tool::getSuccInfo(0,'竞价不存在');
         }
 
-
+        if($offerData['user_id']==$user_id){
+            syslog::info("用户".$user_id."匹配自己的竞价保证金，竞价id".$offerId);
+            return tool::getSuccInfo(3,'不能给自己的竞价支付保证金');
+        }
+        syslog::info("用户".$user_id."开始匹配竞价保证金，竞价id".$offerId);
         $payLogObj = new \nainai\user\UserPaylog();
         $payLogObj->subject = 'jingjia';
         $payLogObj->user_id = $user_id;
@@ -645,8 +651,7 @@ class jingjiaOffer extends product{
                        $member->sendShortMessage($seller,$contentSeller);
 
                        //给竞价成功方发送
-                       $content = $item['true_name']."，您好，恭喜您成功竞拍".$data['pro_name']."，竞拍的成交价为".$item['price']."元/吨。请您在**时间内缴纳货款".$item['amount']."元，
-                       缴纳完成后，竞价保证金将在1个工作日内原路退还至您的账户。若未在规定时间内完成付款，则保证金全部扣除作为竞价违约赔付。";
+                       $content = $item['true_name']."，您好，恭喜您成功竞拍".$data['pro_name']."，竞拍的成交价为".$item['price']."元/吨。请您在2个工作日内缴纳货款".$item['amount']."元，缴纳完成后，竞价保证金将在1个工作日内原路退还至您的账户。若未在规定时间内完成付款，则保证金全部扣除作为竞价违约赔付。";
                        $member->sendShortMessage($item['user_id'],$content);
                         $users[] = $item['user_id'];
                    }else{

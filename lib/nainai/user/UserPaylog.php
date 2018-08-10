@@ -9,6 +9,7 @@ namespace nainai\user;
 
 use \Library\M;
 use \Library\tool;
+use \nainai\syslog;
 class UserPaylog
 {
 
@@ -66,7 +67,8 @@ class UserPaylog
         $where = array('subject'=>$this->subject,'subject_id'=>$this->subject_id,'user_id'=>$this->user_id);
         $log = $this->getOneLog($where);
         if(!empty($log) && $log['bank_flow']!=''){//已经关联流水号，不能再次关联
-            return tool::getSuccInfo(0,'当前竞价已支付保证金');
+            syslog::info("用户".$this->user_id."重复匹配竞价保证金，竞价id".$this->subject_id);
+            return tool::getSuccInfo(2,'当前竞价已支付保证金');
         }
         //获取比对的账号
         $compareData = $this->getCompareAcc($this->user_id);
@@ -78,6 +80,7 @@ class UserPaylog
         $matchFlow = $this->findMatchFlow($startDate,$endDate,$compareData['acc_no'],$amount);
 
         if($matchFlow['acc_no']){//有匹配的流水
+            syslog::info("找到可用流水，流水号：".$matchFlow['bank_flow']);
             $where = array('subject'=>'jingjia','subject_id'=>$this->subject_id,'user_id'=>$this->user_id);
             $res = $this->existUpdateElseInsert($matchFlow,$where);
             if($res){
@@ -86,6 +89,7 @@ class UserPaylog
                 return tool::getSuccInfo(0,'匹配失败');
             }
         }else{
+            syslog::info("用户".$this->user_id."，竞价id".$this->subject_id.'的竞价没有找到保证金支付记录');
             return tool::getSuccInfo(0,'没有匹配的缴费记录');
         }
     }
@@ -157,6 +161,7 @@ class UserPaylog
      */
     public function findMatchFlow($startDate,$endDate='',$acc_no,$amount){
         $flow = $this->bankFlow($startDate,$endDate);
+        syslog::info("寻找流水记录，账号：".$acc_no.',金额：'.$amount);
         $resData = array(
             'acc_no'=>'',
             'acc_name'=>'',
@@ -176,6 +181,7 @@ class UserPaylog
                     //然后再判断这个流水在pay_log表中是否存在，已存在则不能使用
                     $res = $this->getOneLog(array('bank_flow'=>$tempFlow));
                     if(empty($res)){//如果为空，该流水可用
+
                         $resData['acc_no'] = $acc_no;
                         $resData['acc_name'] = $tempAccName;
                         $resData['pay_total'] = $amount;

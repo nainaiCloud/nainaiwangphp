@@ -706,7 +706,53 @@ class ManagerDealController extends UcenterBaseController {
         $this->getView()->assign('cert',$this->cert);
     }
 
+    /**
+     * 产品列表页面
+     */
+    public function jingjiaListAction(){
+        $page = safe::filterGet('page', 'int', 0);
+        $name = safe::filterGet('name');
+        $status = safe::filterGet('status', 'int', 9);
+        $beginDate = safe::filterGet('beginDate');
+        $endDate = safe::filterGet('endDate');
 
+        //查询组装条件
+        $where = 'c.user_id=:uid and c.sub_mode=1 ';
+        $bind = array('uid' => $this->user_id);
+
+        if (!empty($name)) {
+            $where .= ' AND a.name like"%'.$name.'%"';
+            $this->getView()->assign('name', $name);
+        }
+
+        if (!empty($status) && $status != 9 || $status==0) {
+            $where .= ' AND c.status=:status';
+            $bind['status'] = $status;
+
+        }
+
+        if (!empty($beginDate)) {
+            $where .= ' AND apply_time>=:beginDate';
+            $bind['beginDate'] = $beginDate;
+            $this->getView()->assign('beginDate', $beginDate);
+        }
+
+        if (!empty($endDate)) {
+            $where .= ' AND apply_time<=:endDate';
+            $bind['endDate'] = $endDate;
+            $this->getView()->assign('endDate', $endDate);
+        }
+
+        $productModel = new ProductModel();
+        $productList = $productModel->getOfferProductList($page, $this->pagesize,  $where, $bind);
+        $statusList = $productModel->getStatusArray();
+        $this->getView()->assign('statusList', $statusList);
+        $this->getView()->assign('status', $status);
+        $this->getView()->assign('mode', $this->_mode);
+        $this->getView()->assign('productList', $productList['list']);
+        $this->getView()->assign('pageHtml', $productList['pageHtml']);
+        $this->getView()->assign('cert',$this->cert);
+    }
     /**
      * 产品详情页面
      */
@@ -749,7 +795,48 @@ class ManagerDealController extends UcenterBaseController {
 
 
     }
+    /**
+     * 竞价详情页面
+     */
+    public function jingjiaDetailAction(){
 
+        $id = $this->getRequest()->getParam('id');
+        $id = safe::filter($id, 'int', 0);
+
+        if (intval($id) > 0) {
+            $productModel = new ProductModel();
+            $offerDetail = $productModel->getOfferProductDetail($id,$this->user_id);
+            if ($offerDetail[0]['insurance'] == 1) {
+                $risk = new \nainai\insurance\Risk();
+                $riskData = $risk->getRiskDetail($offerDetail[0]['risk']);
+                $this->getView()->assign('riskData',$riskData);
+            }
+            if(isset($offerDetail[0]['sign'])&&$offerDetail[0]['sign']){
+                $offerDetail[0]['sign'] = \Library\thumb::getOrigImg($offerDetail[0]['sign']);
+            }
+            if($offerDetail[0]['status'] == $productModel::OFFER_NG){
+                if($offerDetail[0]['mode'] == $productModel::DEPOSIT_OFFER)
+                    $updateUrl = url::createUrl('/managerdeal/updatedepositeoffer?id='.$offerDetail[0]['id']);
+                if($offerDetail[0]['mode'] == $productModel::FREE_OFFER)
+                    $updateUrl = url::createUrl('/managerdeal/updatefreeoffer?id='.$offerDetail[0]['id']);
+                if($offerDetail[0]['mode'] == $productModel::STORE_OFFER)
+                    $updateUrl = url::createUrl('/managerdeal/updatestoreoffer?id='.$offerDetail[0]['id']);
+                if($offerDetail[0]['mode'] == $productModel::DEPUTE_OFFER)
+                    $updateUrl = url::createUrl('/managerdeal/updatedeputeoffer?id='.$offerDetail[0]['id']);
+                $this->getView()->assign('updateUrl',$updateUrl);
+            }
+
+            //print_r($offerDetail);
+            $this->getView()->assign('offer', $offerDetail[0]);
+            $this->getView()->assign('product', $offerDetail[1]);
+
+        }
+        else{
+            $this->redirect('jingjiaList');
+        }
+
+
+    }
     /**
      * 修改报盘
      */
