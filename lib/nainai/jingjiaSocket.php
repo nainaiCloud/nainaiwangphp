@@ -18,6 +18,7 @@ use \Workerman\Worker;
 use Nette\Utils\Json;
 use Workerman\Lib\Timer;
 use \nainai\offer\jingjiaOffer;
+use \nainai\syslog;
 class jingjiaSocket
 {
     protected $worker= null;
@@ -69,6 +70,7 @@ class jingjiaSocket
                         $jingjiaOffer = new jingjiaOffer();
                         $jingjiaOffer->endNotice($item['offer_id']);
                         echo "jingjia ".$item['offer_id']." has come to end , send message to users \n";
+                        syslog::info("jingjia ".$item['offer_id']." 结束 , 给卖方买方发送短信");
                     }
                 }
 
