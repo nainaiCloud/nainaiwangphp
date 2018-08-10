@@ -353,9 +353,19 @@ class jingjiaOffer extends product{
                 $baojiaQuery->join = ' left join user as u on j.user_id=u.id';
                 $baojiaQuery->fields = ' j.user_id,u.true_name';
                 $baojiaQuery->where = ' j.offer_id='.$offer_id;
-                $baojiaQuery->group = ' j.user_id';
-                $baojiaQuery->order = ' j.price desc';
-                $buyers = $baojiaQuery->find();
+               // $baojiaQuery->group = ' j.user_id';
+                $baojiaQuery->order = ' j.price desc ';
+                $allbuyers = $baojiaQuery->find();
+                $buyers = array();
+                foreach($allbuyers as $key=>$item){
+                    if($key>1){
+                        break;
+                    }
+                    if(!isset($buyer[$item['user_id']])){
+                        $buyers[$item['user_id']] = $item;
+                    }
+
+                }
                 $content = '您好，您参与竞拍的'.$res['pro_name'].'已被超越，若需重新竞拍，请及时登录耐耐网进行出价。';
                 $sellerData  =  array(//给卖方发送短信需要的数据
                     'name'=>'',
@@ -376,7 +386,7 @@ class jingjiaOffer extends product{
                     }else{//给之前报价的买方发送短信
                         $this->messageObj->sendShortMessage($buyer['user_id'],$buyer['true_name'].$content);
                         \nainai\syslog::info("用户".$user_id."针对竞价".$offer_id."报价，价格为：".$price.",给上一个报价用户".$buyer['user_id']."发送短信");
-                        break;
+
                     }
 
                 }
