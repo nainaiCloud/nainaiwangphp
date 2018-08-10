@@ -104,7 +104,16 @@ $(function(){
     $(".close,.mark").click(function(){
         $(".bidbond_result").fadeOut()
     })
-
+    //竞价人群选择
+    $("select[name='jingjia_mode']").change(function(){
+        if($(this).val() == 0){
+            console.log($(this).val())
+            $(".jzrqselect").hide();
+        }else if($(this).val() == 1){
+             console.log("s",$(this).val())
+             $(".jzrqselect").show()
+        }
+    })
 })
 </script>
 

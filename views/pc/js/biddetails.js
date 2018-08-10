@@ -199,8 +199,12 @@ function biddetailData(){
                             curprice=data.price_l//input价格
                             tip="*提示：出价需要先交支付保证金"
                             bid_time ="距离开始还有"
-                            //是否登录，需要判断是否缴纳保证金error
-                            but='<input class="submitBut yes" type="button" name="bzj" value="支付保证金">'
+                            if(data.login_user == data.user_id){
+                                but=""
+                            }else{
+                                but='<input class="submitBut yes" type="button" name="bzj" value="支付保证金">'
+                            }
+                            
                         }else if (data.status ==2){
                             console.log(data.status,"res数据2")
                             if(bjListData.length>0){
@@ -214,7 +218,7 @@ function biddetailData(){
                                 }
                             bidType ="竞价进行中"
                             bid_time="距离结束还有"
-                            bzjyz()
+                            bzjyz(data)
 
                         }else if(data.status ==3){
                             if(data.order_status == 0){//未成交
@@ -299,7 +303,7 @@ function biddetailData(){
 
 //竞价详情数据获取 end
 /*保证金是否缴纳验证*/
-function bzjyz(){
+function bzjyz(data){
    $.ajax({
         /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',*/
         'url':$('input[name=jingjiaPost]').val(),
@@ -310,12 +314,16 @@ function bzjyz(){
         },
         success: function(datas){
             console.log(datas,"bzjyz")
-            if(datas.success == 0){
-            $(".bidfor_cont_left .but").html('<input class="submitBut yes" type="button" name="bzj" value="支付保证金">')
-               $(".tip .tipcolor1").text("*提示：出价需要先交支付保证金")
+            if(data.login_user == data.user_id){
+                $(".bidfor_cont_left .but").html("")
             }else{
-                $(".bidfor_cont_left .but").html('<input class="submitBut yes" type="button" name="yescj" value="确认出价">')
-                 $(".tip .tipcolor1").text("*提示：您已支付保证金可以出价竞拍")
+                if(datas.success == 0){
+                    $(".bidfor_cont_left .but").html('<input class="submitBut yes" type="button" name="bzj" value="支付保证金">')
+                    $(".tip .tipcolor1").text("*提示：出价需要先交支付保证金") 
+                }else{
+                    $(".bidfor_cont_left .but").html('<input class="submitBut yes" type="button" name="yescj" value="确认出价">')
+                    $(".tip .tipcolor1").text("*提示：您已支付保证金可以出价竞拍")
+                }
             }
             $(".but input[name='bzj']").click(function(){
                 bzj();
