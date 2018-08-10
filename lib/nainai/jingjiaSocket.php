@@ -18,7 +18,6 @@ use \Workerman\Worker;
 use Nette\Utils\Json;
 use Workerman\Lib\Timer;
 use \nainai\offer\jingjiaOffer;
-use \nainai\syslog;
 class jingjiaSocket
 {
     protected $worker= null;
@@ -28,15 +27,18 @@ class jingjiaSocket
 
     protected $db = null;
 
+    protected $offerObj = null;
+
     public function __construct()
     {
         $this->worker = new Worker();
 
         $db_config = \Library\tool::getConfig(array('database','master'));
         $this->db = new \Workerman\MySQL\Connection($db_config['host'], '3306', $db_config['user'], $db_config['password'], $db_config['database']);
-
+        $this->offerObj = new jingjiaOffer();
         $this->worker->onWorkerStart = function ($worker){
             echo "Worker starting...\n";
+            syslog::info("命令行程序启动 ");
             //定时检查每个连接发送包的时间，长时间未发送则close
 //            Timer::add(1, function()use($worker){
 //                $time_now = time();
@@ -67,10 +69,10 @@ class jingjiaSocket
                     $this->db->update('order_notice')->cols(array('auto_notice'=>1))->where("offer_id in (".join($offerIds,',').")")->query();
 
                     foreach($offer as $item){
-                        $jingjiaOffer = new jingjiaOffer();
-                        $jingjiaOffer->endNotice($item['offer_id']);
-                        echo "jingjia ".$item['offer_id']." has come to end , send message to users \n";
+                        $this->offerObj->endNotice($item['offer_id']);
                         syslog::info("jingjia ".$item['offer_id']." 结束 , 给卖方买方发送短信");
+                        echo "jingjia ".$item['offer_id']." has come to end , send message to users \n";
+
                     }
                 }
 
