@@ -651,8 +651,7 @@ class jingjiaOffer extends product{
                        $member->sendShortMessage($seller,$contentSeller);
 
                        //给竞价成功方发送
-                       $content = $item['true_name']."，您好，恭喜您成功竞拍".$data['pro_name']."，竞拍的成交价为".$item['price']."元/吨。请您在**时间内缴纳货款".$item['amount']."元，
-                       缴纳完成后，竞价保证金将在1个工作日内原路退还至您的账户。若未在规定时间内完成付款，则保证金全部扣除作为竞价违约赔付。";
+                       $content = $item['true_name']."，您好，恭喜您成功竞拍".$data['pro_name']."，竞拍的成交价为".$item['price']."元/吨。请您在2个工作日内缴纳货款".$item['amount']."元，缴纳完成后，竞价保证金将在1个工作日内原路退还至您的账户。若未在规定时间内完成付款，则保证金全部扣除作为竞价违约赔付。";
                        $member->sendShortMessage($item['user_id'],$content);
                         $users[] = $item['user_id'];
                    }else{
