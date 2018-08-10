@@ -282,6 +282,7 @@ class jingjiaOffer extends product{
         $payLog = $payLogObj==null ? new \nainai\user\UserPaylog() : $payLogObj;
         $payRes = $payLog->existPayLog('jingjia',$offer_id,$user_id);
         if(!$payRes){
+            syslog::info("用户".$user_id."未支付保证金进行竞价，竞价id:".$offer_id);
             return tool::getSuccInfo(0,'您未支付保证金，请先支付保证金然后再竞价');
         }
 
@@ -300,6 +301,7 @@ class jingjiaOffer extends product{
         }
         if($user_id==$res['user_id']){
             $offerObj->rollBack();
+            syslog::info("用户".$user_id."给自己的报盘报价，竞价id:".$offer_id);
             return tool::getSuccInfo(0,'不能给自己的报盘报价');
         }
 
@@ -352,6 +354,7 @@ class jingjiaOffer extends product{
                 $baojiaQuery->fields = ' j.user_id,u.true_name';
                 $baojiaQuery->where = ' j.offer_id='.$offer_id;
                 $baojiaQuery->group = ' j.user_id';
+                $baojiaQuery->order = ' j.price desc';
                 $buyers = $baojiaQuery->find();
                 $content = '您好，您参与竞拍的'.$res['pro_name'].'已被超越，若需重新竞拍，请及时登录耐耐网进行出价。';
                 $sellerData  =  array(//给卖方发送短信需要的数据
@@ -369,14 +372,18 @@ class jingjiaOffer extends product{
                         $sellerData['name'] = $buyer['true_name'];
                         $content1='您好，您参与竞拍的'.$res['pro_name'].'出价成功。';
                         $this->messageObj->sendShortMessage($user_id,$buyer['true_name'].$content1);
+                        \nainai\syslog::info("用户".$user_id."针对竞价".$offer_id."报价，价格为：".$price.",发送短信");
                     }else{//给之前报价的买方发送短信
                         $this->messageObj->sendShortMessage($buyer['user_id'],$buyer['true_name'].$content);
+                        \nainai\syslog::info("用户".$user_id."针对竞价".$offer_id."报价，价格为：".$price.",给上一个报价用户".$buyer['user_id']."发送短信");
+                        break;
                     }
 
                 }
                 //给卖方发送短信
                 $contentToSeller = "您发布的竞价商品：".$res['pro_name']."已有企业出价。出价企业名称：".$sellerData['name']."。
                 出价时间为：".$sellerData['time']."。出价价格为：".$sellerData['price']."元/吨。距离竞价结束时间还剩余".$sellerData['remain']."。";
+                \nainai\syslog::info("用户".$user_id."针对竞价".$offer_id."报价，价格为：".$price."给卖方发送短信");
                 $this->messageObj->sendShortMessage($res['user_id'],$contentToSeller);
 
 
