@@ -154,7 +154,7 @@ class jingjiaOffer extends product{
             return tool::getSuccInfo(0,'开始时间不能小于当前时间');
         }
 
-        $days = 0;//开始前的预留天数
+        $days = 3;//开始前的预留天数
         if(time::getTime()+$days * 24*3600 > time::getTime($offerData['start_time'])){
             return tool::getSuccInfo(0,'必须要有至少3天的公示时间');
         }
