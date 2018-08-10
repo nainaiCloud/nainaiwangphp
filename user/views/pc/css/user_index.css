@@ -865,7 +865,7 @@ visibility: hidden;
 }*/
 .center_tabl td .tip{
     position: absolute;
-    top:6px;
+    top:11px;
     left: 216px;
     display: block;
     line-height: 16px;

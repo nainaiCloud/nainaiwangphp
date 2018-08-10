@@ -149,7 +149,7 @@
                     <option value="0" {if:$offer['jingjia_mode']==0}selected="true"{/if}>全部</option>
                 </select>
             </span>
-            <span class="tip">提示：请您将竞价口令码线下告知您通知的客户，竞价发布后，客户可输入竞价口令进入竞价详情页面</span>
+            <span class="jzrqselect tip" style="display: none">提示：请您将竞价口令码线下告知您通知的客户，竞价发布后，客户可输入竞价口令进入竞价详情页面</span>
         </td>
     </tr>
     <tr>
