@@ -584,7 +584,7 @@ class jingjiaOffer extends product{
 
         if($offerData['user_id']==$user_id){
             syslog::info("用户".$user_id."匹配自己的竞价保证金，竞价id".$offerId);
-            return tool::getSuccInfo(0,'不能给自己的竞价支付保证金');
+            return tool::getSuccInfo(3,'不能给自己的竞价支付保证金');
         }
         syslog::info("用户".$user_id."开始匹配竞价保证金，竞价id".$offerId);
         $payLogObj = new \nainai\user\UserPaylog();
