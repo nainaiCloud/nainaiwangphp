@@ -97,6 +97,20 @@ function clickBzj(){
 					           location.href=biddetail+"?id="+id+"&pass="+pass;
 					        },3000)
                     	)
+                    }else if(result.success == 2){
+                    	tiphtml='<div id="resule_fail" class="result_cont">'
+	        			+'<div class="result_img"><img src="../views/pc/images/icon/failIcon.png"/></div>'
+	        			+'<div class="result_tip">已缴纳成功，不要重复匹配！</div>'
+	        			+'<div class="result_tip fail_tip">若有疑问，联系客服热线400-6238086</div></div>'
+                    	$(".bidbond_result .tipCont").html(tiphtml) 
+                    	$(".bidbond_result").fadeIn()  
+                    }else if(result.success == 3){
+						tiphtml='<div id="resule_fail" class="result_cont">'
+	        			+'<div class="result_img"><img src="../views/pc/images/icon/failIcon.png"/></div>'
+	        			+'<div class="result_tip">不能给自己的竞价缴纳！</div>'
+	        			+'<div class="result_tip fail_tip">若有疑问，联系客服热线400-6238086</div></div>'
+                    	$(".bidbond_result .tipCont").html(tiphtml) 
+                    	$(".bidbond_result").fadeIn()                
                     }else{
                     	tiphtml='<div id="resule_fail" class="result_cont">'
 	        			+'<div class="result_img"><img src="../views/pc/images/icon/failIcon.png"/></div>'
