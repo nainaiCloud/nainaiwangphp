@@ -155,7 +155,7 @@
     <tr>
         <td><b class="required">*</b>竞价开始时间：</td>
         <td colspan="2">
-            <span><input name="start_time" class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd  HH:mm:ss',minDate:'%y-%M-#{%d+3}'})"  >
+            <span><input name="start_time" class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd  HH:mm:ss',minDate:'%y-%M-#{%d+{$days}}'})"  >
            <span class="tip">竞价信息发布选择的日期必须在距离开始竞价日期三日以上
             <!-- 若没选择正确，则提示语： -->
             <!-- 竞价开始时间为当前时间的3个工作日后，请您重新选择时间 --></span>
@@ -164,7 +164,7 @@
     <tr>
         <td><b class="required">*</b>竞价结束时间：</td>
         <td colspan="2">
-             <span><input name="end_time" class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd  HH:mm:ss',minDate:'%y-%M-#{%d+3}'})"  nullmsg="请填写信息！">
+             <span><input name="end_time" class="Wdate text Validform_error" datatype="*" value="" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd  HH:mm:ss',minDate:'%y-%M-#{%d+{$days}}'})"  nullmsg="请填写信息！">
         </td>
     </tr>
     <tr class='nowrap'>

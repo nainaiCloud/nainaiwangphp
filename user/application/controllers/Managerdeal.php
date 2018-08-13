@@ -1220,6 +1220,11 @@ class ManagerDealController extends UcenterBaseController {
 
     }
      public function bidpriceAction(){
+         $days = tool::getConfig(array('jingjia','start_day'));
+         if(is_array($days)){
+             $days = 3;
+         }
+         $this->getView()->assign('days',$days);
          $this->productAddAction();
      }
 
