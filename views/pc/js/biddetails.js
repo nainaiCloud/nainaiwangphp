@@ -231,8 +231,8 @@ function biddetailData(){
                                 priceText = "成交价"+bjListData[0].price
                                 cprice="出价人："+bjListData[0].true_name
                                 curprice=bjListData[0].price
-                                bidType ="竞价已截止,待货款交纳!"
-                                tip="*提示：竞价成功后请尽快完成货款交纳。"
+                                bidType ="竞价已截止,待货款缴纳!"
+                                tip="*提示：竞价成功后请尽快完成货款缴纳。"
                             }else if(data.order_status == 2){//未缴纳货款
                                 priceText = "成交价"+bjListData[0].price
                                 cprice="出价人："+bjListData[0].true_name

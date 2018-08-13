@@ -91,7 +91,7 @@ var s = 0;
                                     <div class="tip">
                                         <!--  <span class="tipcolor1">*提示：出价需要先交支付保证金</span> -->
                                         <span class="tipcolor1"><!-- *提示：您已支付定金可以出价竞拍 --></span>
-                                        <!-- <span class="tipcolor2">*提示：竞价成功后请尽快完成货款交纳</span> -->
+                                        <!-- <span class="tipcolor2">*提示：竞价成功后请尽快完成货款缴纳</span> -->
                                     </div>
                                 </div>
                                 <div class="bidfor_cont_center">
