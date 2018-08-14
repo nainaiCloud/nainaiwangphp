@@ -27,6 +27,8 @@ class jingjiaSocket
 
     protected $db = null;
 
+    protected $offerObj = null;
+
 
     private function connectMysql(){
         if($this->db!=null){
@@ -40,7 +42,7 @@ class jingjiaSocket
     {
         $this->worker = new Worker();
         $this->connectMysql();
-
+        $this->offerObj = new jingjiaOffer();
         $this->worker->onWorkerStart = function ($worker){
             echo "Worker starting...\n";
             syslog::info("命令行程序启动 ");
@@ -61,9 +63,9 @@ class jingjiaSocket
                              $offerIds[]=$item['offer_id'];
                          }
                         $this->db->update('order_notice')->cols(array('auto_notice'=>1))->where("offer_id in (".join($offerIds,',').")")->query();
-                        $offerObj = new jingjiaOffer();
+                       // $offerObj = new jingjiaOffer();
                         foreach($offer as $item){
-                            $offerObj->endNotice($item['offer_id']);
+                            $this->offerObj->endNotice($item['offer_id']);
                             syslog::info("jingjia ".$item['offer_id']." 结束 , 给卖方买方发送短信");
                             echo "jingjia ".$item['offer_id']." has come to end , send message to users \n";
 
@@ -81,8 +83,6 @@ class jingjiaSocket
 
 
     }
-
-
 
     public function run(){
         Worker::runAll();

@@ -135,7 +135,13 @@ class MYPDO {
             }
         }
         catch(\PDOException $e){
-             exit($e->getMessage());
+             \nainai\syslog::warning($e->getCode().','.$e->getMessage());
+            if($e->getCode()=='HY000'){//连接断开，需重新连接
+                self::$wdb = null;
+                self::$rdb = null;
+                return $this->exec($sql,$data,$type);
+            }
+
         }
 
         return false;
