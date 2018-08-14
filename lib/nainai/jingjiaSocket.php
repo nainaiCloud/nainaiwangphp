@@ -27,7 +27,6 @@ class jingjiaSocket
 
     protected $db = null;
 
-    protected $offerObj = null;
 
     private function connectMysql(){
         if($this->db!=null){
@@ -41,7 +40,7 @@ class jingjiaSocket
     {
         $this->worker = new Worker();
         $this->connectMysql();
-        $this->offerObj = new jingjiaOffer();
+
         $this->worker->onWorkerStart = function ($worker){
             echo "Worker starting...\n";
             syslog::info("命令行程序启动 ");
@@ -54,7 +53,6 @@ class jingjiaSocket
             //定时检查竞价订单，有新订单生成，通知买卖方
             Timer::add(5, function()use($worker){
                 try{
-
                     //查找内存表order_notice中未通知的竞价报盘
                     $offer = $this->db->select('offer_id')->from('order_notice')->where("auto_notice=0 ")->query();
                     if(!empty($offer)){
@@ -63,15 +61,17 @@ class jingjiaSocket
                              $offerIds[]=$item['offer_id'];
                          }
                         $this->db->update('order_notice')->cols(array('auto_notice'=>1))->where("offer_id in (".join($offerIds,',').")")->query();
-
+                        $offerObj = new jingjiaOffer();
                         foreach($offer as $item){
-                            $this->offerObj->endNotice($item['offer_id']);
+                            $offerObj->endNotice($item['offer_id']);
                             syslog::info("jingjia ".$item['offer_id']." 结束 , 给卖方买方发送短信");
                             echo "jingjia ".$item['offer_id']." has come to end , send message to users \n";
 
                         }
-                    }
 
+
+                    }
+                  
                 }catch(\Exception $e){
                     $this->connectMysql();
                 }
