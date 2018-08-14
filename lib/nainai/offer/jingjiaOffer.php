@@ -301,6 +301,7 @@ class jingjiaOffer extends product{
 
         if($res['status']!=1){
             $offerObj->rollBack();
+            syslog::info("用户".$user_id."对已成交竞价进行报价，竞价id:".$offer_id);
             return tool::getSuccInfo(0,'该报盘已成交');
         }
         if($user_id==$res['user_id']){
@@ -314,6 +315,7 @@ class jingjiaOffer extends product{
         $now = time::getTime();
         if($now<time::getTime($res['start_time']) || $now>time::getTime($res['end_time'])){
             $offerObj->rollBack();
+            syslog::info("用户".$user_id."对竞价进行报价，竞价未开始或已过期，竞价id:".$offer_id);
             return tool::getSuccInfo(0,'该竞价未开始或已过期');
         }
 
@@ -324,14 +326,17 @@ class jingjiaOffer extends product{
         $minPrice = isset($baojiaData['max']) ? $baojiaData['max'] : $res['price_l'];
         if(!isset($baojiaData['max']) && $price<$res['price_l']){
             $offerObj->rollBack();
+            syslog::info("用户".$user_id."竞价报价，竞价id:".$offer_id.",报价低于卖方设置最低价，报价失败");
             return tool::getSuccInfo(0,'您的报价低于卖方设置的最低价，请重新出价');
         }
         if(isset($baojiaData['max']) && $price <=$baojiaData['max']){
             $offerObj->rollBack();
+            syslog::info("用户".$user_id."对竞价id:".$offer_id."报价，价格低于当前报价的最高价，报价失败");
             return tool::getSuccInfo(0,'您的报价不能低于当前报价的最高价，请重新出价');
         }
         if($res['jing_stepprice']>0 && ($price-$minPrice)%$res['jing_stepprice']!=0){
             $offerObj->rollBack();
+            syslog::info("用户".$user_id."对竞价id:".$offer_id."报价，价格未按规定数量的倍数递增，报价失败");
             return tool::getSuccInfo(0,'报价必须按照'.$res['jing_stepprice'].'的倍数递增');
         }
 
@@ -395,11 +400,13 @@ class jingjiaOffer extends product{
 
                 }
                 //给卖方发送短信
+                $productObj = new M('products');
+
+                $unit = $productObj->where(array('id'=>$res['product_id']))->getField('unit');
                 $contentToSeller = "您发布的竞价商品：".$res['pro_name']."已有企业出价。出价企业名称：".$sellerData['name']."。
-                出价时间为：".$sellerData['time']."。出价价格为：".$sellerData['price']."元/吨。距离竞价结束时间还剩余".$sellerData['remain']."。";
+                出价时间为：".$sellerData['time']."。出价价格为：".$sellerData['price']."元/".$unit."。距离竞价结束时间还剩余".$sellerData['remain']."。";
                 \nainai\syslog::info("用户".$user_id."针对竞价".$offer_id."报价，价格为：".$price."给卖方发送短信");
                 $this->messageObj->sendShortMessage($res['user_id'],$contentToSeller);
-
 
                 return tool::getSuccInfo();
             }

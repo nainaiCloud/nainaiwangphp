@@ -29,12 +29,13 @@ class BidpriceController extends PublicController {
 		$this->getView()->assign('cur','bidprice');
 	}
 	public function bidbondAction(){
+        $id = safe::filterGet('id','int');
 	    if(!isset($this->login['user_id'])){
-	        $id = safe::filterGet('id','int');
 	        $callBack = url::createUrl('/bidprice/bidbond').'?id='.$id;
 	        $redirect = url::createUrl('/login/login@user').'?callback='.$callBack;
 	        $this->redirect($redirect);
         }
+        \nainai\syslog::info("用户".$this->login['user_id']."打开竞价id为".$id."的保证金页面");
 		$this->getView()->assign('cur','bidprice');
 	}
 	public function bidContractAction(){
