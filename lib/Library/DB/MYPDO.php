@@ -95,18 +95,18 @@ class MYPDO {
 
         $DBlink = $this->createDB($type);
 
-        $stmt = $DBlink->prepare($sql);
-
-        foreach($data as $k=>$v){
-            if(is_array($v)){
-                $stmt->bindParam(':'.$k,$data[$k],\PDO::PARAM_LOB);//字段存数组
-            }
-            else {
-                $stmt->bindParam(':'.$k,$data[$k]);
-            }
-        }
-
         try{
+            $stmt = $DBlink->prepare($sql);
+
+            foreach($data as $k=>$v){
+                if(is_array($v)){
+                    $stmt->bindParam(':'.$k,$data[$k],\PDO::PARAM_LOB);//字段存数组
+                }
+                else {
+                    $stmt->bindParam(':'.$k,$data[$k]);
+                }
+            }
+
             if($res = $stmt->execute()){
 
                 switch($type){  //根据不同的操作类型，返回数据
