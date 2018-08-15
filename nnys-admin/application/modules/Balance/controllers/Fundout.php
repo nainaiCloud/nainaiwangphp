@@ -153,7 +153,7 @@ class FundoutController extends InitController {
 	 * @return    [type]      [description]
 	 */
 	public function uploadAction(){
-
+        \nainai\syslog::info("管理员".$this->admin_id."上传操作开始");
 		//调用文件上传类
 		$photoObj = new \Library\photoupload();
 		$photoObj->setThumbParams(array(180,180));
@@ -161,6 +161,7 @@ class FundoutController extends InitController {
 
 		if($photo['flag'] == 1)
 		{
+            \nainai\syslog::info("管理员".$this->admin_id."上传成功,文件：".$photo['img']);
 			$result = array(
 				'flag'=> 1,
 				'img' => $photo['img'],
@@ -169,6 +170,7 @@ class FundoutController extends InitController {
 		}
 		else
 		{
+            \nainai\syslog::info("管理员".$this->admin_id."上传失败".$photo['errInfo']);
 			$result = array('flag'=> $photo['flag'],'error'=>$photo['errInfo']);
 		}
 		echo json::encode($result);
