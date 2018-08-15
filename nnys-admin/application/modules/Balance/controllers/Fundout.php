@@ -10,7 +10,7 @@ use Library\tool;
 
 class FundoutController extends InitController {
 	public function init() {
-		$this->getView()->setLayout('admin');
+		parent::init();
 	}
 
 	/**
@@ -170,7 +170,7 @@ class FundoutController extends InitController {
 		}
 		else
 		{
-            \nainai\syslog::info("管理员".$this->admin_id."上传失败".$photo['errInfo']);
+            \nainai\syslog::info("管理员".$this->admin_id."上传失败".$photo['flag']."_".$photo['errInfo']);
 			$result = array('flag'=> $photo['flag'],'error'=>$photo['errInfo']);
 		}
 		echo json::encode($result);
