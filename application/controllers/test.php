@@ -36,24 +36,24 @@ class TestController extends \Yaf\Controller_Abstract{
 
 
     public function jsMockAction(){
-        if(IS_POST){
-            $username = safe::filterPost('username');
-            $amount = safe::filterPost('amount');
-            $obj = new \nainai\fund\jsMock();
-            $userObj = new \Library\M('user');
-            $user_id = $userObj->where(array('username'=>$username))->getField('id');
-            if(!$user_id){
-                die(json_encode(tool::getSuccInfo(0,'用户不存在')));
-            }
-            $res = $obj->payMarket($user_id,$amount);
-            if($res){
-                die(json_encode(tool::getSuccInfo()));
-            }else{
-                die(json_encode(tool::getSuccInfo(0,'失败')));
-            }
-        }else{
-
-        }
+//        if(IS_POST){
+//            $username = safe::filterPost('username');
+//            $amount = safe::filterPost('amount');
+//            $obj = new \nainai\fund\jsMock();
+//            $userObj = new \Library\M('user');
+//            $user_id = $userObj->where(array('username'=>$username))->getField('id');
+//            if(!$user_id){
+//                die(json_encode(tool::getSuccInfo(0,'用户不存在')));
+//            }
+//            $res = $obj->payMarket($user_id,$amount);
+//            if($res){
+//                die(json_encode(tool::getSuccInfo()));
+//            }else{
+//                die(json_encode(tool::getSuccInfo(0,'失败')));
+//            }
+//        }else{
+//
+//        }
 
     }
 
