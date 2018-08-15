@@ -30,6 +30,7 @@ class SamplePlugin extends Yaf\Plugin_Abstract {
 		$auth = rbac::AccessDecision($request->module,$request->controller,$request->action);
 		
 		if($auth === false){
+		    \nainai\syslog::warning("管理员，id:".$user_info['id'].",用户名：".$user_info['name']."访问".$request->module."/".$request->controller."/".$request->action.",因无权限被拒绝");
 			// if($request->isXmlHttpRequest())
 			if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
 				die(JSON::encode(tool::getSuccInfo(0,'无操作权限')));
