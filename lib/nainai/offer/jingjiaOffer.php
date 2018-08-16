@@ -677,23 +677,26 @@ class jingjiaOffer extends product{
                 $content = "您发布的竞价商品：".$data['pro_name']."已竞价结束。未有买方参与竞价，请重新选择参与其他场次的竞拍或选择其他销售方式（一口价）";
                 $member->sendShortMessage($seller,$content);
             }else{
+                $productObj = new M('products');
+
+                $unit = $productObj->where(array('id'=>$data['product_id']))->getField('unit');
                 $users = array();//已通知的用户
                 foreach($baojiaData as $k=>$item){
                    if($k==0){//成功用户
                        //给卖方发送
                        $addPrice = $item['price'] - $data['price_l'];
-                       $contentSeller = "您发布的竞价商品：".$data['pro_name']."已竞价结束。成交价格为".$item['price']."元/吨，
+                       $contentSeller = "您发布的竞价商品：".$data['pro_name']."已竞价结束。成交价格为".$item['price']."元/".$unit."，
                        增价".$addPrice."元/吨。竞价成功企业为：".$item['true_name']."，该企业出价时间为：".$item['time']."。";
                        $member->sendShortMessage($seller,$contentSeller);
 
                        //给竞价成功方发送
-                       $content = $item['true_name']."，您好，恭喜您成功竞拍".$data['pro_name']."，竞拍的成交价为".$item['price']."元/吨。请您在2个小时内缴纳货款".$item['amount']."元，缴纳完成后，竞价保证金将在1个工作日内原路退还至您的账户。若未在规定时间内完成付款，则保证金全部扣除作为竞价违约赔付。";
+                       $content = $item['true_name']."，您好，恭喜您成功竞拍".$data['pro_name']."，竞拍的成交价为".$item['price']."元/".$unit."。请您在2个小时内缴纳货款".$item['amount']."元，缴纳完成后，竞价保证金将在1个工作日内原路退还至您的账户。若未在规定时间内完成付款，则保证金全部扣除作为竞价违约赔付。";
                        $member->sendShortMessage($item['user_id'],$content);
                         $users[] = $item['user_id'];
                    }else{
                        //给竞价失败用户通知
                        if(!in_array($item['user_id'],$users)){
-                           $content = $item['true_name']."您好，很遗憾您参与的".$data['pro_name']."竞拍未竞价成功，此次竞拍的成交价为".$baojiaData[0]['price']."元/吨。竞价保证金将在1个工作日内原路退还至您的账户。请关注其他竞价信息。";
+                           $content = $item['true_name']."您好，很遗憾您参与的".$data['pro_name']."竞拍未竞价成功，此次竞拍的成交价为".$baojiaData[0]['price']."元/".$unit."。竞价保证金将在1个工作日内原路退还至您的账户。请关注其他竞价信息。";
                            $member->sendShortMessage($item['user_id'],$content);
                            $users[] = $item['user_id'];
                        }
