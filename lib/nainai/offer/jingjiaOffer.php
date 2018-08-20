@@ -424,9 +424,21 @@ class jingjiaOffer extends product{
     /**
      * 判断是否可撤销
      * @param $offer_id
+     * @return bool  true:可取消
      */
     public function canCancle($offer_id){
-
+        $offerObj = new M('product_offer');
+        $start_time = $offerObj->where(array('id'=>$offer_id))->getField('start_time');
+        if($start_time && time() < time::getTime($start_time)){
+            $payLog = new M('user_pay_log');
+            $payLogData = $payLog->where(array('subject'=>'jingjia','subject_id'=>$offer_id))->getObj();
+            if(!empty($payLogData)){
+                return false;
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
@@ -582,6 +594,18 @@ class jingjiaOffer extends product{
 
     }
 
+    public function MessageAfterCancle($offer){
+        if($offer['jingjia_mode']==0){
+            $hsms = new \Library\Hsms();
+            //获取发送的买用户
+            $userObj = new M('user_rec');
+            $userData = $userObj->where(array('subject'=>'jingjia','user_id'=>array('neq',$offer['user_id'])))->getFields('mobile');
+
+            $content = "您好，您关注的商品：".$offer['pro_name']."已取消。发布企业为：".$offer['true_name'];
+            $hsms->send($userData,$content);
+        }
+    }
+
 
     /**
      *
@@ -589,6 +613,12 @@ class jingjiaOffer extends product{
     public function adminMessageAfterDeploy($product){
         $msgObj =  new \nainai\AdminMsg();
         $content = '商品：'.$product['name'].'已发布竞价。请登录网站进行查看。';
+        $msgObj->sendShortMessage('jingjia',$content);
+    }
+
+    public function adminMessageAfterCancle($offer){
+        $msgObj =  new \nainai\AdminMsg();
+        $content = '商品：'.$offer['pro_name'].'已取消竞价。请登录网站进行查看。';
         $msgObj->sendShortMessage('jingjia',$content);
     }
 

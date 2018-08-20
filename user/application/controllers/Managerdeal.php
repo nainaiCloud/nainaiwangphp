@@ -827,6 +827,8 @@ class ManagerDealController extends UcenterBaseController {
             }
 
             //print_r($offerDetail);
+            $offer = new \nainai\offer\jingjiaOffer();
+            $this->getView()->assign("cancle",$offer->canCancle($id));
 
             $this->getView()->assign('offer', $offerDetail[0]);
             $this->getView()->assign('product', $offerDetail[1]);
@@ -932,15 +934,26 @@ class ManagerDealController extends UcenterBaseController {
         $id = safe::filterPost('id', 'int', 0);
 
         if (intval($id) > 0) {
+            $proObj = new \Library\M('product_offer');
+            $row = $proObj->where(array('id'=>$id))->getObj();
             $model = new product('');
             $data =array(
                 'status' => $model::OFFER_CANCEL
             );
 
+            if($row['user_id']!=$this->user_id){
+                exit(json::encode(tool::getSuccInfo(0,'无法取消')));
+            }
             $res = $model->update($data, $id);
             if ($res['success'] == 1) {
-                $proObj = new \Library\M('product_offer');
-                $row = $proObj->where(array('id'=>$id))->getObj();
+
+                if($row['sub_mode']==1){//如果是竞价报盘，通知后台管理人员和买家
+                    $offerObj = new \nainai\offer\jingjiaOffer();
+                    //发送短信
+                    $offerObj->MessageAfterCancle($row);
+                    //给后台管理员发送短信
+                    $offerObj->adminMessageAfterCancle($row);
+                }
                 //如果是仓单报盘，将对应的仓单恢复为未报盘
                 if(!empty($row) && $row['mode']==4){
                     $spObj = new \Library\M('store_products');
