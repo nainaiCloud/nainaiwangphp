@@ -601,7 +601,10 @@ class jingjiaOffer extends product{
             $userObj = new M('user_rec');
             $userData = $userObj->where(array('subject'=>'jingjia','user_id'=>array('neq',$offer['user_id'])))->getFields('mobile');
 
-            $content = "您好，您关注的商品：".$offer['pro_name']."已取消。发布企业为：".$offer['true_name'];
+            $userObj1 = new M('user');
+            $true_name = $userObj1->where(array('id'=>$offer['user_id']))->getField('true_name');
+            $content = "您好，您关注的商品：".$offer['pro_name']."已取消。发布企业为：".$true_name;
+            syslog::info("取消竞价".$offer['id']."通知买家".$content);
             $hsms->send($userData,$content);
         }
     }
