@@ -243,7 +243,7 @@ class product  {
     public function getCategoryLevel($pid = 0){
         $where  = array('status' => 1,'is_del'=>0,'pid'=>$pid);
         static $res = array();
-        $category = $this->_productObj->table('product_category')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
+        $category = $this->_productObj->table('product_category')->order(' sort asc ')->fields('id,pid, name, unit, childname, attrs, risk_data')->where($where)->select();
         $childName = '';
 
         if(empty($res) && $pid!=0){
