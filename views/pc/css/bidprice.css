@@ -627,6 +627,9 @@ hr{
 .bidbond .bidBond_cont{
     padding: 30px 0 20px;
 }
+.bidbond_right .bidbondsm{
+	color:#c81623;
+}
 
 .bidbondtitle{
   display: inline-block;
