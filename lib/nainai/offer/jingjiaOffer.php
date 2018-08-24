@@ -722,7 +722,7 @@ class jingjiaOffer extends product{
                        //给卖方发送
                        $addPrice = $item['price'] - $data['price_l'];
                        $contentSeller = "您发布的竞价商品：".$data['pro_name']."已竞价结束。成交价格为".$item['price']."元/".$unit."，
-                       增价".$addPrice."元/吨。竞价成功企业为：".$item['true_name']."，该企业出价时间为：".$item['time']."。";
+                       增价".$addPrice."元/".$unit."。竞价成功企业为：".$item['true_name']."，该企业出价时间为：".$item['time']."。";
                        $member->sendShortMessage($seller,$contentSeller);
 
                        //给竞价成功方发送
