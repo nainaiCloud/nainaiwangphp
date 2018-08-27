@@ -93,7 +93,7 @@
 								<span class="spanName">开户银行账号:</span>
 								<span class="spanCont">75410188000114781</span>
 							</div>
-							<div style="height: 40px;width: 0px;"></div>
+							<!-- <div style="height: 40px;width: 0px;"></div>
 							<div class="bidbondInput">
 								<span class="spanName">开户银行2:</span>
 								<span class="spanCont">建设银行河南省分行营业部</span>
@@ -101,7 +101,7 @@
 							<div class="bidbondInput">
 								<span class="spanName">开户银行账号:</span>
 								<span class="spanCont">41050100360800000080</span>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
