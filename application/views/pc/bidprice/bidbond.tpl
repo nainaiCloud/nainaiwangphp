@@ -86,7 +86,7 @@
 								<span class="spanCont">耐耐云商科技有限公司</span>
 							</div>
 							<div class="bidbondInput">
-								<span class="spanName">开户银行1:</span>
+								<span class="spanName">开户银行:</span>
 								<span class="spanCont">中国光大银行山西阳泉支行</span>
 							</div>
 							<div class="bidbondInput">
