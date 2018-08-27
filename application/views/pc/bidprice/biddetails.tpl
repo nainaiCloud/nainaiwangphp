@@ -165,6 +165,10 @@ var s = 0;
                                 <td>补充条款</td>
                                 <td><%=detailData.other%></td>
                             </tr>
+                             <tr>
+                                <td>交收时间</td>
+                                <td>成交后<%=detailData.accept_day%>天完成交收</td>
+                            </tr>
                             <% } %>
                             </script>
                         </table>
