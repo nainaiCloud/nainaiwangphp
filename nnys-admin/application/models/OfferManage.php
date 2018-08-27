@@ -414,7 +414,7 @@ class OfferManageModel extends \nainai\offer\product{
 		$query->join = "left join products as p on o.product_id = p.id  left join user as u on p.user_id=u.id";
 		$query->fields = "o.*,p.img,p.name,p.note,p.unit,p.quantity,p.freeze,p.sell,p.produce_area,u.username";
 
-		$whereStr = ' o.status=:status and o.is_del = 0  and o.expire_time > now()';
+		$whereStr = ' o.status=:status and o.is_del = 0  and (o.expire_time > now() or o.expire_time is null )';
 
 		if(isset($where['str']) && is_string($where['str'])){
 			$whereStr .= ' and '.$where['str'];
