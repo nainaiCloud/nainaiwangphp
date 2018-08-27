@@ -11,6 +11,8 @@ use \Library\tool;
 use \Library\M;
 use \Library\time;
 use \nainai\syslog;
+use Nette\Utils\DateTime;
+
 class jingjiaOffer extends product{
 
     protected $limitTimes = 1;//同一个报盘设置竞价交易的限制次数，1表示限制1次，0不限制
@@ -157,10 +159,11 @@ class jingjiaOffer extends product{
        // 从配置文件获取开始前的预留天数,如果为空，默认3天
         $days = tool::getConfig(array('jingjia','start_day'));
         if(is_array($days)){
-            $days = 3;
+            $days = 2;
         }
-        if(time::getTime()+$days * 24*3600 > time::getTime($offerData['start_time'])){
-            return tool::getSuccInfo(0,'必须要有至少3天的公示时间');
+
+        if(time::getTime($this->workdayAfter($days)) > time::getTime($offerData['start_time'])){
+            return tool::getSuccInfo(0,'必须要有至少'.$days.'个工作日的公示时间');
         }
 
         if(time::getTime($offerData['end_time'])<=time::getTime($offerData['start_time'])){
@@ -719,7 +722,7 @@ class jingjiaOffer extends product{
                        //给卖方发送
                        $addPrice = $item['price'] - $data['price_l'];
                        $contentSeller = "您发布的竞价商品：".$data['pro_name']."已竞价结束。成交价格为".$item['price']."元/".$unit."，
-                       增价".$addPrice."元/吨。竞价成功企业为：".$item['true_name']."，该企业出价时间为：".$item['time']."。";
+                       增价".$addPrice."元/".$unit."。竞价成功企业为：".$item['true_name']."，该企业出价时间为：".$item['time']."。";
                        $member->sendShortMessage($seller,$contentSeller);
 
                        //给竞价成功方发送
@@ -741,6 +744,34 @@ class jingjiaOffer extends product{
 
         }
 
+
+    }
+
+
+    public function workdayAfter($days=0){
+        $now = time::getDateTime();
+        if($days<=0){
+            return $now;
+        }else{
+            try{
+                $nowDate = new \DateTime($now);
+                $interDay = new \DateInterval('P1D');
+
+                while($days>0){
+                    $nowDate = $nowDate->add($interDay);
+                    if(!in_array($nowDate->format('l'),array('Saturday','Sunday'))){
+                        $days--;
+                    }
+
+                }
+                return $nowDate->format("Y-m-d H:i:s");
+            }catch(\Exception $e){
+                syslog::warning($e->getCode().$e->getMessage());
+                return $now;
+            }
+
+
+        }
 
     }
 

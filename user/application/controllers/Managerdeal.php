@@ -1235,9 +1235,14 @@ class ManagerDealController extends UcenterBaseController {
      public function bidpriceAction(){
          $days = tool::getConfig(array('jingjia','start_day'));
          if(is_array($days)){
-             $days = 3;
+             $days = 2;
          }
+
+         $jingjiaObj = new \nainai\offer\jingjiaOffer();
+         $date = $jingjiaObj->workdayAfter($days);
+         $this->getView()->assign('minDate',substr($date,0,10));
          $this->getView()->assign('days',$days);
+
          $this->productAddAction();
      }
 
