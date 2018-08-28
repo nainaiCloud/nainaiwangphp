@@ -120,22 +120,22 @@
 								<div class="commoditycont">
 									<%if(data[i].status==1) { %>
 									<span class="bidType zwks">暂未开始</span>
-									<span class="commprice dqj">起拍价:<%=data[i].price_l%></span>
+									<span class="commprice dqj">起拍价:<%=data[i].price_l%> 元</span>
 									<% } %>
 									<%if(data[i].status==2) { %>
 									<span class="bidType zjx">正在进行</span>
 									<%if(data[i].baojia>0){%>
-									<span class="commprice dqj">当前价:<%=data[i].price_f%></span>
+									<span class="commprice dqj">当前价:<%=data[i].price_f%> 元</span>
 									<%}else{%>
-									<span class="commprice dqj">当前价:<%=data[i].price_l%></span>
+									<span class="commprice dqj">当前价:<%=data[i].price_l%> 元</span>
 									<% } %>
 									<% } %>
 									<%if(data[i].status==3) { %>
 									<span class="bidType jjs">竞价结束</span>
 									<%if(data[i].baojia>0){%>
-									<span class="commprice dqj">成交价:<%=data[i].price_f%></span>
+									<span class="commprice dqj">成交价:<%=data[i].price_f%> 元</span>
 									<%}else{%>
-									<span class="commprice dqj">成交价:<%=data[i].price_l%></span>
+									<span class="commprice dqj">成交价:<%=data[i].price_l%> 元</span>
 									<% } %>									<% } %>
 									
 								</div>

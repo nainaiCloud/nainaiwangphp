@@ -73,7 +73,7 @@ var s = 0;
                             <div class="bidinfor_cont clear">
                                 <div class="bidfor_cont_left">
                                     <div class="cj">
-                                        <span>出价</span>
+                                        <span>出价：￥</span>
                                         <span class="reduce" id="jian"><i class="reduce_icon"></i></span>
                                         <span class="inputName">
                                             
