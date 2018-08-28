@@ -129,6 +129,50 @@ class FundinController extends InitController {
 
 
 	}
+
+
+	public function bankflowlistAction(){
+        $obj = new BankflowModel();
+        $page = safe::filterGet('page','int',1);
+        $data = $obj->getList($page);
+        $this->getView()->assign('data',$data);
+    }
+
+    public function bankflowAddAction(){
+        $obj = new BankflowModel();
+	    if(IS_POST){
+             $id = safe::filterPost('id','int');
+             $data = array(
+                 'OP_ACCT_NO_32'=> safe::filterPost('OP_ACCT_NO_32'),
+                 'OP_CUST_NAME'=> safe::filterPost('OP_CUST_NAME'),
+                 'TX_AMT'=> safe::filterPost('TX_AMT'),
+                 'TX_LOG_NO'=> safe::filterPost('TX_LOG_NO'),
+                 'TX_DT'=> safe::filterPost('TX_DT'),
+             );
+             if($id){
+                 $res = $obj->edit($id,$data);
+             }else{
+                 $res = $obj->add($data);
+             }
+            die(json::encode($res));
+        }else{
+	        $id = safe::filterGet('id');
+	        $data = array();
+	        if($id){
+
+	            $data = $obj->get($id);
+
+            }
+            $this->getView()->assign('data',$data);
+        }
+    }
+
+    public function bankflowDelAction(){
+        $obj = new BankflowModel();
+	    $id = safe::filterGet('id','int');
+	    $res = $obj->delete($id);
+	    die(json::encode($res));
+    }
 }
 
 ?>
