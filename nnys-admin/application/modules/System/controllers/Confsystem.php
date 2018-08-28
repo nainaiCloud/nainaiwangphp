@@ -461,12 +461,49 @@ class ConfsystemController extends Yaf\Controller_Abstract{
 	}
 
 
+	public function workdaylistAction(){
+	    $bank = safe::filterGet('bank');
+	    $workDayObj = new \nainai\system\workday();
+	    $where = array();
+	    if($bank!='all'){
+	        $where = array('bank'=>$bank);
+        }
+        $data = $workDayObj->lists($where);
+	    $this->getView()->assign('bank',$bank);
+	    $this->getView()->assign('data',$data);
+    }
 
+    public function workdayDelAction(){
+	    $id = safe::filterGet('id');
+        $workDayObj = new \nainai\system\workday();
+        $res = $workDayObj->delete($id);
+        die(json::encode($res));
+    }
 
+    public function workdayAddAction(){
+	    if(IS_POST){
+             $data = array(
+                 'bank'=>safe::filterPost('bank'),
+                 'day' => safe::filterPost('day'),
+                 'type' => safe::filterPost('type')
+             );
 
+            $workDayObj = new \nainai\system\workday();
+            $res = $workDayObj->add($data);
+            die(json::encode($res));
+        }else{
 
+        }
+    }
 
-
-
+    public function workdayCopyAction(){
+         if(IS_POST){
+             $from = safe::filterPost('from');
+             $to = safe::filterPost('to');
+             $workDayObj = new \nainai\system\workday();
+             $res = $workDayObj->copy($from,$to);
+             die(json::encode($res));
+         }
+    }
 }
  ?>

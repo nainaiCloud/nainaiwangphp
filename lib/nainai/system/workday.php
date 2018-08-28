@@ -12,6 +12,11 @@ class workday {
 
     private $banks = array('js','gd');//建设银行，光大银行
 
+    private $bankName = array(
+        'js'=>'建设银行',
+        'gd'=>'光大银行'
+    );
+
     private $tableName = 'bank_workday';
 
 
@@ -42,10 +47,10 @@ class workday {
 	        $res = '该日期已存在，不能再添加';
         }
         if(is_numeric($res) && $res > 0){
-            $resInfo = $this->getSuccInfo();
+            $resInfo = tool::getSuccInfo();
         }
         else{
-            $resInfo = $this->getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
+            $resInfo = tool::getSuccInfo(0,is_string($res) ? $res : '系统繁忙，请稍后再试');
         }
         return $resInfo;
 
@@ -71,6 +76,12 @@ class workday {
      */
     public function copy($bankFrom,$bankTo){
 	    //删除bankTo的所有日期
+        if($bankFrom==$bankTo){
+            return tool::getSuccInfo(0,'同一银行不能复制');
+        }
+        if(!in_array($bankTo,$this->banks)){
+            return tool::getSuccInfo(0,'目标银行不存在');
+        }
         $obj = new M($this->tableName);
         $obj->beginTrans();
         $obj->where(array('bank'=>$bankTo))->delete();
@@ -103,7 +114,11 @@ class workday {
         }
 
         $obj = new M($this->tableName);
-        return $obj->where($wheres)->select();
+        $data = $obj->where($wheres)->select();
+        foreach($data as &$item){
+            $item['bank'] = $this->bankName[$item['bank']];
+        }
+        return $data;
 
 
     }
