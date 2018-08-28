@@ -277,12 +277,12 @@ function biddetailData(){
                             }else{
                                 baojiaListone="<ul class='auction_cont first'><li><span>"
                                 +bjListData[0].true_name +"</span></li><li><span>"
-                                +bjListData[0].price+"</span></li><li><span>"
+                                +bjListData[0].price+" 元</span></li><li><span>"
                                 +bjListData[0].time+"</span></li><li><span>领先</span></li></ul>"
                                 for(var i=1;i<bjListData.length;i++){
                                     baojiaList+="<ul class='auction_cont'><li><span>"
                                     +bjListData[i].true_name +"</span></li><li><span>"
-                                    +bjListData[i].price+"</span></li><li><span>"
+                                    +bjListData[i].price+" 元</span></li><li><span>"
                                     +bjListData[i].time+"</span></li><li><span>出局</span></li></ul>"
                                     }
                                 }
