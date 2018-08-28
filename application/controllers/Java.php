@@ -49,9 +49,12 @@ class JavaController extends \Yaf\Controller_Abstract{
 
      public function userInfoAction(){
          $mobile = safe::filterGet('mobile');
+         \nainai\syslog::info("小程序开始关联，手机号：".$mobile);
          $obj = new indexModel();
          $data = $obj->userInfo($mobile);
-         die(json_encode($data,JSON_UNESCAPED_UNICODE));
+         $res = json_encode($data,JSON_UNESCAPED_UNICODE);
+         \nainai\syslog::info("手机号：".$mobile."关联信息为：".$res);
+         die($res);
      }
 
 
