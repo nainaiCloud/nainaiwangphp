@@ -1,38 +1,48 @@
 /**
- * ÉÏ´«Í¼Æ¬²Ù×÷
- * @param _this input type=file¿Ø¼ş
- * @param isHead ÊÇ·ñÊÇÍ·Ïñ
+ * ä¸Šä¼ å›¾ç‰‡æ“ä½œ
+ * @param _this input type=fileæ§ä»¶
+ * @param isHead æ˜¯å¦æ˜¯å¤´åƒ
  */
-function uploadImg(_this,uploadUrl){
+
+
+function uploadImg(_this,uploadUrl,max_size){
     if(uploadUrl==undefined)
         var uploadUrl = $('input[name=uploadUrl]').val();
     var id = $(_this).attr('id');
 
     var imgInput = $('input[name=img'+id+']');
+    var size = _this.files[0].size;
+    if(max_size==undefined){
+        max_size = 2;
+    }
+    if(size > max_size * 1024 * 1024){
+        alert('ä¸Šä¼ å›¾ç‰‡ä¸è¦è¶…è¿‡2M');
+        return false;
+    }
     $.ajaxFileUpload
     (
         {
-            url: uploadUrl, //ÓÃÓÚÎÄ¼şÉÏ´«µÄ·şÎñÆ÷¶ËÇëÇóµØÖ·
-            secureuri: false,           //Ò»°ãÉèÖÃÎªfalse
-            fileElementId: id, //ÎÄ¼şÉÏ´«¿Ø¼şµÄidÊôĞÔ  <input type="file" id="file" name="file" /> ×¢Òâ£¬ÕâÀïÒ»¶¨ÒªÓĞnameÖµ
-            //$("form").serialize(),±íµ¥ĞòÁĞ»¯¡£Ö¸°ÑËùÓĞÔªËØµÄID£¬NAME µÈÈ«²¿·¢¹ıÈ¥
-            dataType: 'json',//·µ»ØÖµÀàĞÍ Ò»°ãÉèÖÃÎªjson
-            complete: function () { //Ö»ÒªÍê³É¼´Ö´ĞĞ£¬×îºóÖ´ĞĞ
+            url: uploadUrl, //ç”¨äºæ–‡ä»¶ä¸Šä¼ çš„æœåŠ¡å™¨ç«¯è¯·æ±‚åœ°å€
+            secureuri: false,           //ä¸€èˆ¬è®¾ç½®ä¸ºfalse
+            fileElementId: id, //æ–‡ä»¶ä¸Šä¼ æ§ä»¶çš„idå±æ€§  <input type="file" id="file" name="file" /> æ³¨æ„ï¼Œè¿™é‡Œä¸€å®šè¦æœ‰nameå€¼
+            //$("form").serialize(),è¡¨å•åºåˆ—åŒ–ã€‚æŒ‡æŠŠæ‰€æœ‰å…ƒç´ çš„IDï¼ŒNAME ç­‰å…¨éƒ¨å‘è¿‡å»
+            dataType: 'json',//è¿”å›å€¼ç±»å‹ ä¸€èˆ¬è®¾ç½®ä¸ºjson
+            complete: function () { //åªè¦å®Œæˆå³æ‰§è¡Œï¼Œæœ€åæ‰§è¡Œ
 
             },
-            success: function (data)  //·şÎñÆ÷³É¹¦ÏìÓ¦´¦Àíº¯Êı
+            success: function (data)  //æœåŠ¡å™¨æˆåŠŸå“åº”å¤„ç†å‡½æ•°
             {//alert(JSON.stringify(data));
                  if(data.flag==1){
                     $('img[name='+id+']').attr('src',data.thumb);
                     imgInput.val(data.img);
-                    imgInput.trigger('change');//ÏÔÊ¾ÕıÈ·ĞÅÏ¢£¬ÏûÊ§´íÎóĞÅÏ¢
+                    imgInput.trigger('change');//æ˜¾ç¤ºæ­£ç¡®ä¿¡æ¯ï¼Œæ¶ˆå¤±é”™è¯¯ä¿¡æ¯
                 }
                 else{
                     alert(data.error);
                 }
 
             },
-            error: function (data)//·şÎñÆ÷ÏìÓ¦Ê§°Ü´¦Àíº¯Êı
+            error: function (data)//æœåŠ¡å™¨å“åº”å¤±è´¥å¤„ç†å‡½æ•°
             {
                 alert(JSON.stringify(data));
             }
