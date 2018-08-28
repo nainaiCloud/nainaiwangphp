@@ -54,7 +54,7 @@ class TestController extends \Yaf\Controller_Abstract{
 //        }else{
 //
 //        }
-
+exit;
     }
 
     public function timeAction(){

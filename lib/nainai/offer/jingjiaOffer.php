@@ -726,7 +726,7 @@ class jingjiaOffer extends product{
                        $member->sendShortMessage($seller,$contentSeller);
 
                        //给竞价成功方发送
-                       $content = $item['true_name']."，您好，恭喜您成功竞拍".$data['pro_name']."，竞拍的成交价为".$item['price']."元/".$unit."。请您在2个小时内缴纳货款".$item['amount']."元，若未在规定时间内完成付款，则保证金全部扣除作为竞价违约赔付。";
+                       $content = $item['true_name']."，您好，恭喜您成功竞拍".$data['pro_name']."，竞拍的成交价为".$item['price']."元/".$unit."。请您在3天内缴纳货款".$item['amount']."元，若未在规定时间内完成付款，则保证金全部扣除作为竞价违约赔付。";
                        $member->sendShortMessage($item['user_id'],$content);
                         $users[] = $item['user_id'];
                    }else{
@@ -756,11 +756,20 @@ class jingjiaOffer extends product{
             try{
                 $nowDate = new \DateTime($now);
                 $interDay = new \DateInterval('P1D');
-
+                $workdayObj = new \nainai\system\workday();
                 while($days>0){
                     $nowDate = $nowDate->add($interDay);
-                    if(!in_array($nowDate->format('l'),array('Saturday','Sunday'))){
-                        $days--;
+                    $workday = $workdayObj->findDay($nowDate->format("Y-m-d"),'gd');
+                    if(!empty($workday)){
+                        if($workday['type']==1){
+                            continue;
+                        }else{
+                            $days--;
+                        }
+                    }else{
+                        if(!in_array($nowDate->format('l'),array('Saturday','Sunday'))){
+                            $days--;
+                        }
                     }
 
                 }

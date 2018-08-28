@@ -418,7 +418,7 @@ class offersModel extends \nainai\offer\product{
         $query->join = "left join products as p on o.product_id = p.id  ";
         $query->fields = "o.*,p.img,p.name,p.note,p.unit,p.quantity,p.freeze,p.sell,p.produce_area,IF(p.quantity-p.sell-p.freeze>0,0,1) as jiao";
 
-        $whereStr = ' o.status=:status and o.is_del = 0  and o.expire_time > now()';
+        $whereStr = ' o.status=:status and o.is_del = 0  and (o.expire_time > now() or o.expire_time is null )';
 
         $bind = array('status'=>self::OFFER_OK);
 

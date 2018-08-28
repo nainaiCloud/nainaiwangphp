@@ -550,7 +550,7 @@ $(function() {
     <%for (var i=0;i<data.length;i++) { %>
     <%if (i<6) { %>
     <div class="nn-shebei-item jingpai-new">
-        <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>" target="_blank">
+        <a href="{url:/bidprice/biddetails}?id=<%==data[i].id%>" target="_blank">
             <img src="<%=data[i].img%>" alt="" />
             <h3 class="nn-shebei-title"><%=data[i].name%></h3>
             <p class="nn-shebei-con"><%=data[i].note%></p>
@@ -577,7 +577,7 @@ $(function() {
     <%for (var i=0;i<data.length;i++) { %>
     <%if (i>5&&i<12) { %>
     <div class="nn-shebei-item jingpai-new">
-        <a href="{url:/offers/offerdetails}/id/<%==data[i].id%>/pid/<%=data[i].product_id%>" target="_blank">
+        <a href="{url:/bidprice/biddetails}?id=<%==data[i].id%>" target="_blank">
             <img src="<%=data[i].img%>" alt="" />
             <h3 class="nn-shebei-title"><%=data[i].name%></h3>
             <p class="nn-shebei-con"><%=data[i].note%></p>
