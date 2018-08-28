@@ -756,11 +756,20 @@ class jingjiaOffer extends product{
             try{
                 $nowDate = new \DateTime($now);
                 $interDay = new \DateInterval('P1D');
-
+                $workdayObj = new \nainai\system\workday();
                 while($days>0){
                     $nowDate = $nowDate->add($interDay);
-                    if(!in_array($nowDate->format('l'),array('Saturday','Sunday'))){
-                        $days--;
+                    $workday = $workdayObj->findDay($nowDate->format("Y-m-d"),'gd');
+                    if(!empty($workday)){
+                        if($workday['type']==1){
+                            continue;
+                        }else{
+                            $days--;
+                        }
+                    }else{
+                        if(!in_array($nowDate->format('l'),array('Saturday','Sunday'))){
+                            $days--;
+                        }
                     }
 
                 }

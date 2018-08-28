@@ -123,6 +123,12 @@ class workday {
 
     }
 
+    public function findDay($day,$bank){
+        $obj = new M($this->tableName);
+        return  $obj->where(array('bank'=>$bank,'day'=>$day))->getObj();
+
+    }
+
 
 
 }
