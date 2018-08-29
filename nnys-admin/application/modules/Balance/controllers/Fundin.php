@@ -147,7 +147,6 @@ class FundinController extends InitController {
                  'OP_CUST_NAME'=> safe::filterPost('OP_CUST_NAME'),
                  'TX_AMT'=> safe::filterPost('TX_AMT'),
                  'TX_LOG_NO'=> safe::filterPost('TX_LOG_NO'),
-                 'TX_DT'=> safe::filterPost('TX_DT'),
                  'img'  => safe::filterPost('img')
              );
              if($data['img']){
