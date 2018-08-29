@@ -288,6 +288,7 @@
                                 <li><a href="{url:balance/paytoMarket/index}" target="content">明细列表</a></li>
                             </ul>
                         </li>
+                        <li><a href="{url:balance/fundIn/bankflowadd}" target="content">保证金录入</a></li>
                     </ul>
                 </li>
                 <li><a target="content"><img src="{views:img/icons/menu/lab.png}" alt="" /> 统计管理</a>

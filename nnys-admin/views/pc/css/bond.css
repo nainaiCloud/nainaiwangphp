@@ -1,0 +1,190 @@
+@charset "utf-8";
+
+.bondTitle{
+	font-size: 14px;
+	color: #999;
+	}	
+
+.imgUp{
+	margin-bottom: 20px;
+}
+.ssi-uploader{
+	margin:10px 0;
+}
+.ssi-buttonWrapper .selectBut{
+    position: absolute;
+    top: 170px;
+    left: 140px;
+}
+
+.ssi-buttonWrapper  .select-button{
+    background: url(../images/select.png) #f9f9f9 no-repeat center;
+    width: 100px;
+    height: 100px;
+    border: 0px;
+}
+#ssi-previewBox .dragTip{
+    position: absolute;
+    left: 34px;
+    top: 260px;
+}
+td.contTd{
+	height: 30px;
+}
+
+.bondRight{
+	border: 2px dashed #e5e5e5;
+	padding:15px 10px;
+	margin:10px 0px;
+
+}
+.bondRight .search .text_cl{
+    width: 96%;
+    border: 1px solid #e7e7e7;
+    padding: 5px 2%;
+    margin: 5px 0;
+    height: 25px;
+}
+.bondRight .bank-but{
+	margin:10px 0px;
+}
+.bondRight .bank-but .bankselectBtn{
+	width:100px;
+	height: 30px;
+	border:0px;
+	background: #32b16c;
+	color:#fff;
+}
+.bondRight .resultTitle{
+	color:#d6d6d6;
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+.bondRight .resultTitle:before{
+	content: '';
+    display: block;
+    width: 11px;
+    border-top: 1px solid #d6d6d6;
+    height: 13px;
+    position: absolute;
+    top: 10px;
+    left: -11px;
+}
+.bondRight .resultTitle .right_line{
+    flex: 1;
+    height: 1px;
+    background: #d6d6d6;
+}
+.select-result .no_info{
+    width: 100%;
+    height: 240px;
+    background: url("../images/selectLogo.jpg") center 50px #f9f9f9 no-repeat;
+    text-align: center;
+}
+.select-result .no_info .no_info_p{
+	color: #d6d6d6;
+	position: relative;
+	top: 130px;
+}
+.select_info .bankInfo{
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+
+}
+.select_info .bankInfo span{
+	width: 100%;
+}
+.select_info .bankInfo span.infoName{
+	width: 80px;
+	color: #999999;
+}
+.select_info .bankInfo span .info_input{
+	width: 95%;
+    border: 1px solid #e7e7e7;
+    padding: 5px 2%;
+    height: 25px;
+}
+.select_info .bankInfo span.infoTip{
+	color: #f4626c;
+}
+.select_info .upbtn{
+	padding-left: 69px;
+}
+.select_info .upbtn .upload-btn{
+	border:0px;
+	background: #f4626c;
+	width:100px;
+	height: 30px;
+	color: #fff;
+}
+.select_info .upbtn .upload-btn span{
+	text-align: center;
+}
+.select_info .bankInfo .systemtip{
+    color: #d6d6d6;
+    padding-left: 76px;
+}
+
+/*遮罩层*/
+.mark{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.32);
+    opacity: 0.32;
+    z-index: 400;
+}
+.bidbond_result,
+.pay_password{
+	position: relative;
+    width: 1190px;
+    margin: 0 auto;
+
+}
+.bidbond_result .result{
+	position: fixed;
+    z-index: 401;
+    top: 150px;
+    width: 497px;
+    margin-left: 346px;
+    background: #fff;
+}
+.bidbond_result .result .result_title{
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    background: #f3f3f3;
+    position: relative;
+    color: #ccc;
+    font-size: 14px;
+}
+.bidbond_result .result .result_title i.close
+{
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: url(../images/closeIcon.png) no-repeat;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+}
+.result .result_cont{
+	text-align: center;
+	margin-bottom: 60px;
+}
+.result .result_cont .result_img{
+	margin:30px 0 20px;
+}
+.result .result_cont .result_tip{
+	font-size: 16px;
+}
+.result .result_cont .success_tip{
+	color: #ccc;
+}
+.result .result_cont .fail_tip{
+	color: #c53026;
+}
