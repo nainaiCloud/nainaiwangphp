@@ -148,7 +148,11 @@ class FundinController extends InitController {
                  'TX_AMT'=> safe::filterPost('TX_AMT'),
                  'TX_LOG_NO'=> safe::filterPost('TX_LOG_NO'),
                  'TX_DT'=> safe::filterPost('TX_DT'),
+                 'img'  => safe::filterPost('img')
              );
+             if($data['img']){
+                 $data['img'] = tool::setImgApp($data['img']);
+             }
              if($id){
                  $res = $obj->edit($id,$data);
              }else{
@@ -172,6 +176,26 @@ class FundinController extends InitController {
 	    $id = safe::filterGet('id','int');
 	    $res = $obj->delete($id);
 	    die(json::encode($res));
+    }
+
+    public function bankSearchAction(){
+	    $name = safe::filterGet('name');
+	    $acc  = safe::filterGet('acc');
+	    $data = array();
+	    if($name || $acc){
+	        $obj = new M('user_bank');
+	        $where = "";
+	        if($name){
+	            $where .= " true_name like \"".$name."%\" ";
+            }
+            if($acc){
+	            $where .= $where=="" ? " " : " and ";
+	            $where .= " card_no like \"".$acc."%\" ";
+            }
+            $data = $obj->where($where)->fields('user_id,bank_name,card_no,true_name')->select();
+
+        }
+        die(json::encode($data));
     }
 }
 
