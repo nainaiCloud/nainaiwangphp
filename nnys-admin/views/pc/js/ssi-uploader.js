@@ -34,7 +34,7 @@
          '<span class="ssi-InputLabel selectBut">' +
          '<button class="ssi-button select-button"></button>' +
          '</span>').append(element);
-        var $uploadBtn = $('<button id="ssi-uploadBtn" class="ssi-button upload-btn" >' +
+        var $uploadBtn = $('<button id="ssi-uploadBtn" class="ssi-button success ssi-hidden" >' +
          '<span class="ssi-btnIn">' + this.language.upload + '&nbsp;</span>' +
          '<div id="ssi-up_loading" class="ssi-btnIn"></div></button>');
         var $clearBtn = $('<button id="ssi-clearBtn" class="ssi-hidden ssi-button info" >' + this.language.clear +
@@ -42,7 +42,6 @@
         var $abortBtn = $('<button id="ssi-abortBtn" class="ssi-button error ssi-cancelAll ssi-hidden" ><span class="inBtn">' + this.language.abort + ' </span></button>');
 
         this.$element.append($('<div class="ssi-buttonWrapper">').append($chooseBtn));
-        $(".upbtn").append($uploadBtn)//提交按钮
         var $uploadBox;
         if (!this.options.preview) {
             this.$element.addClass('ssi-uploaderNP');
@@ -54,7 +53,7 @@
             $uploadBox = $('<div class="ssi-uploadBoxWrapper ssi-uploadBox"></div>').append($mainBox, $uploadDetails);
             this.$element.prepend($uploadBox);
         } else {
-            $uploadBox = $('<div id="ssi-previewBox" class="ssi-uploadBox ssi-previewBox ' + (this.options.dropZone ? 'ssi-dropZonePreview ssi-dropZone"><span class="dragTip">' + this.language.drag + '</span></div>' : '">') + '</div>');
+             $uploadBox = $('<div id="ssi-previewBox" class="ssi-uploadBox ssi-previewBox ' + (this.options.dropZone ? 'ssi-dropZonePreview ssi-dropZone"><span class="dragTip">' + this.language.drag + '</span></div>' : '">') + '</div>');
             this.$element.append($uploadBox);
         }
         var thisS = this;
@@ -65,7 +64,7 @@
 
         $input.on('change', function () { //choose files
             thisS.toUploadFiles(this.files);
-            $input.val('');
+            $input.val('a');
         });
         //drag n drop
         if (thisS.options.dropZone) {
@@ -263,9 +262,7 @@
                 var getTemplate = function (content) {
                     return '<table class="ssi-imgToUploadTable ssi-pending">' +
                      '<tr><td class="ssi-upImgTd">' + content + '</td></tr>' +
-                     '<tr><td><div id="ssi-uploadProgress' + index + '" class="ssi-hidden ssi-uploadProgress"></div></td></tr>' +
-                     '<tr><td class="contTd"><button data-delete="' + index + '" class=" ssi-button error ssi-removeBtn"><span class="trash10 trash"></span></button></td></tr>' +
-                     '<tr><td class="contTd">' + cutFileName(filename, ext, 15) + '</td></tr></table>'
+                     '<tr><td><div id="ssi-uploadProgress' + index + '" class="ssi-hidden ssi-uploadProgress"></div></td></tr></table>'
                 };
                 var fileType = file.type.split('/');
 
@@ -315,6 +312,7 @@
                 imgs = [];
             };
         }
+         thisS.uploadFiles();
     };
     var clearCompleted = function (thisS) {//clear all completed files
         var $completed = thisS.$element.find('.ssi-completed');
@@ -495,7 +493,7 @@
                         }
                     }
                 },
-                type: 'POST',
+                type: 'get',
                 data: formData,
                 cache: false,
                 contentType: false,
@@ -608,6 +606,7 @@
                 thisS.uploadList[ii] = '';
                 thisS.toUpload[ii] = '';
                 thisS.imgNames[ii] = '';
+                console.log("成功上传")
             });
             //--------------end of ajax request-----------------------
 
