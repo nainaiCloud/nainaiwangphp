@@ -595,14 +595,18 @@ class Order{
 				$mess_buyer = new \nainai\message($buyer);
 				if($confirm === true){
 					//卖家确认收款
-					
-					$order_type =  $info['mode'] != self::ORDER_ENTRUST;
+					if($info['mode']==self::ORDER_ENTRUST || ($info['mode']==self::ORDER_FREE && $offerInfo['sub_mode']!=1)){
+					    $order_type = false;
+                    }else{
+                        $order_type = true;
+                    }
+					//$order_type =  $info['mode'] != self::ORDER_ENTRUST ;
 					//合同状态置为生效
 					$orderData['contract_status'] = $order_type ? self::CONTRACT_EFFECT : self::CONTRACT_COMPLETE;
 					$orderData['end_time'] = $order_type ? NULL : date('Y-m-d H:i:s',time());
 					$log_res = $this->payLog($order_id,$user_id,1,'卖家确认线下支付凭证');
 					
-					if($sim_oper){
+					if($sim_oper&& $offerInfo['sub_mode']!=1){
 						$content = '合同'.$info['order_no'].'卖家已确认收款,合同已生效。交收流程请您在线下进行操作。';
 						$mess_buyer->send('common',$content);
 						$content = '合同'.$info['order_no'].'，合同已生效。交收流程请您在线下进行操作。';
