@@ -1195,6 +1195,7 @@ class ManagerDealController extends UcenterBaseController {
                 'jing_stepprice'=> safe::filterPost('step_price'),
                 'jingjia_mode' => safe::filterPost('jingjia_mode',0),
                 'max_num'      => safe::filterPost('quantity', 'float'),
+                'pay_days'     => safe::filterPost('pay_days')
 
             );
 

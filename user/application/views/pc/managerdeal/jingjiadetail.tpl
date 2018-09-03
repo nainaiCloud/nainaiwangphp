@@ -193,6 +193,12 @@
                                {/if}
 
                            </tr>
+                             <tr>
+                                 <td>缴纳货款时间</td>
+                                   <td>竞价完成后{$offer['pay_days']}天完成缴纳货款</td>
+
+
+                             </tr>
                            <tr>
                                <td>记重方式</td>
                                <td>{$offer['weight_type']}</td>

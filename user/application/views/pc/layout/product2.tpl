@@ -44,7 +44,13 @@
         <span></span>
     </td>
     </tr>
-
+    <tr>
+        <td><b class="required">*</b>缴纳货款时间：</td>
+        <td colspan="2">
+        <span><input class="text" datatype="float" value="" type="text"  name="pay_days" /> <span class="tip">输入竞价完成后多少天完成货款缴纳</span>
+        <span></span>
+        </td>
+    </tr>
     <tr>
     <td><b class="required">*</b>记重方式：</td>
     <td colspan="2">
