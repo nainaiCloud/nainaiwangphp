@@ -114,6 +114,57 @@ $(function(){
              $(".jzrqselect").show()
         }
     })
+
+    $("input[name=warename]").blur(function() {
+        var pro_name = $(this).val();
+        var url = "{url:/managerdeal/searchJingjia}";
+        $.ajax({
+            type:'get',
+            url:url,
+            data:{pro_name:pro_name},
+            dataType:'json',
+            success:function(data){
+                console.log(JSON.stringify(data));
+                $('input[name=produce_address]').val('');
+                $('input[name=accept_area]').val('');
+                $('input[name=accept_day]').val('');
+                $('input[name=pay_days]').val('');
+                $('[name=note]').val('');
+                $('[name=other]').val('');
+                $('input[name^=attribute]').val('');
+                var Obj1 = new Area();
+                Obj1.initComplexArea('seachprov', 'seachcity', 'seachdistrict', '','area');
+                var Obj2 = new Area();
+                Obj2.initComplexArea('seachprovarea1', 'seachcityarea1', 'seachdistrictarea1', '','accept_area_code');
+                $('input[name=area]').val('');
+                $('input[name=accept_area_code]').val('');
+                if(data['jingjia']){
+                    var jingjia = data['jingjia'];
+                    if(jingjia['product']['attribute']){
+                        $.each(jingjia['product']['attribute'],function(i,v) {
+                            $('input[name=attribute\\['+v.id+'\\]]').val(v.value);
+                        });
+
+                    }
+                    Obj1.initComplexArea('seachprov', 'seachcity', 'seachdistrict', jingjia['product']['produce_area'],'area');
+                    $('input[name=area]').val(jingjia['product']['produce_area']);
+                    Obj2.initComplexArea('seachprovarea1', 'seachcityarea1', 'seachdistrictarea1', jingjia['accept_area_code'],'accept_area_code');
+                    $('input[name=accept_area_code]').val(jingjia['accept_area_code']);
+                    $('input[name=produce_address]').val(jingjia['product']['produce_address']);
+                    $('input[name=accept_area]').val(jingjia['accept_area']);
+                    $('input[name=accept_day]').val(jingjia['accept_day']);
+                    $('input[name=pay_days]').val(jingjia['pay_days']);
+                    $('[name=weight_type]').val(jingjia['weight_type']);
+                    $('[name=note]').val(jingjia['product']['note']);
+                    $('[name=other]').val(jingjia['other']);
+
+                    //弹出提示框
+                    
+                }
+
+            }
+        })
+    });
 })
 </script>
 
