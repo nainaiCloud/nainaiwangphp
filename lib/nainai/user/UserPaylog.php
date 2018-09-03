@@ -71,15 +71,30 @@ class UserPaylog
             return tool::getSuccInfo(1,'当前竞价已支付保证金');
         }
         //获取比对的账号
-        $compareData = $this->getCompareAcc($this->user_id);
+        $graphql = new \nainai\graphqls();
 
-        if(empty($compareData)){
-            return tool::getSuccInfo(0,'请先开户');
+        $query = '{ user(id:'.$this->user_id.')
+                        {
+                        id,type,true_name,
+                         bank(status:1){
+                           bank_name,card_no,true_name
+                         },
+                        }
+                   }';
+
+        $graData = $graphql->query($query);
+        if($graData['data']['user']==null){
+            return tool::getSuccInfo(0,"用户不存在");
         }
 
-        $matchFlow = $this->findMatchFlow($startDate,$endDate,$compareData['acc_no'],$amount);
+        if($graData['data']['user']['type']==0 && empty($graData['data']['user']['bank'])){
+            return tool::getSuccInfo(0,'个人用户请先开户');
+        }
 
-        if($matchFlow['acc_no']){//有匹配的流水
+
+        $matchFlow = $this->findMatchFlow($startDate,$endDate,$graData['data']['user'],$amount);
+
+        if($matchFlow['acc_no'] && $matchFlow['status']==1){//有匹配的流水
             syslog::info("找到可用流水，流水号：".$matchFlow['bank_flow']);
             $where = array('subject'=>'jingjia','subject_id'=>$this->subject_id,'user_id'=>$this->user_id);
             $res = $this->existUpdateElseInsert($matchFlow,$where);
@@ -88,6 +103,8 @@ class UserPaylog
             }else{
                 return tool::getSuccInfo(0,'匹配失败');
             }
+        }elseif($matchFlow['acc_no'] && $matchFlow['status']==2){
+            return tool::getSuccInfo(4,'匹配到保证金，但金额不符合');
         }else{
             syslog::info("用户".$this->user_id."，竞价id".$this->subject_id.'的竞价没有找到保证金支付记录');
             return tool::getSuccInfo(0,'没有匹配的缴费记录');
@@ -155,13 +172,14 @@ class UserPaylog
      * 返回在一个时间段内与账户、金额匹配的流水
      * @param $startDate
      * @param string $endDate
-     * @param $acc_no
+     * @param array $matchData 匹配数据
      * @param $amount
      * @return array
      */
-    public function findMatchFlow($startDate,$endDate='',$acc_no,$amount){
+    public function findMatchFlow($startDate,$endDate='',$matchData,$amount){
         $flow = $this->bankFlow($startDate,$endDate);
-        syslog::info("寻找流水记录，账号：".$acc_no.',金额：'.$amount);
+        $acc_no = isset($matchData['bank']['card_no']) ? $matchData['bank']['card_no'] : '';
+        syslog::info("用户寻找流水记录，账号：".$acc_no.',金额：'.$amount.'用户id:'.$matchData['id']);
         $resData = array(
             'acc_no'=>'',
             'acc_name'=>'',
@@ -177,21 +195,28 @@ class UserPaylog
                 $tempAccName = $item['OP_CUST_NAME'];
                 $tempFlow = $item['TX_LOG_NO'];
                 $tempPayTime = substr($item['TX_DT'].$item['TX_TM'],0,-3);
-                if($tempAccNo==$acc_no && bccomp($amount,$tempAmount,2)==0){
+                if( $matchData['type']==0 && $tempAccNo==$acc_no || ($matchData['type']==1 && $tempAccName==$matchData['true_name']) ){
                     //然后再判断这个流水在pay_log表中是否存在，已存在则不能使用
-                    $res = $this->getOneLog(array('bank_flow'=>$tempFlow));
-                    if(empty($res)){//如果为空，该流水可用
 
+                    $res = $this->getOneLog(array('bank_flow'=>$tempFlow));
+
+                    if(empty($res)){//如果为空，该流水可用
                         $resData['acc_no'] = $acc_no;
                         $resData['acc_name'] = $tempAccName;
                         $resData['pay_total'] = $amount;
                         $resData['bank_flow'] = $tempFlow;
-                        //转换时间格式
-                        $dateObj = new \DateTime($tempPayTime);
-                        $dateObj->createFromFormat('YmdHis',$tempPayTime);
-                        $resData['pay_time'] = $dateObj->format('Y-m-d H:i:s');
-                        $resData['status'] = 1;//表示已缴纳
-                        break;
+                        if( bccomp($amount,$tempAmount,2)==0){
+                            //转换时间格式
+                            $dateObj = new \DateTime($tempPayTime);
+                            $dateObj->createFromFormat('YmdHis',$tempPayTime);
+                            $resData['pay_time'] = $dateObj->format('Y-m-d H:i:s');
+                            $resData['status'] = 1;//表示已缴纳
+                            break;
+                        }else{
+                            $resData['status'] = 2;//表示金额不等
+                        }
+
+
                     }
                 }
             }
