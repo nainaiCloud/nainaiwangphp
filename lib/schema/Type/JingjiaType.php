@@ -26,9 +26,15 @@ class JingjiaType extends ObjectType
                     'price'    => Types::float(),//成交后价格
                     'price_l'    => Types::float(),//起拍价
                     'price_r'    => Types::float(),
+                    'weight_type'=> Types::string(),//计重方式
                     'accept_area_code' => [
                         'type'=>Types::string(),
                         'description'=>'收货地区',
+                        'args' => [
+                            'type'=>Types::int(),
+                            'defaultValue'=>0,//为0返回解析出的中文地区，为1返回地区码
+                            'name'=>'type'
+                        ],
                         'resolve' => function($val, $args, $context, ResolveInfo $info){
                             return Handle::fieldTransfer($val,$args,$context,$info);
                          }
@@ -45,6 +51,8 @@ class JingjiaType extends ObjectType
                     'jingjia_pass' => Types::int(),
                     'jingjia_deposit' => Types::float(),
                     'views'      => Types::int(),
+                    'pay_days'   => Types::string(),
+                    'other'      => Types::string(),
 
                     'seller'    => [
                         'type'=>MyTypes::User(),

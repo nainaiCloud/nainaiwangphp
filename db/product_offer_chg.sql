@@ -16,4 +16,7 @@ ADD COLUMN `auto_notice`  tinyint(2) NOT NULL DEFAULT 0 COMMENT '自动通知' A
 ALTER TABLE `product_offer`
 ADD INDEX `end_time` (`end_time`, `auto_notice`) USING BTREE;
 
+ALTER TABLE `product_offer`
+ADD COLUMN `pay_days`  tinyint(5) NOT NULL COMMENT '成交后多少天完成缴纳货款' AFTER `auto_notice`;
+
 

@@ -1195,6 +1195,7 @@ class ManagerDealController extends UcenterBaseController {
                 'jing_stepprice'=> safe::filterPost('step_price'),
                 'jingjia_mode' => safe::filterPost('jingjia_mode',0),
                 'max_num'      => safe::filterPost('quantity', 'float'),
+                'pay_days'     => safe::filterPost('pay_days')
 
             );
 
@@ -1244,6 +1245,34 @@ class ManagerDealController extends UcenterBaseController {
          $this->getView()->assign('days',$days);
 
          $this->productAddAction();
+     }
+
+     public function searchJingjiaAction(){
+        $pro_name = safe::filterGet('pro_name');
+        $data = array();
+        if($pro_name){
+            $graphql = new \nainai\graphqls();
+            $query = '{
+                       jingjia(pro_name:"'.$pro_name.'"){id,
+                          accept_area_code(type:1),accept_area,accept_day,pay_days,other,weight_type,
+                          product{
+                            produce_area(type:1),produce_address,note,attribute{
+                               id,name,value,note
+                            }
+                          }
+                       }
+                    
+                   }';
+
+            $data = $graphql->query($query);
+        }
+        
+         if(isset($data['data']['jingjia'])){
+             die(json::encode($data['data']));
+         }else{
+             die(json::encode(array()));
+         }
+
      }
 
 
