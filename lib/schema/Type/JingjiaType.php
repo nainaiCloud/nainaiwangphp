@@ -26,6 +26,7 @@ class JingjiaType extends ObjectType
                     'price'    => Types::float(),//成交后价格
                     'price_l'    => Types::float(),//起拍价
                     'price_r'    => Types::float(),
+                    'weight_type'=> Types::string(),//计重方式
                     'accept_area_code' => [
                         'type'=>Types::string(),
                         'description'=>'收货地区',

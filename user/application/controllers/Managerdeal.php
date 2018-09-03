@@ -1254,9 +1254,9 @@ class ManagerDealController extends UcenterBaseController {
             $graphql = new \nainai\graphqls();
             $query = '{
                        jingjia(pro_name:"'.$pro_name.'"){id,
-                          accept_area_code(type:1),accept_area,accept_day,pay_days,other,
+                          accept_area_code(type:1),accept_area,accept_day,pay_days,other,weight_type,
                           product{
-                            produce_area(type:1),note,attribute{
+                            produce_area(type:1),produce_address,note,attribute{
                                id,name,value,note
                             }
                           }
@@ -1268,7 +1268,7 @@ class ManagerDealController extends UcenterBaseController {
         }
         
          if(isset($data['data']['jingjia'])){
-             die(json::encode($data['data']['jingjia']));
+             die(json::encode($data['data']));
          }else{
              die(json::encode(array()));
          }
