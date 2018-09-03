@@ -56,13 +56,17 @@ class Jingjia extends Template
             $where['id'] = $args['id'];
         }
 
+        if(isset($args['pro_name']) && $args['pro_name']){
+            $where['pro_name'] = $args['pro_name'];
+        }
+
 
         $obj = new M($this->table);
         if(empty($where)){
             return array();
         }
 
-        $data = $obj->fields($fields)->where($where)->getObj();
+        $data = $obj->fields($fields)->order('id desc ')->where($where)->getObj();
         return $data;
     }
 

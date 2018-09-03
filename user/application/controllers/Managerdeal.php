@@ -1247,5 +1247,33 @@ class ManagerDealController extends UcenterBaseController {
          $this->productAddAction();
      }
 
+     public function searchJingjiaAction(){
+        $pro_name = safe::filterGet('pro_name');
+        $data = array();
+        if($pro_name){
+            $graphql = new \nainai\graphqls();
+            $query = '{
+                       jingjia(pro_name:"'.$pro_name.'"){id,
+                          accept_area_code(type:1),accept_area,accept_day,pay_days,other,
+                          product{
+                            produce_area(type:1),note,attribute{
+                               id,name,value,note
+                            }
+                          }
+                       }
+                    
+                   }';
+
+            $data = $graphql->query($query);
+        }
+        
+         if(isset($data['data']['jingjia'])){
+             die(json::encode($data['data']['jingjia']));
+         }else{
+             die(json::encode(array()));
+         }
+
+     }
+
 
 }

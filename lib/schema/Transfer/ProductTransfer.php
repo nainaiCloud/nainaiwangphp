@@ -14,6 +14,9 @@ class ProductTransfer
 
     public function produce_area($val,$args,$context){
          $areaCode = $val['produce_area'];
+         if($args['type']==1){
+             return $areaCode;
+         }
          return \Library\tool::areaText($areaCode);
     }
 
