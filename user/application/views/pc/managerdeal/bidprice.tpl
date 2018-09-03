@@ -159,7 +159,7 @@ $(function(){
                     $('[name=other]').val(jingjia['other']);
 
                     //弹出提示框
-                    
+
                 }
 
             }
