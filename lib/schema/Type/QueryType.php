@@ -17,7 +17,7 @@ class QueryType extends ObjectType
             'fields' => [
                 'user' => [
                     'type' => MyTypes::user(),
-                    'description' => '用户数据',
+                    'description' => '鐢ㄦ埛鏁版嵁',
                     'args' => [
                         'id' => [
                                   'type'=>Types::id(),
@@ -34,7 +34,7 @@ class QueryType extends ObjectType
                 ],
                 'users'   => [
                     'type' => Types::listOf(MyTypes::user()),
-                    'description' => '用户数据列表',
+                    'description' => '鐢ㄦ埛鏁版嵁鍒楄〃',
                     'args' => [
                         'page' => [
                             'type'=>Types::int(),
@@ -56,12 +56,16 @@ class QueryType extends ObjectType
 
                 'jingjia' => [
                     'type' => MyTypes::jingjia(),
-                    'description' => '竞价数据',
+                    'description' => '绔炰环鏁版嵁',
                     'args' => [
                         'id' => [
                             'type'=>Types::id(),
                             'name'=>'id',
                             'defaultValue'=>0
+                        ],
+                        'pro_name' => [
+                            'type' => Types::string(),
+                            'name'=>'pro_name'
                         ]
 
                     ],

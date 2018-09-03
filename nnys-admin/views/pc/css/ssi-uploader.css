@@ -430,7 +430,7 @@ table.ssi-fileList tr.ssi-space > td {
 
 .ssi-imgToUpload {
     width: 365px;
-    height: 335px;
+    height: 425px;
 }
 
 .ssi-btnIn {
@@ -530,4 +530,5 @@ span.ssi-InputLabel input[type="file"] {
 }
 .ssi-imgToUploadTable td{
   border:0px !important;
+  height: 0px !important;
 }

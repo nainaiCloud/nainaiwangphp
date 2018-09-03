@@ -399,7 +399,7 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
         $query = '{
                         user(id:'.$user_id.')
                         {
-                        id,
+                        id,type,
                          bank(status:1){
                            bank_name,card_no,true_name
                          },

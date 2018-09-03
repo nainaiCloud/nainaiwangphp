@@ -43,8 +43,8 @@
                     	$(".bidbond_result .tipCont").html(tiphtml)
 	        			$(".bidbond_result").fadeIn(1000,setTimeout(function () {
 				            location.href =$('input[name=qkh]').val()  //开户界面
-				        },3000)
-                   	)
+				       	 },3000)
+                   		)
 	        	}
 	        	bzjyz();
 	        }

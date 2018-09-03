@@ -138,11 +138,11 @@ td.contTd{
     opacity: 0.32;
     z-index: 400;
 }
-.bidbond_result,
-.pay_password{
+.bidbond_result{
 	position: relative;
     width: 1190px;
     margin: 0 auto;
+    display: none;
 
 }
 .bidbond_result .result{
@@ -187,4 +187,9 @@ td.contTd{
 }
 .result .result_cont .fail_tip{
 	color: #c53026;
+}
+
+#bandatmspan,#bandlognospan{
+    color:#f4626c;
+    padding-left: 80px;
 }
