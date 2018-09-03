@@ -16,7 +16,8 @@
  	bzjData()
 	function bzjData(){
 	    $.ajax({
-	        /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadepositpage',*/
+	        //'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadepositpage',
+	        //'url':'http://192.168.13.4:3000/mock/9/ajaxdata/jingjiadepositpage',
 	        'url':$('input[name=bidInfo]').val(),
 	        'type':'get',
 	        'dataType':'json',
@@ -26,26 +27,41 @@
 	        success: function(bzjDatas){
 
 	        	var tiphtml=''
+	        	
 	        	//console.log(bzjDatas.user.bank,"user")
 	        	$(".bzjProduct").text(bzjDatas.jingjia.pro_name);//商品名字
 	        	$(".bidbondprice .bzjPrice").text(bzjDatas.jingjia.jingjia_deposit);//需缴纳保证金
-	        	if(bzjDatas.user.bank!=null){
+	        	//企业用户提示
+	        	var enterTip="保证金实际缴纳金额必须同需要缴纳金额完全一致，否则造成的缴纳不成功自行负责"
+	        	//个人用户提示
+	        	var perTip="保证金实际缴纳金额必须同需要缴纳金额完全一致，且必须使用开户账户关联的银行账户进汇款。否则造成的缴纳不成功自行负责"
+	        	console.log("用户类型：",bzjDatas.user.type)
+	        	if(bzjDatas.user.type == 1){
+	        		//bzjDatas.user.type == 1 企业
 	        		var BankInfo = template.render('banktemplat',{bankInfo:bzjDatas.user.bank});
-			        $('#BankInfo').html(BankInfo);
-	        		
-	        	}else{
-	        		$('#BankInfo').html('<div class="bidbondInfo"><div>暂无数据</div></div>');
-	        		tiphtml='<div id="resule_fail" class="result_cont">'
-	        			+'<div class="result_img"><img src="../views/pc/images/icon/money_icon.png"/></div>'
-	        			+'<div class="result_tip">很抱歉，您还未开户，需要开户后才能缴纳保证金！</div>'
-	        			+'<div class="result_tip fail_tip">缴纳保证金必须使用开户账号关联的银行账户进行汇款</div>'
-	        			+'<div class="result_tip success_tip">系统将自动在3秒后跳转去开户</div></div>'
-                    	$(".bidbond_result .tipCont").html(tiphtml)
-	        			$(".bidbond_result").fadeIn(1000,setTimeout(function () {
-				            location.href =$('input[name=qkh]').val()  //开户界面
-				       	 },3000)
-                   		)
+			        	$('#BankInfo').html(BankInfo);
+			        $(".bidBond_tip .sktip").html(enterTip)
+	        	}else if(bzjDatas.user.type == 0){
+	        		//bzjDatas.user.type == 1 个人
+	        		if(bzjDatas.user.bank!=null){
+	        			var BankInfo = template.render('banktemplat',{bankInfo:bzjDatas.user.bank});
+			        	$('#BankInfo').html(BankInfo);
+		        	}else{
+		        		$('#BankInfo').html('<div class="bidbondInfo"><div>暂无数据</div></div>');
+		        		tiphtml='<div id="resule_fail" class="result_cont">'
+		        			+'<div class="result_img"><img src="../views/pc/images/icon/money_icon.png"/></div>'
+		        			+'<div class="result_tip">很抱歉，您还未开户，需要开户后才能缴纳保证金！</div>'
+		        			+'<div class="result_tip fail_tip">缴纳保证金必须使用开户账号关联的银行账户进行汇款</div>'
+		        			+'<div class="result_tip success_tip">系统将自动在3秒后跳转去开户</div></div>'
+	                    	$(".bidbond_result .tipCont").html(tiphtml)
+		        			$(".bidbond_result").fadeIn(1000,setTimeout(function () {
+					            location.href =$('input[name=qkh]').val()  //开户界面
+					       	 },3000)
+	                   		)
+		        	}
+		        	 $(".bidBond_tip .sktip").html(perTip)
 	        	}
+	        	
 	        	bzjyz();
 	        }
 	    })
@@ -78,7 +94,7 @@ function clickBzj(){
             //几个参数需要注意一下
                 type: "POST",//方法类型
                 dataType: "json",//预期服务器返回的数据类型
-              /*  url: "http://ceshi.nainaiwang.com/ajaxdata/alrealydeposit" ,*///匹配数据url
+               /* url: "http://ceshi.nainaiwang.com/ajaxdata/alrealydeposit" ,*///匹配数据url
                 url:$('input[name=bidmatch]').val(),
                 data:{
 	            	id:id,//报盘id
@@ -111,10 +127,17 @@ function clickBzj(){
 	        			+'<div class="result_tip fail_tip">若有疑问，联系客服热线400-6238086</div></div>'
                     	$(".bidbond_result .tipCont").html(tiphtml) 
                     	$(".bidbond_result").fadeIn()                
-                    }else{
+                    }else if(result.success == 0){
                     	tiphtml='<div id="resule_fail" class="result_cont">'
 	        			+'<div class="result_img"><img src="../views/pc/images/icon/failIcon.png"/></div>'
 	        			+'<div class="result_tip">很抱歉，系统未收到到账的保证金，请先进行保证金缴纳！</div>'
+	        			+'<div class="result_tip fail_tip">若有疑问，联系客服热线400-6238086</div></div>'
+                    	$(".bidbond_result .tipCont").html(tiphtml)
+                    	$(".bidbond_result").fadeIn()
+                    }else if(result.success == 4){
+                    	tiphtml='<div id="resule_fail" class="result_cont">'
+	        			+'<div class="result_img"><img src="../views/pc/images/icon/failIcon.png"/></div>'
+	        			+'<div class="result_tip">很抱歉，您实际缴纳的保证金金额同所需缴纳金额不一致，请核实！</div>'
 	        			+'<div class="result_tip fail_tip">若有疑问，联系客服热线400-6238086</div></div>'
                     	$(".bidbond_result .tipCont").html(tiphtml)
                     	$(".bidbond_result").fadeIn()

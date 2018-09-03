@@ -1,20 +1,20 @@
 @charset "utf-8";
 
 .bondTitle{
-	font-size: 14px;
-	color: #999;
-	}	
+    font-size: 14px;
+    color: #999;
+    }   
 
 .imgUp{
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 .ssi-uploader{
-	margin:10px 0;
+    margin:10px 0;
 }
 .ssi-buttonWrapper .selectBut{
     position: absolute;
     top: 170px;
-    left: 140px;
+    left: 43%;
 }
 
 .ssi-buttonWrapper  .select-button{
@@ -24,20 +24,61 @@
     border: 0px;
 }
 #ssi-previewBox .dragTip{
-    position: absolute;
-    left: 34px;
+    position: relative;
     top: 260px;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
 }
 td.contTd{
-	height: 30px;
+    height: 30px;
 }
 
 .bondRight{
-	border: 2px dashed #e5e5e5;
-	padding:15px 10px;
-	margin:10px 0px;
-
+    border: 1px solid #e5e5e5;
+    margin:10px 0px;
 }
+.bondRight .searchtitle{
+    display: block;
+    height: 40px;
+    background: #f7f7f7;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 10px;
+}
+.bondRight .searchtitle .stitle{
+    float: left;
+    height: 40px;
+}
+.bondRight .searchtitle .stitle a{
+    display:block;
+    margin-left: 15px;
+    border:1px solid #e5e5e5;
+    width: 80px;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    color: #dbdbdb;
+    position: relative;
+    top: 11px;
+    border-bottom: 0px;
+}
+.bondRight .searchtitle .stitle a.cur{
+    background:#fff;
+    color:#000;
+}
+.searchtext{
+    padding-left: 10px;
+}
+.enterprise,
+.personal{
+    padding:0 10px;
+}
+.personal{
+    display: none;
+}
+
+
 .bondRight .search .text_cl{
     width: 96%;
     border: 1px solid #e7e7e7;
@@ -46,23 +87,24 @@ td.contTd{
     height: 25px;
 }
 .bondRight .bank-but{
-	margin:10px 0px;
+    margin:10px 0px;
 }
 .bondRight .bank-but .bankselectBtn{
-	width:100px;
-	height: 30px;
-	border:0px;
-	background: #32b16c;
-	color:#fff;
+    width:100px;
+    height: 30px;
+    border:0px;
+    background: #32b16c;
+    color:#fff;
+    border-radius: 2px;
 }
 .bondRight .resultTitle{
-	color:#d6d6d6;
-	position: relative;
-	display: flex;
-	align-items: center;
+    color:#d6d6d6;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 .bondRight .resultTitle:before{
-	content: '';
+    content: '';
     display: block;
     width: 11px;
     border-top: 1px solid #d6d6d6;
@@ -79,48 +121,48 @@ td.contTd{
 .select-result .no_info{
     width: 100%;
     height: 240px;
-    background: url("../images/selectLogo.jpg") center 50px #f9f9f9 no-repeat;
+    background: url("../images/authen_no.png") center 50px  no-repeat;
     text-align: center;
 }
 .select-result .no_info .no_info_p{
-	color: #d6d6d6;
-	position: relative;
-	top: 130px;
+    color: #fd8787;
+    position: relative;
+    top: 130px;
 }
 .select_info .bankInfo{
-	display: flex;
-	align-items: center;
-	margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 
 }
 .select_info .bankInfo span{
-	width: 100%;
+    width: 100%;
 }
 .select_info .bankInfo span.infoName{
-	width: 80px;
-	color: #999999;
+    width: 80px;
+    color: #999999;
 }
 .select_info .bankInfo span .info_input{
-	width: 95%;
+    width: 95%;
     border: 1px solid #e7e7e7;
     padding: 5px 2%;
     height: 25px;
 }
 .select_info .bankInfo span.infoTip{
-	color: #f4626c;
+    color: #f4626c;
 }
 .select_info .upbtn{
-	padding-left: 69px;
+    padding-left: 69px;
 }
 .select_info .upbtn .upload-btn{
-	border:0px;
-	background: #f4626c;
-	width:100px;
-	height: 30px;
-	color: #fff;
+    border:0px;
+    background: #32b16c;
+    width:100px;
+    height: 30px;
+    color: #fff;
 }
 .select_info .upbtn .upload-btn span{
-	text-align: center;
+    text-align: center;
 }
 .select_info .bankInfo .systemtip{
     color: #d6d6d6;
@@ -139,14 +181,14 @@ td.contTd{
     z-index: 400;
 }
 .bidbond_result{
-	position: relative;
+    position: relative;
     width: 1190px;
     margin: 0 auto;
     display: none;
 
 }
 .bidbond_result .result{
-	position: fixed;
+    position: fixed;
     z-index: 401;
     top: 150px;
     width: 497px;
@@ -173,23 +215,93 @@ td.contTd{
     top: 8px;
 }
 .result .result_cont{
-	text-align: center;
-	margin-bottom: 60px;
+    text-align: center;
+    margin-bottom: 60px;
 }
 .result .result_cont .result_img{
-	margin:30px 0 20px;
+    margin:30px 0 20px;
 }
 .result .result_cont .result_tip{
-	font-size: 16px;
+    font-size: 16px;
 }
 .result .result_cont .success_tip{
-	color: #ccc;
+    color: #ccc;
 }
 .result .result_cont .fail_tip{
-	color: #c53026;
+    color: #c53026;
 }
 
 #bandatmspan,#bandlognospan{
     color:#f4626c;
     padding-left: 80px;
+}
+
+
+.preResult-list .preResult{
+    border:1px solid #f9f9f9;
+    position: relative;
+    background: #f9f9f9;
+    padding:10px 0px 10px 40px;
+    margin-bottom: 10px;
+}
+.preResult-list .preResult .i_radio{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: block;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+}
+.preResult-list .preResult .i_radio.cur{
+    border:1px solid #32b16c;
+}
+.preResult-list .preResult .i_radio.cur i.cur_i{
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    display: block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #32b16c;
+
+}
+.preResult-list .preResult .preType{
+    position:absolute;
+    top:0px;
+    right: 0px;
+    display: block;
+    color: #fff;
+}
+.preResult-list .preResult .preType span{
+    display: block;
+    width: 50px;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+}
+.preResult-list .preResult .preType span.preType_no{
+    background: #cccccc;
+}
+.preResult-list .preResult .preType span.preType_yes{
+    background: #32b16c;
+}
+.preResult-list .preResult .preText{
+    padding-bottom: 5px;
+    color:#cccccc;
+}
+.preResult-list .preResult .preText .preName,
+.preResult-list .preResult .preText .preMobile{
+    float: left;
+    width: 50%;
+}
+.preResult-list .preResult .preText .preName .preName-text{
+    color: #32b16c;
+}
+.clear:after{
+    content: "";
+    display: block;
+    clear: both;
 }
