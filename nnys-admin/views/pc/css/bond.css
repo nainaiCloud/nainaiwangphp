@@ -96,6 +96,7 @@ td.contTd{
     background: #32b16c;
     color:#fff;
     border-radius: 2px;
+    cursor: pointer;
 }
 .bondRight .resultTitle{
     color:#d6d6d6;
@@ -154,7 +155,8 @@ td.contTd{
 .select_info .upbtn{
     padding-left: 69px;
 }
-.select_info .upbtn .upload-btn{
+.select_info .upbtn .enupload-btn,
+.select_info .upbtn .perupload-btn{
     border:0px;
     background: #32b16c;
     width:100px;
@@ -164,9 +166,15 @@ td.contTd{
 .select_info .upbtn .upload-btn span{
     text-align: center;
 }
-.select_info .bankInfo .systemtip{
+/*.select_info .bankInfo .systemtip{
     color: #d6d6d6;
     padding-left: 76px;
+}*/
+.select_info .bankNo{
+    position: relative;
+    top: -5px;
+    left: 70px;
+    color: #f4626c;
 }
 
 /*遮罩层*/
@@ -292,6 +300,9 @@ td.contTd{
 .preResult-list .preResult .preText{
     padding-bottom: 5px;
     color:#cccccc;
+}
+.preResult-list .preResult .preText .preBankNull{
+    color: #f4626c;
 }
 .preResult-list .preResult .preText .preName,
 .preResult-list .preResult .preText .preMobile{

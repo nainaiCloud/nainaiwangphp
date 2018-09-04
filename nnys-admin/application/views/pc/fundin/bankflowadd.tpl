@@ -16,7 +16,7 @@
                 <div class="col-md-7">
                   <div class="bondTitle">上传银行收款凭证：</div>
                   <div class="imgUp">
-                    <input type="hidden" name="bondImg" value="{url:/nnys-admin/balance/fundin/bankSearch}"><!-- 上传图片接口地址 -->
+                    <input type="hidden" name="bondImg" value="{url:/nnys-admin/balance/fundout/upload}"><!-- 上传图片接口地址 -->
                     <input data-validate="required:" type="file" multiple id="ssi-upload"/>
                   </div>
                 </div>
@@ -33,51 +33,62 @@
                     <div class="enterprise">
                       <div class="search">
                         <input name="bondName" class="text_cl" placeholder="请输入企业名称" type="text"/>
+                        <!--  <input type="hidden" name="bankType" value="1"><!-- 企业 -->
                       </div>
                       <div class="bank-but"> 
-                        <button type="button" class="bankselectBtn" name="">开始检索</button>
+                        <button type="button" class="bankselectBtn enterselect" name="enterselect">开始检索</button>
                       </div>
                       <div class="select-result">
                         <div class="resultTitle">检索结果如下<span class="right_line"></span></div>
-                        <div id="bondContent"></div>
-                        <script type="text/html" id="bankTemplat">
-                          <% if(bondDatas!=null) { %>
-                          <div class="select_info">
-                            <div class="bankInfo">
-                              <span class="infoName">企业名称：</span>
-                              <span><input type="text"  class="info_input" disabled="disabled" value="<%=bondDatas[0].true_name%>" name=""></span>
+                        <div id="enterbondContent"></div>
+                        <script type="text/html" id="enterbankTemplat">
+                          <% if(enterDatas.users.length==1) { %>
+                           <% if(enterDatas.users[0].dealer != null) { %>
+                            <div class="select_info">
+                              <form id="enterForm">
+                              <div class="bankInfo">
+                                <span class="infoName">企业名称：</span>
+                                <span><input type="text"  class="info_input" disabled="disabled" value="<%=enterDatas.users[0].true_name%>" name="enUser"></span>
+                              </div>
+                               <% if(enterDatas.users[0].bank == null) { %>
+                              <div class="bankNo">
+                              该企业为未开户的用户！
+                              </div>
+                              <% } %>
+                              <div class="bankInfo">
+                                <span class="infoName">用户名：</span>
+                                <span><input type="text"  class="info_input" disabled="disabled" value="<%=enterDatas.users[0].username%>" name=""></span>
+                              </div>
+                              <% if(enterDatas.users[0].bank != null) { %>
+                              <div class="bankInfo">
+                                <span class="infoName">开户银行：</span>
+                                <span><input type="text"  class="info_input" disabled="disabled" value="<%=enterDatas.users[0].bank.bank_name%>" name=""></span>
+                              </div>
+                              <div class="bankInfo">
+                                <span class="infoName">银行账号：</span>
+                                <span><input type="text"  class="info_input" value="<%=enterDatas.users[0].bank.card_no%>" name="enbanknum"></span>
+                              </div>
+                              <% } %>
+                              <div class="bankInfo">
+                                <span class="infoName">金额：</span>
+                                <span><input type="text"  class="info_input" placeholder="请输入保证金金额"  name="enbandatm"></span>
+                              </div>
+                              <div class="bankInfo">
+                                <span class="infoName">流水号：</span>
+                                <span><input type="text" class="info_input" placeholder="请输入银行流水号" name="enbandlogno"></span>
+                              </div>
+                              <div class="bankInfo">
+                                <span class="infoName"></span>
+                                <span class=infoTip><!-- !系统已经录入该流水账号，请检查输入是否正确 --></span>
+                              </div>
+                              <div class="bankInfo"><div class="upbtn"><button class="ssi-button enupload-btn" >确认提交</button></div></div>
+                              </form>
                             </div>
-                            <div class="bankInfo">
-                              <span class="infoName">用户名：</span>
-                              <span><input type="text"  class="info_input" disabled="disabled" value="<%=bondDatas[0].bank_name%>" name=""></span>
-                            </div>
-                            <div class="bankInfo">
-                              <span class="infoName">开户银行：</span>
-                              <span><input type="text"  class="info_input" disabled="disabled" value="<%=bondDatas[0].bank_name%>" name=""></span>
-                            </div>
-                            <div class="bankInfo">
-                              <span class="infoName">银行账号：</span>
-                              <span><input type="text"  class="info_input" value="<%=bondDatas[0].card_no%>" name="banknum"></span>
-                            </div>
-                            <div class="bankInfo">
-                              <span class="infoName">金额：</span>
-                              <span><input type="text"  class="info_input" placeholder="请输入保证金金额"  name="bandatm"></span>
-                            </div>
-                            <span style="display:none;border:0" id="bandatmspan" >请输入数字</span>
-                            <div class="bankInfo">
-                              <span class="infoName">流水号：</span>
-                              <span><input type="text" class="info_input" placeholder="请输入银行流水号" name="bandlogno"></span>
-                            </div>
-                            <span style="display:none;border:0" id="bandlognospan" >请输入数字</span>
-                            <div class="bankInfo">
-                              <span class="infoName"></span>
-                              <span class=infoTip><!-- !系统已经录入该流水账号，请检查输入是否正确 --></span>
-                            </div>
-                            <div class="bankInfo"><div class="upbtn"><button id="ssi-uploadBtn" class="ssi-button upload-btn" >确认提交</button></div></div>
-                            <div class="bankInfo">
-                              <div class="systemtip">温馨提示：请认真核对金额及流水号信息无误后再确认提交！</div>
-                            </div>
-                          </div>
+                              <% } else {%>
+                                <div class="no_info"><p class="no_info_p">该企业未进行认证，请核实企业名称是否输入正确！</p></div>
+                              <% } %>
+                            <% } else {%>
+                            <div class="no_info"><p class="no_info_p">该企业未进行认证，请核实企业名称是否输入正确！</p></div>
                           <% } %>
                         </script>
                       </div>
@@ -86,73 +97,124 @@
                     <div class="personal">
                       <div class="search">
                         <input name="perbondName" class="text_cl" placeholder="请输入姓名" type="text"/>
+                        <!-- <input type="hidden" name="perbankType" value="0"><!-- 个人 -->
                       </div>
                       <div class="bank-but"> 
-                        <button type="button" class="bankselectBtn" name="">开始检索</button>
+                        <button type="button" class="bankselectBtn perselect" name="perselect">开始检索</button>
                       </div>
                       <div class="select-result">
                         <div class="resultTitle">检索结果如下<span class="right_line"></span></div>
                         <div id="preContent"></div>
-                
+                        <script type="text/html" id="perbankTemplat">
+                          <% if(perDatas.users.length>0) {%>         
                           <div class="select_info">
-                            <div class="preResult-list">
-                              <div class="preResult">
+                            <% if(perDatas.users.length==1 && perDatas.users[0].dealer!=null) { %> 
+                             <div class="preResult-list">
+                              <div class="preResult preTextcur">
                                 <i class="i_radio cur"><i class="cur_i"></i></i>
                                 <span class="preType">
-                                  <span class="preType_no">未开户</span>
-                                   <span class="preType_yes" style="display: none;">已开户</span>
+                                  <% if(perDatas.users[0].bank!=null ){%>
+                                    <span class="preType_yes">已开户</span>
+                                  <% } else {%>
+                                    <span class="preType_no">未开户</span>
+                                  <% } %>
                                 </span>
                                 <div class="preText clear">
-                                  <div class="preName">姓名：<span class="preName-text">张三</span></div>
-                                  <div class="preMobile">手机号：<span>1203030000</span></div>
+                                  <div class="preName">姓名：<span class="preName-text"><%=perDatas.users[0].true_name%></span></div>
+                                  <div class="preMobile">手机号：<span><%=perDatas.users[0].mobile%></span></div>
                                 </div>
                                 <div class="preText">
-                                  <div class="preuser">用户名：张耐耐三</div>
+                                  <div class="preuser">用户名：<%=perDatas.users[0].username%></div>
+                                </div>
+                                 <% if(perDatas.users[0].bank!=null ){%>
+                                 <div class="preText">
+                                  <div class="preBank">开户银行：<%=perDatas.users[0].bank.bank_name%></div>
+                                </div>
+                                <div class="preText">
+                                  <div class="preBanknum">银行账号：<span class="preBanknums"><%=perDatas.users[0].bank.card_no%></span></div>
                                 </div>
                                 
+                                <% } else {%>
+                                  <div class="preText">
+                                    <div class="preBankNull">该个人是还未开户的用户，请联系该人进行开户！</div>
+                                  </div>
+                                <% } %>
                               </div>
-                              <div class="preResult">
+                            </div>
+                            <% if(perDatas.users[0].bank!=null ){%>
+                            <div class="perbankInfo">
+                                <div class="bankInfo">
+                                  <span class="infoName">金额：</span>
+                                  <span><input type="text"  class="info_input" placeholder="请输入保证金金额"  name="perbandatm"></span>
+                                </div>
+                                <div class="bankInfo">
+                                  <span class="infoName">流水号：</span>
+                                  <span><input type="text" class="info_input" placeholder="请输入银行流水号" name="perbandlogno"></span>
+                                </div>
+                                <div class="bankInfo">
+                                  <span class="infoName"></span>
+                                  <span class=infoTip><!-- !系统已经录入该流水账号，请检查输入是否正确 --></span>
+                                </div>
+                                <div class="bankInfo"><div class="upbtn"><button class="ssi-button perupload-btn" >确认提交</button></div></div>
+                              </div>
+                            <% } %>
+                            <% } else if(perDatas.users.length>1  && perDatas.users[0].dealer!=null){%>
+                            <div class="preResult-list">
+                              <%for (var i=0;i<perDatas.users.length;i++) { %>
+                               <div class="preResult">
                                 <i class="i_radio"><i class="cur_i"></i></i>
                                 <span class="preType">
-                                  <span class="preType_no" style="display: none;">未开户</span>
-                                   <span class="preType_yes">已开户</span>
+                                  <% if(perDatas.users[i].bank!=null ){%>
+                                    <span class="preType_yes">已开户</span>
+                                  <% } else {%>
+                                    <span class="preType_no">未开户</span>
+                                  <% } %>
                                 </span>
                                 <div class="preText clear">
-                                  <div class="preName">姓名：<span class="preName-text">张三</span></div>
-                                  <div class="preMobile">手机号：<span>1203030000</span></div>
+                                  <div class="preName">姓名：<span class="preName-text"><%=perDatas.users[i].true_name%></span></div>
+                                  <div class="preMobile">手机号：<span><%=perDatas.users[i].mobile%></span></div>
                                 </div>
                                 <div class="preText">
-                                  <div class="preuser">用户名：张耐耐三</div>
+                                  <div class="preuser">用户名：<%=perDatas.users[i].username%></div>
+                                </div>
+                                <% if(perDatas.users[i].bank!=null ){%>
+                                 <div class="preText">
+                                  <div class="preBank">开户银行：<%=perDatas.users[i].bank.bank_name%></div>
                                 </div>
                                 <div class="preText">
-                                  <div class="preBank">开户银行：中国银行上海支行</div>
+                                  <div class="preBanknum">银行账号：<%=perDatas.users[i].bank.card_no%></div>
                                 </div>
-                                <div class="preText">
-                                  <div class="preBanknum">银行账号：23339908089098090</div>
-                                </div>
+                                
+                                <% }%>
                               </div>
+                              <% } %>
                             </div>
-                           
-                            <div class="bankInfo">
-                              <span class="infoName">金额：</span>
-                              <span><input type="text"  class="info_input" placeholder="请输入保证金金额"  name="bandatm"></span>
+                            <div class="perbankInfo">
+                              <div class="bankInfo">
+                                <span class="infoName">金额：</span>
+                                <span><input type="text"  class="info_input" placeholder="请输入保证金金额"  name="perbandatm"></span>
+                              </div>
+                              <div class="bankInfo">
+                                <span class="infoName">流水号：</span>
+                                <span><input type="text" class="info_input" placeholder="请输入银行流水号" name="perbandlogno"></span>
+                              </div>
+                              <div class="bankInfo">
+                                <span class="infoName"></span>
+                                <span class=infoTip><!-- !系统已经录入该流水账号，请检查输入是否正确 --></span>
+                              </div>
+                              <div class="bankInfo"><div class="upbtn"><button class="ssi-button perupload-btn" >确认提交</button></div></div>
                             </div>
-                            <span style="display:none;border:0" id="prebandlognospan" >请输入数字</span>
-                            <div class="bankInfo">
-                              <span class="infoName">流水号：</span>
-                              <span><input type="text" class="info_input" placeholder="请输入银行流水号" name="bandlogno"></span>
-                            </div>
-                            <span style="display:none;border:0" id="prebandlognospan" >请输入数字</span>
-                            <div class="bankInfo">
-                              <span class="infoName"></span>
-                              <span class=infoTip><!-- !系统已经录入该流水账号，请检查输入是否正确 --></span>
-                            </div>
-                            <div class="bankInfo"><div class="upbtn"><button id="ssi-uploadBtn" class="ssi-button upload-btn" >确认提交</button></div></div>
-                            <div class="bankInfo">
-                              <div class="systemtip">温馨提示：请认真核对金额及流水号信息无误后再确认提交！</div>
-                            </div>
+                            <% } %>
+                            
+                            
+                            
+                            
+                            
                           </div>
-                       
+                          <% } else {%>
+                            <div class="no_info"><p class="no_info_p">该用户还未进行认证，请核实用户姓名是否输入正确！</p></div>
+                          <% } %>
+                        </script>
                       </div>
                     </div>
                     <!-- 个人保证金录入 end-->
@@ -187,8 +249,8 @@
  <script type="text/javascript">
   var api="http://192.168.13.4:3000/mock/9"
   $('#ssi-upload').ssi_uploader({
-    url:api+'/nnys-admin/balance/fundout/upload',//接收ajax请求的地址，必须填写
-    //url:$('input[name=bondImg]').val(),
+   // url:api+'/nnys-admin/balance/fundout/upload',//接收ajax请求的地址，必须填写
+    url:$('input[name=bondImg]').val(),
     maxFileSize:6,//允许上传的最大文件尺寸。
     allowed:['jpg','gif','txt','png','pdf'],
     maxNumberOfFiles:1,
