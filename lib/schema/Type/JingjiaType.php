@@ -31,9 +31,7 @@ class JingjiaType extends ObjectType
                         'type'=>Types::string(),
                         'description'=>'收货地区',
                         'args' => [
-                            'type'=>Types::int(),
-                            'defaultValue'=>0,//为0返回解析出的中文地区，为1返回地区码
-                            'name'=>'type'
+                            'type'=>Types::int()
                         ],
                         'resolve' => function($val, $args, $context, ResolveInfo $info){
                             return Handle::fieldTransfer($val,$args,$context,$info);

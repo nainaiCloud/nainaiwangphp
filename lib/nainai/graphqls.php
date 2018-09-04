@@ -52,6 +52,7 @@ class graphqls{
 
 
         }
+       // $schema->assertValid();
         //print_r($output);
         //header('Content-Type: application/json', true, $httpStatus);
         return $output;

@@ -179,23 +179,46 @@ class FundinController extends InitController {
 
     public function bankSearchAction(){
 	    $name = safe::filterGet('name');
-	    $acc  = safe::filterGet('acc');
-	    $data = array();
-	    if($name || $acc){
-	        $obj = new M('user_bank');
-	        $where = "";
-	        if($name){
-	            $where .= " true_name like \"".$name."%\" ";
-            }
-            if($acc){
-	            $where .= $where=="" ? " " : " and ";
-	            $where .= " card_no like \"".$acc."%\" ";
-            }
-            $data = $obj->where($where)->fields('user_id,bank_name,card_no,true_name')->select();
+	    $type = safe::filterGet('type');
 
+	    if($name ){
+            $graphql = new \nainai\graphqls();
+            if($type==1){
+                $query = '{
+                        users(page:1,pagesize:1,true_name:"'.$name.'",type:1){
+                           id,username,true_name,mobile,type,
+                           dealer(status:2){
+                             status
+                           },
+                           bank(status:1){
+                              bank_name,card_no,true_name
+                           }
+                        }
+                   
+                   }';
+            }else{
+                $query = '{
+                        users(true_name:"'.$name.'",type:0){
+                           id,username,true_name,mobile,
+                           dealer(status:2){
+                             status
+                           },
+                           bank(status:1){
+                              bank_name,card_no,true_name
+                           }
+                        }
+                   
+                   }';
+            }
+
+
+            $data = $graphql->query($query);
+            die(json::encode($data['data']));
         }
-        die(json::encode($data));
+        die(json::encode(array('users'=>array())));
     }
+
+
 }
 
 ?>
