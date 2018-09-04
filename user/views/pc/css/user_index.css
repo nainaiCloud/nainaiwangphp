@@ -2598,12 +2598,13 @@ cursor: pointer;
     opacity: 0.32;
     z-index: 1;
 }
-.bidbond_result{
+.bidbond_result,
+.bidbond2{
   position: relative;
   margin: 0 auto;
   display: none;
 }
-.bidbond_result .result{
+.bidbond_result .result ,.bidbond2 .result{
   position: fixed;
   z-index: 100;
   top: 150px;
@@ -2611,7 +2612,7 @@ cursor: pointer;
   margin-left: 100px;
   background: #fff;
 }
-.bidbond_result .result .result_title{
+.result .result_title{
     height: 30px;
     line-height: 30px;
     padding: 0 10px;
@@ -2621,7 +2622,7 @@ cursor: pointer;
     font-size: 14px;
     text-align: left;
 }
-.bidbond_result .result .result_title i.close{
+.result .result_title i.close{
     display: block;
     width: 14px;
     height: 14px;

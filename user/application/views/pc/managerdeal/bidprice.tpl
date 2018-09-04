@@ -92,6 +92,20 @@
             <div class="result_tip success_tip">系统将自动在10秒内跳转到商品竞价列表</div>
         </div>
     </div>
+</div>
+<div class="bidbond2">
+    <div class="mark"></div>
+    <div class="result">
+        <div class="result_title">
+            提示
+            <i class="close"></i>
+        </div>
+        <div id="resule_success" class="result_cont">
+            <div class="result_img"><img src="{views:images/icon/successIcon.png}"/></div>
+            <div class="result_tip">已为您复制相同发布的商品信息，请您进行核对，若有变动，需进行修改</div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
 $(function(){
     getCategory({$cate_id});
@@ -103,6 +117,7 @@ $(function(){
     formacc.addressRule('areabox1');
     $(".close,.mark").click(function(){
         $(".bidbond_result").fadeOut()
+        $(".bidbond2").fadeOut()
     })
     //竞价人群选择
     $("select[name='jingjia_mode']").change(function(){
@@ -159,7 +174,7 @@ $(function(){
                     $('[name=other]').val(jingjia['other']);
 
                     //弹出提示框
-
+                    $(".bidbond2").fadeIn(1000);
                 }
 
             }
