@@ -169,6 +169,10 @@ var s = 0;
                                 <td>交收时间</td>
                                 <td>成交后<%=detailData.accept_day%>天完成交收</td>
                             </tr>
+                            <tr>
+                                <td>货款缴纳时间</td>
+                                <td>竞价成交后<%=detailData.pay_days%>天完成货款缴纳</td>
+                            </tr>
                             <% } %>
                             </script>
                         </table>

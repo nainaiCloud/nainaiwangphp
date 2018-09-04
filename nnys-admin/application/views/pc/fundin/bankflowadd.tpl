@@ -132,28 +132,17 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="bankInfo">
-                              <span class="infoName">姓名</span>
-                              <span><input type="text"  class="info_input" disabled="disabled" value="<%=bondDatas[0].true_name%>" name=""></span>
-                            </div>
-                            <div class="bankInfo">
-                              <span class="infoName">开户银行：</span>
-                              <span><input type="text"  class="info_input" disabled="disabled" value="<%=bondDatas[0].bank_name%>" name=""></span>
-                            </div>
-                            <div class="bankInfo">
-                              <span class="infoName">银行账号：</span>
-                              <span><input type="text"  class="info_input" disabled="disabled" value="<%=bondDatas[0].card_no%>" name=""></span>
-                            </div>
+                           
                             <div class="bankInfo">
                               <span class="infoName">金额：</span>
                               <span><input type="text"  class="info_input" placeholder="请输入保证金金额"  name="bandatm"></span>
                             </div>
-                            <span style="display:none;border:0" id="bandatmspan" >请输入数字</span>
+                            <span style="display:none;border:0" id="prebandlognospan" >请输入数字</span>
                             <div class="bankInfo">
                               <span class="infoName">流水号：</span>
                               <span><input type="text" class="info_input" placeholder="请输入银行流水号" name="bandlogno"></span>
                             </div>
-                            <span style="display:none;border:0" id="bandlognospan" >请输入数字</span>
+                            <span style="display:none;border:0" id="prebandlognospan" >请输入数字</span>
                             <div class="bankInfo">
                               <span class="infoName"></span>
                               <span class=infoTip><!-- !系统已经录入该流水账号，请检查输入是否正确 --></span>

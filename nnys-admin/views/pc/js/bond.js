@@ -95,6 +95,15 @@ $(function(){
 	        }
 	    })
 	}//保证金录入end
+//个人用户选择
+$(".i_radio").click(function(){
+	$(".preResult").removeClass("preTextcur")
+	$(".i_radio").removeClass("cur")
+	$(this).addClass("cur")
+	$(this).parent(".preResult").addClass("preTextcur")
+})
+//个人用户选择end
+
 	//金额和流水号限制数字
 	function inputCont(){
 		$('input[name=bandatm]').keyup(function(){

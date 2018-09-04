@@ -253,6 +253,7 @@ td.contTd{
     height: 15px;
     border: 1px solid #ddd;
     border-radius: 50%;
+    cursor: pointer;
 }
 .preResult-list .preResult .i_radio.cur{
     border:1px solid #32b16c;
