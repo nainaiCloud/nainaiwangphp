@@ -28,7 +28,7 @@ class ProductType extends ObjectType
                         'description'=>'产地地区',
                         'args' => [
                             'type'=>Types::int(),
-                            'defaultValue'=>0
+                            //'defaultValue'=>0
                         ],
                         'resolve' => function($val,$args,$context,ResolveInfo $info){
                             return Handle::fieldTransfer($val,$args,$context,$info);

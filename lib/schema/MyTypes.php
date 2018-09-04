@@ -3,6 +3,7 @@ namespace schema;
 
 use nainai\order\Order;
 use PHPUnit\Util\PHP\AbstractPhpProcessTest;
+use schema\Type\DealerType;
 use schema\Type\QueryType;
 use schema\Type\UserType;
 use schema\Type\InvoiceType;
@@ -46,6 +47,8 @@ class MyTypes extends Types
 
     private static $attribute;
 
+    private static $dealer;
+
     /**
      * @return UserType
      */
@@ -85,6 +88,10 @@ class MyTypes extends Types
 
     public static function attribute(){
         return self::$attribute ?:(self::$attribute = new AttributeType());
+    }
+
+    public static function dealer(){
+        return self::$dealer ?:(self::$dealer = new DealerType());
     }
 
 }
