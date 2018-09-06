@@ -40,6 +40,12 @@ class BankflowModel{
 	public function add($data){
 	    $data['TX_DT'] = \Library\time::getDateTime('Y-m-d');
         $data['TX_TM'] = \Library\time::getDateTime('H:i:s');
+        if(!isset($data['TX_AMT']) || !$data['TX_AMT']){
+            return tool::getSuccInfo(0,'金额不能为空');
+        }
+        if(!isset($data['TX_LOG_NO']) || !$data['TX_LOG_NO']){
+            return tool::getSuccInfo(0,'流水号不能为空');
+        }
 	    $res = $this->bankObj->data($data)->add();
 	    if($res){
 	        return tool::getSuccInfo();
