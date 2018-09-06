@@ -42,6 +42,7 @@
                         <div class="resultTitle">检索结果如下<span class="right_line"></span></div>
                         <div id="enterbondContent"></div>
                         <script type="text/html" id="enterbankTemplat">
+                          <%if(enterDatas.users!=null) { %>
                           <% if(enterDatas.users.length==1) { %>
                            <% if(enterDatas.users[0].dealer != null) { %>
                             <div class="select_info">
@@ -89,7 +90,10 @@
                               <% } %>
                             <% } else {%>
                             <div class="no_info"><p class="no_info_p">该企业未进行认证，请核实企业名称是否输入正确！</p></div>
-                          <% } %>
+                            <% } %>
+                            <% } else{%>
+                            <div class="no_info"><p class="no_info_p">该企业未进行认证，请核实企业名称是否输入正确！</p></div>
+                            <%}%>
                         </script>
                       </div>
                     </div>
@@ -106,7 +110,7 @@
                         <div class="resultTitle">检索结果如下<span class="right_line"></span></div>
                         <div id="preContent"></div>
                         <script type="text/html" id="perbankTemplat">
-                          <% if(perDatas.users.length>0) {%>         
+                          <% if(perDatas.users!=null) {%>         
                           <div class="select_info">
                             <% if(perDatas.users.length==1 && perDatas.users[0].dealer!=null) { %> 
                              <div class="preResult-list">
@@ -205,10 +209,6 @@
                               <div class="bankInfo"><div class="upbtn"><button class="ssi-button perupload-btn" >确认提交</button></div></div>
                             </div>
                             <% } %>
-                            
-                            
-                            
-                            
                             
                           </div>
                           <% } else {%>

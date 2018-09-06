@@ -35,6 +35,7 @@ $(function(){
     function bankSearch(bankUser,bankType){
 	    $.ajax({
 	        //'url':api+'/nnys-admin/balance/fundin/bankSearch',
+	        //'url':'http://ceshi.nainaiwang/nnys-admin/balance/fundin/banksearch',
 	        'url':$('input[name=bankSearch]').val(),
 	        'type':'get',
 	        'dataType':'json',
@@ -43,7 +44,7 @@ $(function(){
 	            type:bankType//类型
 	        },
 	        success: function(data){
-	        	console.log("查询信息",data.users.length)
+	        	console.log("查询信息",data)
 	        	if(bankType == 1){
 	        		//bankType == 1 企业
 	        		var enterbondData = template.render('enterbankTemplat',{enterDatas:data});
