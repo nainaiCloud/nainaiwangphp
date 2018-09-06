@@ -39,8 +39,8 @@ $(function(){
 	        'type':'get',
 	        'dataType':'json',
 	        'data':{
-	            name:bankUser,//用户名
-	            type:bankType//银行账号
+	            name:bankUser,//名称
+	            type:bankType//类型
 	        },
 	        success: function(data){
 	        	console.log("查询信息",data.users.length)
@@ -91,7 +91,10 @@ $(function(){
 				 		
 				 	}) //个人录入保证金 end
 	        	}
-	        }
+	        }, 
+	        error:function (data) {      
+            	console.log("请求失败！",data);
+        	}
 	    })
 	}
 	 //开户信息查询 end
@@ -122,7 +125,9 @@ $(function(){
 	        	}else{
 	        		$(".bankInfo .infoTip").html("!系统已经录入该流水账号，请检查输入是否正确")
 	        	}
-	        }
+	        },error:function (res) {      
+            	console.log("录入请求失败！",res);
+        	}
 	    })
 	}//保证金录入end
 //个人用户选择
