@@ -17,6 +17,7 @@
                   <div class="bondTitle">上传银行收款凭证：</div>
                   <div class="imgUp">
                     <input type="hidden" name="bondImg" value="{url:balance/fundout/upload@admin}"><!-- 上传图片接口地址 -->
+                    <input type="text"  id="bonduploadImg" style="display: none"/><!-- 获取存储上传图片地址 -->
                     <input data-validate="required:" type="file" multiple id="ssi-upload"/>
                   </div>
                 </div>
@@ -46,7 +47,7 @@
                           <% if(enterDatas.users.length==1) { %>
                            <% if(enterDatas.users[0].dealer != null) { %>
                             <div class="select_info">
-                              <form id="enterForm">
+                            
                               <div class="bankInfo">
                                 <span class="infoName">企业名称：</span>
                                 <span><input type="text"  class="info_input" disabled="disabled" value="<%=enterDatas.users[0].true_name%>" name="enUser"></span>
@@ -83,7 +84,7 @@
                                 <span class=infoTip><!-- !系统已经录入该流水账号，请检查输入是否正确 --></span>
                               </div>
                               <div class="bankInfo"><div class="upbtn"><button class="ssi-button enupload-btn" >确认提交</button></div></div>
-                              </form>
+                           
                             </div>
                               <% } else {%>
                                 <div class="no_info"><p class="no_info_p">该企业未进行认证，请核实企业名称是否输入正确！</p></div>
@@ -247,9 +248,9 @@
  <script type="text/javascript" src="{views:js/ssi-uploader.js}"></script>
  <script type="text/javascript" src="{views:js/bond.js}"></script>
  <script type="text/javascript">
-  var api="http://192.168.13.4:3000/mock/9"
   $('#ssi-upload').ssi_uploader({
-   // url:api+'/nnys-admin/balance/fundout/upload',//接收ajax请求的地址，必须填写
+  //接收ajax请求的地址，必须填写
+   // url:'http://192.168.13.119/nn2/nnys-admin/balance/fundout/upload',
     url:$('input[name=bondImg]').val(),
     maxFileSize:6,//允许上传的最大文件尺寸。
     allowed:['jpg','gif','txt','png','pdf'],

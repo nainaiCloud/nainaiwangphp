@@ -16,7 +16,7 @@ $(function(){
     		$(".personal").show();
     	}
     })  //个人企业选择 end
-    var api="http://192.168.13.4:3000/mock/9"
+    //var api="http://192.168.13.4:3000/mock/9"
     //企业开户信息查询
     $(".enterselect").click(function(){
     	var enbankUser =$('input[name=bondName]').val();
@@ -54,9 +54,9 @@ $(function(){
                     $(".enupload-btn").click(function(){
                     	var OP_ACCT_NO_32=""
 	                    var OP_CUST_NAME = $('input[name=enUser]').val();//账号名
-	                    var	TX_AMT = $('input[name=enbandatm]').val().val;//金额
+	                    var	TX_AMT = $('input[name=enbandatm]').val();//金额
 						var	TX_LOG_NO = $('input[name=enbandlogno]').val(); //流水号
-	                    var img=$("#ssi-previewBox img").attr("src");//图片img
+	                    var img=$("#bonduploadImg").val();//图片img
                     	if(data!=null){
                     		if(data.users[0].bank != null){
                     			OP_ACCT_NO_32 =$('input[name=enbanknum]').val();//账号
@@ -77,7 +77,7 @@ $(function(){
 	                    var OP_CUST_NAME = $(".preTextcur .preName-text").text();//账号名
 	                    var	TX_AMT = $('input[name=perbandatm]').val();//金额
 						var	TX_LOG_NO = $('input[name=perbandlogno]').val(); //流水号
-	                    var img=$("#ssi-previewBox img").attr("src");//图片img
+	                    var img=$("#bonduploadImg").val();;//图片img
 	                    if($(".preResult").hasClass("preTextcur")){
 	                    	if(TX_AMT!=""&&TX_LOG_NO!=""){
 	                    		bankbankflowAdd(OP_ACCT_NO_32,OP_CUST_NAME,TX_AMT,TX_LOG_NO,img)
@@ -103,6 +103,7 @@ $(function(){
 	function bankbankflowAdd(OP_ACCT_NO_32,OP_CUST_NAME,TX_AMT,TX_LOG_NO,img){
 		$.ajax({
 	        //'url':api+'/nnys-admin/balance/fundin/bankSearchbankflowAdd',
+	        //'url':'http://192.168.13.119/nn2/nnys-admin/balance/fundin/bankflowAdd',
 	        'url':$('input[name=bankbankflowAdd]').val(),
 	        'type':'post',
 	        'dataType':'json',
@@ -116,7 +117,7 @@ $(function(){
 	        },
 	        success: function(res){
 	        	console.log("res:",res)
-	        	if(res.success==true){
+	        	if(res.success==1){
 	        		$(".bankInfo .infoTip").html("");
 	        		$(".bidbond_result").fadeIn(1000,setTimeout(function () {
 					       $(".bidbond_result").hide()
@@ -124,10 +125,11 @@ $(function(){
 					    },3000)
 	                )
 	        	}else{
+	        		//alert(res.info)
 	        		$(".bankInfo .infoTip").html("!系统已经录入该流水账号，请检查输入是否正确")
 	        	}
 	        },error:function (res) {      
-            	console.log("录入请求失败！",res);
+            	console.log("录入请求失败！",res,res.responseText);
         	}
 	    })
 	}//保证金录入end
