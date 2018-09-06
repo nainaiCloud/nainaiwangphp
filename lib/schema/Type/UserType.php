@@ -69,8 +69,23 @@ class UserType extends ObjectType
                                 return !empty($res)?$res : null;
                             });
 
-
-
+                        }
+                    ],
+                    'dealer' => [
+                        'type' => MyTypes::dealer(),
+                        'description'=>'认证信息',
+                        'args' => [
+                            'user_id' => Types::id(),
+                            'status' => Types::int()
+                        ],
+                        'resolve' => function($val, $args, $context, ResolveInfo $info){
+                            Handle::bufferAdd($val['id'],$info);
+                            return new Deferred(function () use ($val, $args, $context, $info) {
+                                Handle::loadBuffer($args,$context,$info);
+                                $args['user_id'] = $val['id'];
+                                $res = Handle::findOne($val, $args, $context, $info);
+                                return !empty($res)?$res : null;
+                            });
 
                         }
                     ]

@@ -74,8 +74,8 @@ console.log(id,pass,"dd")
 biddetailData();
 function biddetailData(){
     $.ajax({
-        'url':$('input[name=detail]').val(),
-       /* 'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadetail',*/
+       /* 'url':$('input[name=detail]').val(),*/
+        'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadetail',
         'type':'get',
         'dataType':'json',
         'data':{
@@ -85,8 +85,8 @@ function biddetailData(){
         success: function(data){           
             if(data !=null){
                   $.ajax({
-                    'url':$('input[name=baojiaList]').val(),
-                   /* 'url':'http://ceshi.nainaiwang.com/ajaxdata/baojiadata',*/
+                    /*'url':$('input[name=baojiaList]').val(),*/
+                    'url':'http://ceshi.nainaiwang.com/ajaxdata/baojiadata',
                     'type':'get',
                     'dataType':'json',
                     'data':{
@@ -305,8 +305,8 @@ function biddetailData(){
 /*保证金是否缴纳验证*/
 function bzjyz(data){
    $.ajax({
-        /*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',*/
-        'url':$('input[name=jingjiaPost]').val(),
+        'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',
+        /*'url':$('input[name=jingjiaPost]').val(),*/
         'type':'get',
         'dataType':'json',
         'data':{
@@ -361,8 +361,8 @@ function yescj(){
 }
     function baojiaPost(pass,curprice){
         $.ajax({
-            'url':$('input[name=baojiaPost]').val(),
-           /*'url':'http://ceshi.nainaiwang.com/trade/jingjiabaojia',*/
+         /*   'url':$('input[name=baojiaPost]').val(),*/
+           'url':'http://ceshi.nainaiwang.com/trade/jingjiabaojia',
             'type':'post',
             'dataType':'json',
             'data':{

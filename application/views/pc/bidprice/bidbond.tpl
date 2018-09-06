@@ -36,12 +36,12 @@
                 		<input type="hidden" name="bidmatch" value="{url:/ajaxdata/alrealyDeposit}">
 						<input type="hidden" name="qkh" value="{url:/user/fund/bank}"><!-- 去开户 -->
 						<input type="hidden" name="biddetail" value="{url:/bidprice/biddetails}">
-						<div id="BankInfo"></div>
+						<div class="bidbondInfo">
+							<div id="BankInfo"></div>
+						</div>
 						<script type="text/html" id="banktemplat">
 							<% if(bankInfo!=null) { %>
 							<!-- 若用户有过转账信息则显示已有的账户信息 -->
-							<div class="bidbondInfo">
-			
 								<div class="bidbondInput">
 									<span class="spanName">转账用户名称:</span>
 									<span class="spanCont"><%=bankInfo.true_name%></span>
@@ -57,24 +57,15 @@
 									<span class="spanCont"><%=bankInfo.card_no%></span>
 							
 								</div>
-								<div class="bidbond_btn">
-									
-								</div>
-								<div class="bidBond_tip">
-									<b class="prompt_b">*</b>必须使用开户账户关联的银行账户进行汇款，否则导致的缴纳不成功自行负责。
-								</div>
-							</div>
+								
 							<!-- 若用户有过转账信息则显示已有的账户信息 end-->
 							
-							<% } else{%>
-							<div class="bidbondInfo">
-								<div class="bidBond_tip">
-									<b class="prompt_b">*</b>必须使用开户账户关联的银行账户进行汇款，否则导致的缴纳不成功自行负责。
-								</div>
-							</div>
 							<% } %>
-			
-							
+							<div class="bidbond_btn"><!-- 缴纳按钮 --></div>
+							<div class="bidBond_tip">
+								<b class="prompt_b">*</b>
+								<p class="sktip"><!-- 缴纳提示 --></p>
+							</div>
 						</script>
 						
 					</div>

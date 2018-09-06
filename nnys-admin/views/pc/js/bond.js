@@ -2,6 +2,19 @@ $(function(){
     $(".close,.mark").click(function(){
          $(".bidbond_result").hide()
     })
+    $(".searchtitle .stitle").click(function(){
+    	 $(".searchtitle .stitle a").removeClass("cur");
+    	$(this).find("a").addClass("cur")
+    	var cont= $(this).find("a").text()
+    	console.log(cont);
+    	if(cont == "企业"){
+    		$(".enterprise").show();
+    		$(".personal").hide();
+    	}else if(cont == "个人"){
+    		$(".enterprise").hide();
+    		$(".personal").show();
+    	}
+    })
     var api="http://192.168.13.4:3000/mock/9"
     //开户信息查询
     $(".bankselectBtn").click(function(){
@@ -25,13 +38,13 @@ $(function(){
 	        	var dataLenth=Object.getOwnPropertyNames(data).length
 	        	console.log("查询信息",Object.getOwnPropertyNames(data).length)
 	        	if(dataLenth!=1){
-	        		var bondInfo ='<div class="no_info"><p class="no_info_p">暂无检索到匹配收款信息，请重新确认精准检索！</p></div>'
+	        		var bondInfo ='<div class="no_info"><p class="no_info_p">该企业未进行认证，请核实企业名称是否输入正确！</p></div>'
 	        		$("#bondContent").html(bondInfo)
 	        	}else{
 	        		var bondData = template.render('bankTemplat',{bondDatas:data});
                     console.log("只有一条",bondData)
                     $('#bondContent').html(bondData); 
-                    inputCont()
+                    //inputCont()
                     $("#ssi-uploadBtn").click(function(){
                     	var id = data[0].user_id
                     	var OP_ACCT_NO_32= data[0].card_no //账号
@@ -82,6 +95,15 @@ $(function(){
 	        }
 	    })
 	}//保证金录入end
+//个人用户选择
+$(".i_radio").click(function(){
+	$(".preResult").removeClass("preTextcur")
+	$(".i_radio").removeClass("cur")
+	$(this).addClass("cur")
+	$(this).parent(".preResult").addClass("preTextcur")
+})
+//个人用户选择end
+
 	//金额和流水号限制数字
 	function inputCont(){
 		$('input[name=bandatm]').keyup(function(){

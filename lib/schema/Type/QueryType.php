@@ -29,6 +29,15 @@ class QueryType extends ObjectType
                                     'name'=>'mobile',
                                     'defaultValue'=>''
                             ],
+                        'true_name' => [
+                            'type'=>Types::string(),
+                            'name'=>'true_name',
+                            'defaultValue'=>''
+                        ],
+                        'type' => [
+                            'type'=>Types::int(),
+                            'name'=>'type'
+                        ]
                        // 'username' => Types::nonNull(Types::string())
                     ],
                 ],
@@ -45,6 +54,14 @@ class QueryType extends ObjectType
                             'type'=>Types::int(),
                             'name'=>'pagesize',
                             'defaultValue'=>20
+                        ],
+                        'true_name' => [
+                            'type'=>Types::string(),
+                            'name'=>'true_name'
+                        ],
+                        'type' => [
+                            'type'=>Types::int(),
+                            'name'=>'type'
                         ]
                         // 'username' => Types::nonNull(Types::string())
                     ],
