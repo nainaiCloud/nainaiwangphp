@@ -104,13 +104,16 @@
 }
 
 .ssi-dropZonePreview {
-  min-height: 450px;
+  min-height: 330px;
   background: #f9f9f9;
 }
 
 #ssi-DropZoneBack {
-  z-index: -1;
-  overflow: hidden;
+    z-index: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 220px;
+    left: 28%;
 }
 
 .ssi-removeBtn {
@@ -429,7 +432,7 @@ table.ssi-fileList tr.ssi-space > td {
 
 .ssi-imgToUpload {
     width: 100%;
-    height: 425px;
+    height: 330px;
 }
 
 .ssi-btnIn {

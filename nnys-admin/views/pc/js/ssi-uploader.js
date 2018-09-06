@@ -53,7 +53,7 @@
             $uploadBox = $('<div class="ssi-uploadBoxWrapper ssi-uploadBox"></div>').append($mainBox, $uploadDetails);
             this.$element.prepend($uploadBox);
         } else {
-             $uploadBox = $('<div id="ssi-previewBox" class="ssi-uploadBox ssi-previewBox ' + (this.options.dropZone ? 'ssi-dropZonePreview ssi-dropZone"><span class="dragTip">' + this.language.drag + '</span></div>' : '">') + '</div>');
+            $uploadBox = $('<div id="ssi-previewBox" class="ssi-uploadBox ssi-previewBox ' + (this.options.dropZone ? 'ssi-dropZonePreview ssi-dropZone"><div id="ssi-DropZoneBack">' + this.language.drag + '</div>' : '">') + '</div>');
             this.$element.append($uploadBox);
         }
         var thisS = this;
@@ -64,7 +64,8 @@
 
         $input.on('change', function () { //choose files
             thisS.toUploadFiles(this.files);
-            $input.val('a');
+            $input.val('');
+            thisS.uploadFiles();
         });
         //drag n drop
         if (thisS.options.dropZone) {
@@ -73,6 +74,7 @@
                 $uploadBox.removeClass("ssi-dragOver");
                 var files = e.originalEvent.dataTransfer.files;
                 thisS.toUploadFiles(files);
+                 thisS.uploadFiles();
             });
             $uploadBox.on("dragover", function (e) {
                 e.preventDefault();
@@ -312,7 +314,6 @@
                 imgs = [];
             };
         }
-         thisS.uploadFiles();
     };
     var clearCompleted = function (thisS) {//clear all completed files
         var $completed = thisS.$element.find('.ssi-completed');
@@ -493,7 +494,7 @@
                         }
                     }
                 },
-                type: 'get',
+                type: 'POST',
                 data: formData,
                 cache: false,
                 contentType: false,
@@ -534,6 +535,11 @@
                 }
             }, thisS.options.ajaxOptions);
             $.ajax(ajaxOptions).done(function (responseData, textStatus, jqXHR) {
+                console.log("上传图片返回信息",responseData)
+                console.log("textStatus:",textStatus)
+                console.log("jqXHR:",jqXHR)
+                console.log("图", $.parseJSON(responseData).img)
+                $("#bonduploadImg").val($.parseJSON(responseData).img)
                 var msg, title = '', dataType = 'error', spanClass = 'exclamation', data;
                 try {
                     data = $.parseJSON(responseData);
@@ -606,7 +612,6 @@
                 thisS.uploadList[ii] = '';
                 thisS.toUpload[ii] = '';
                 thisS.imgNames[ii] = '';
-                console.log("成功上传")
             });
             //--------------end of ajax request-----------------------
 
