@@ -16,15 +16,15 @@
                 <div class="col-md-7">
                   <div class="bondTitle">上传银行收款凭证：</div>
                   <div class="imgUp">
-                    <input type="hidden" name="bondImg" value="{url:/nnys-admin/balance/fundout/upload}"><!-- 上传图片接口地址 -->
+                    <input type="hidden" name="bondImg" value="{url:balance/fundout/upload@admin}"><!-- 上传图片接口地址 -->
                     <input data-validate="required:" type="file" multiple id="ssi-upload"/>
                   </div>
                 </div>
                 <div class="col-md-5">
                   <div class="bondTitle">检索审核录入信息：</div>
                   <div class="bondRight">
-                    <input type="hidden" name="bankSearch" value="{url:/nnys-admin/balance/fundin/bankSearch}"><!-- 开户查询接口地址 -->
-                    <input type="hidden" name="bankbankflowAdd" value="{url:/nnys-admin/balance/fundin/bankSearchbankflowAdd}"><!-- 录入保证金接口地址 -->
+                    <input type="hidden" name="bankSearch" value="{url:balance/fundin/bankSearch@admin}"><!-- 开户查询接口地址 -->
+                    <input type="hidden" name="bankbankflowAdd" value="{url:balance/fundin/bankflowAdd@admin}"><!-- 录入保证金接口地址 -->
                     <div class="searchtitle">
                       <div class="stitle enter-title"><a class="cur">企业</a></div>
                       <div class="stitle per-title"><a>个人</a></div>
