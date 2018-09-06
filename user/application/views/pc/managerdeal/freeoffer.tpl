@@ -76,7 +76,11 @@
                 </div>
             </div>
 
-
+<script type="text/javascript">
+    $(function(){
+        getCategory({$cate_id});
+    })
+</script>
 
 
 
