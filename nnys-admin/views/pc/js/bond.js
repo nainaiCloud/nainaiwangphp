@@ -35,7 +35,7 @@ $(function(){
     function bankSearch(bankUser,bankType){
 	    $.ajax({
 	        //'url':api+'/nnys-admin/balance/fundin/bankSearch',
-	        //'url':'http://ceshi.nainaiwang/nnys-admin/balance/fundin/banksearch',
+	        //'url':'http://192.168.13.119/nn2/nnys-admin/balance/fundin/banksearch',
 	        'url':$('input[name=bankSearch]').val(),
 	        'type':'get',
 	        'dataType':'json',
@@ -148,8 +148,8 @@ function preselect(){
 
 //个人用户选择end
 
-	//金额和流水号限制数字
-	function inputCont(){
+	//金额和流水号限制数字()
+	/*function inputCont(){
 		$('input[name=bandatm]').keyup(function(){
 	    	var c=$(this);
 	    	if(/[^\d]/.test(c.val())){
@@ -172,5 +172,5 @@ function preselect(){
 	    	}
 
 		})
-	}//金额和流水号限制数字 end
+	}*///金额和流水号限制数字 end
 })
