@@ -160,7 +160,7 @@
        if (r != null) return unescape(r[2]); return null; //返回参数值
     }
     var id =getUrlParam("id");
-    console.log(id,"dd")
+    //console.log(id,"dd")
     contractData()
     function contractData(){
          $.ajax({
@@ -172,7 +172,7 @@
                 id:id,//报盘id
             },
             success: function(data){
-                console.log(data,'datas')
+                //console.log(data,'datas')
                 if(data){
                     var ContData = template.render('contractTemplat',{contDatas:data});
                     //console.log(ContData)
