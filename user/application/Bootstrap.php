@@ -22,20 +22,11 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 				ini_set("session.cookie_domain",$cookie_domain);
 		}
 
-		if(\Library\tool::getConfig('error')){
-			error_reporting(E_ALL);
-		}
-		else{
-			 error_reporting(0);
-		}
+
 		session_start();
-		define('REQUEST_METHOD', strtoupper($dispatcher->getRequest()->getMethod()));
-		define('IS_GET',        REQUEST_METHOD =='GET' ? true : false);
-		define('IS_POST',       REQUEST_METHOD =='POST' ? true : false);
-		define('IS_PUT',        REQUEST_METHOD =='PUT' ? true : false);
-		define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
-		define('IS_AJAX',       ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) ? true : false);
-	}
+        $initObj = new \nainai\appInit($dispatcher);
+        $initObj->init();
+    }
 
 	//注册本地类 所有相同前缀的类会加载到本地library路径
 	public function _initLoader(Yaf\Dispatcher $dispatcher) {
