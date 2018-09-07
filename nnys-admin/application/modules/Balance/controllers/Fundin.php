@@ -156,6 +156,7 @@ class FundinController extends InitController {
              if($data['img']){
                  $data['img'] = tool::setImgApp($data['img']);
              }
+             \nainai\syslog::info("上传保证金流水接收到数据：".json::encode($data));
              if($id){
                  $res = $obj->edit($id,$data);
              }else{
