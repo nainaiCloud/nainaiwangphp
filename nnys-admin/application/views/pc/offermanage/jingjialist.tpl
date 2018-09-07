@@ -47,7 +47,7 @@
                     <td><a href="#">{$item['username']}</a></td>
                     <td>{if:$item['company_name']!=''}{$item['company_name']}{else:}{$item['true_name']}{/if}</td>
                     <td>{$item['name']}</td>
-                    <td>{$item['mode_txt']}</td>
+                    <td>竞价</td>
                     <td>{$item['quantity']}</td>
                     <td>{$item['price_l']}</td>
                     <td>{$item['start_time']}</td>
