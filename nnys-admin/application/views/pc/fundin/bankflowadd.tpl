@@ -187,7 +187,7 @@
                                   <div class="preBank">开户银行：<%=perDatas.users[i].bank.bank_name%></div>
                                 </div>
                                 <div class="preText">
-                                  <div class="preBanknum">银行账号：<%=perDatas.users[i].bank.card_no%></div>
+                                  <div class="preBanknum">银行账号：<span class="preBanknums"><%=perDatas.users[i].bank.card_no%></span></div>
                                 </div>
                                 
                                 <% }%>
@@ -250,7 +250,7 @@
  <script type="text/javascript">
   $('#ssi-upload').ssi_uploader({
   //接收ajax请求的地址，必须填写
-   // url:'http://192.168.13.119/nn2/nnys-admin/balance/fundout/upload',
+    //url:'http://192.168.13.119/nn2/nnys-admin/balance/fundout/upload',
     url:$('input[name=bondImg]').val(),
     maxFileSize:6,//允许上传的最大文件尺寸。
     allowed:['jpg','gif','txt','png','pdf'],
