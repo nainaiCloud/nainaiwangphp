@@ -47,6 +47,10 @@ class BankflowModel{
         if(!isset($data['TX_LOG_NO']) || !$data['TX_LOG_NO']){
             return tool::getSuccInfo(0,'流水号不能为空');
         }
+        $have = $this->bankObj->where(array('TX_LOG_NO'=>$data['TX_LOG_NO']))->getField('id');
+        if($have){
+            return tool::getSuccInfo(0,'流水号已存在，不能重复添加');
+        }
 	    $res = $this->bankObj->data($data)->add();
 	    if($res){
 	        return tool::getSuccInfo();
