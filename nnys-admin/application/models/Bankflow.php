@@ -29,6 +29,7 @@ class BankflowModel{
 		//$Q->join = 'left join admin_role as r on a.role = r.id';
 		$Q->page = $page;
 		$Q->pagesize = 20;
+		$Q->order = ' a.id desc ';
 		//$Q->fields = "a.*,r.name as role_name";
 		//$Q->order = "a.create_time desc";
 		//$Q->where = "a.name <> '$super_admin' and a.status >= 0 ".($name ? " and a.name like '%$name%'" : '');
