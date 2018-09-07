@@ -34,7 +34,7 @@
                     <div class="enterprise">
                       <div class="search">
                         <input name="bondName" class="text_cl" placeholder="请输入企业名称" type="text"/>
-                        <!--  <input type="hidden" name="bankType" value="1"><!-- 企业 -->
+                        <!--  <input type="hidden" name="bankType" value="1">企业 -->
                       </div>
                       <div class="bank-but"> 
                         <button type="button" class="bankselectBtn enterselect" name="enterselect">开始检索</button>
@@ -102,7 +102,7 @@
                     <div class="personal">
                       <div class="search">
                         <input name="perbondName" class="text_cl" placeholder="请输入姓名" type="text"/>
-                        <!-- <input type="hidden" name="perbankType" value="0"><!-- 个人 -->
+                        <!-- <input type="hidden" name="perbankType" value="0"> 个人 -->
                       </div>
                       <div class="bank-but"> 
                         <button type="button" class="bankselectBtn perselect" name="perselect">开始检索</button>
@@ -239,8 +239,8 @@
     </div>
     <div id="resule_success" class="result_cont">
       <div class="result_img"><img src="{views:images/successIcon.png}"/></div>
-      <div class="result_tip">恭喜，您的保证金录入信息已提交成功！</div>
-      <div class="result_tip success_tip">系统将自动在3秒内跳转到竞价页面</div>
+      <div class="result_tip">恭喜，您提交的保证金信息已录入系统成功！</div>
+      <div class="result_tip success_tip">系统将在3秒后自动关闭该提示界面</div>
     </div>
     
   </div>
