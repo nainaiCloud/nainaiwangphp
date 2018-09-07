@@ -185,7 +185,7 @@
 		function checkPass(obj,offer_id,jingjia_pass){
             var href = '{url:/bidprice/biddetails}?id='+offer_id
           	var pass =$("#"+obj.id).parents(".yzm_con").find(".jijaPass").val()
-          	console.log(jingjia_pass)
+          	//console.log(jingjia_pass)
 		    if(pass == jingjia_pass){
 		        location.href=href+'&pass=' +pass;
 		    }else{
