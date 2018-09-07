@@ -62,13 +62,18 @@ $(function(){
                     			OP_ACCT_NO_32 =$('input[name=enbanknum]').val();//账号
                     		}
                     	}
-                    	console.log("企业录入",OP_ACCT_NO_32,OP_CUST_NAME,TX_AMT,TX_LOG_NO,img)	
-				 		bankbankflowAdd(OP_ACCT_NO_32,OP_CUST_NAME,TX_AMT,TX_LOG_NO,img)
+                    	//console.log("企业录入",OP_ACCT_NO_32,OP_CUST_NAME,TX_AMT,TX_LOG_NO,img)	
+                    	if(img!=""){
+                    		bankbankflowAdd(OP_ACCT_NO_32,OP_CUST_NAME,TX_AMT,TX_LOG_NO,img)
+                    	}else{
+                    		alert("请上传凭证！")
+                    	}
+				 		
 				 	}) //企业录入保证金 end
 
 	        	}else if(bankType == 0){
 	        		var perbondData = template.render('perbankTemplat',{perDatas:data});
-                    console.log("个人",perbondData)
+                    //console.log("个人",perbondData)
                     $("#preContent").html(perbondData); 
                     preselect();//多个用户时单击选择事件
                     //个人录入保证金 
@@ -77,18 +82,23 @@ $(function(){
 	                    var OP_CUST_NAME = $(".preTextcur .preName-text").text();//账号名
 	                    var	TX_AMT = $('input[name=perbandatm]').val();//金额
 						var	TX_LOG_NO = $('input[name=perbandlogno]').val(); //流水号
-	                    var img=$("#bonduploadImg").val();;//图片img
+	                    var img=$("#bonduploadImg").val();//图片img
 	                    if($(".preResult").hasClass("preTextcur")){
-	                    	if(TX_AMT!=""&&TX_LOG_NO!=""){
+	                    	if(img!=""){
+	                    		if(TX_AMT!=""&&TX_LOG_NO!=""){
 	                    		bankbankflowAdd(OP_ACCT_NO_32,OP_CUST_NAME,TX_AMT,TX_LOG_NO,img)
+		                    	}else{
+		                    		alert("金额或流水号不能为空！")
+		                    	}
 	                    	}else{
-	                    		alert("金额或流水号不能为空！")
+	                    		alert("请上传凭证！")
 	                    	}
+	                    	
 	                    	
 	                    }else{
 	                    	alert("请先选择用户！")
 	                    }
-                    	console.log("个人录入",OP_ACCT_NO_32,OP_CUST_NAME,TX_AMT,TX_LOG_NO,img)	
+                    	//console.log("个人录入",OP_ACCT_NO_32,OP_CUST_NAME,TX_AMT,TX_LOG_NO,img)	
 				 		
 				 	}) //个人录入保证金 end
 	        	}

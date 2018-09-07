@@ -27,7 +27,6 @@
 				</div>
 				<div class="bidBond_cont clear">
 					<div class="bidbond_left">
-						<div class="bidbondtitle">转账人信息</div>
 						<!-- 是否缴纳保证金 -->
 						<input type="hidden" name="jingjiaPost" value="{url:/ajaxdata/jingjiadeposit}">
 						<!-- 保证金信息 -->
@@ -41,6 +40,7 @@
 						</div>
 						<script type="text/html" id="banktemplat">
 							<% if(bankInfo!=null) { %>
+							<div class="bidbondtitle">转账人信息</div>
 							<!-- 若用户有过转账信息则显示已有的账户信息 -->
 								<div class="bidbondInput">
 									<span class="spanName">转账用户名称:</span>
