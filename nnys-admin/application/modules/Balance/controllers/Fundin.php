@@ -135,6 +135,10 @@ class FundinController extends InitController {
         $obj = new BankflowModel();
         $page = safe::filterGet('page','int',1);
         $data = $obj->getList($page);
+        foreach($data['data'] as &$v){
+            $v['img'] = \Library\thumb::getOrigImg($v['img']);
+        }
+
         $this->getView()->assign('data',$data);
     }
 

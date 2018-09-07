@@ -25,6 +25,7 @@
 				<th width="60">金额</th>
 				<th width="150">流水号</th>
 				<th width="100">日期</th>
+				<th width="100">图片</th>
 				<th width='100'>操作</th>
 			</tr>
 		</thead>
@@ -36,9 +37,8 @@
 				<td>{$item['TX_AMT']}</td>
 				<td>{$item['TX_LOG_NO']}</td>
 				<td>{$item['TX_DT']}</td>
+				<td><a href="{$item['img']}" ><img height="50" src="{$item['img']}" /></a></td>
 				<td class="td-manage">
-					<a title="查看" href="{url:/balance/fundin/bankflowadd}?id={$item['id']}" class="ml-5" style="text-decoration:none"><i class="icon-eye-open fa-eye"></i></a>
-
 					<a title="删除" ajax_status=-1 ajax_url="{url:balance/fundin/bankflowdel}?id={$item['id']}"  class="ml-5" style="text-decoration:none"><i class="icon-trash fa-trash"></i></a>
 			</tr>
 		{/foreach}
