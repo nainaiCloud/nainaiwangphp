@@ -17,7 +17,7 @@
 				success: function(data){
 					if(data){
 		               var bidList = template.render('bidListtemplat',data);
-		               console.log(data,"lieb")
+		               //console.log(data,"lieb")
 		               $('#bidcomBox').html(bidList);
 		              	var pagestr=""
 		              	if(data.page!=null){
@@ -92,7 +92,7 @@
 		        },1000);
 			}
 			$(".page_num .pages_bar a").removeClass("current_page");
-			console.log(curContent,"-",curpage,"-",alength,"单击的当前内容")
+			//console.log(curContent,"-",curpage,"-",alength,"单击的当前内容")
 			bidData();
 
 		});

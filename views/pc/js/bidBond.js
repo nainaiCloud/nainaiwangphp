@@ -10,8 +10,7 @@
 	}
 	var id =getUrlParam("id");
 	var pass =getUrlParam("pass")
-	console.log("dd",id,"-",pass)
-	console.log("去开户",$('input[name=biddetail]').val())
+	//console.log("dd",id,"-",pass)
 //开户信息
  	bzjData()
 	function bzjData(){
@@ -35,7 +34,7 @@
 	        	var enterTip="保证金实际缴纳金额必须同需要缴纳金额完全一致，否则造成的缴纳不成功自行负责"
 	        	//个人用户提示
 	        	var perTip="保证金实际缴纳金额必须同需要缴纳金额完全一致，且必须使用开户账户关联的银行账户进汇款。否则造成的缴纳不成功自行负责"
-	        	console.log("用户类型：",bzjDatas.user.type)
+	        	//console.log("用户类型：",bzjDatas.user.type)
 	        	if(bzjDatas.user.type == 1){
 	        		//bzjDatas.user.type == 1 企业
 	        		var BankInfo = template.render('banktemplat',{bankInfo:bzjDatas.user.bank});
@@ -78,7 +77,7 @@ function bzjyz(){
 	        id:id,//报盘id
 	    },
 	    success: function(datas){
-	    	console.log(datas,"bzjyz")
+	    	//console.log(datas,"bzjyz")
 	    	if(datas.success == 0){
 	    		$(".bidbond_btn").html('<input class="submitIn" type="button" value="缴纳完成" name="bankBut">')
 	    	}else{
@@ -101,7 +100,7 @@ function clickBzj(){
 	        	},
                 success: function (result) {
                 	var tiphtml=''
-                    console.log(result);//打印服务端返回的数据(调试用)
+                    //console.log(result);//打印服务端返回的数据(调试用)
                     if (result.success == 1) {
                     	tiphtml='<div id="resule_success" class="result_cont">'
 	        			+'<div class="result_img"><img src="../views/pc/images/icon/successIcon.png"/></div>'
@@ -144,7 +143,7 @@ function clickBzj(){
                     }
                 },
                 error : function() {
-                    console.log("异常！");
+                    //console.log("异常！");
                 }
             });
 	})

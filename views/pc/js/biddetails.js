@@ -69,7 +69,7 @@ function getUrlParam(name) {
 }
 var id =getUrlParam("id");
 var pass =getUrlParam("pass")
-console.log(id,pass,"dd")
+//console.log(id,pass,"dd")
 //竞价详情数据获取
 biddetailData();
 function biddetailData(){
@@ -182,7 +182,7 @@ function biddetailData(){
                         }
                     //时间计算end
                         var bjListData = res.data//列表数据
-                        console.log(res,"res数据")
+                        //console.log(res,"res数据")
                         //竞拍状态，价格
                         var priceText=""//价格
                         var bidType ="" //竞价状态
@@ -192,7 +192,7 @@ function biddetailData(){
                         var tip=""//提示
                         var bid_time=""//时间说明
                         if(data.status ==1){
-                            console.log(data.status,"res数据1")
+                            //console.log(data.status,"res数据1")
                             priceText = "起拍价："+data.price_l
                             bidType ="竞价暂未开始"
                             cprice="出价人：竞价暂未开始，目前没有出价人"
@@ -206,7 +206,7 @@ function biddetailData(){
                             }
                             
                         }else if (data.status ==2){
-                            console.log(data.status,"res数据2")
+                            //console.log(data.status,"res数据2")
                             if(bjListData.length>0){
                                 priceText = "当前价："+bjListData[0].price
                                 curprice=bjListData[0].price
@@ -249,7 +249,7 @@ function biddetailData(){
                                 bid_time="该商品已竞价结束"
                                 but='<input class="submitBut end" type="button" disabled="disabled" name="jjend" value="竞价已结束">'
                         }
-                            console.log(res.count,data.views,"res数据k")
+                            //console.log(res.count,data.views,"res数据k")
                             $(".bidBottom .bidpricepop .pepNum").text(res.count);//出价人数
                             $(".bidBottom .bidwk .viewNum").text(data.views);//围观人数
                             $(".price .price_type .dqprice_con").text(priceText) ;//价格
@@ -289,14 +289,14 @@ function biddetailData(){
                                 $("#baojiaList").html(baojiaListone+baojiaList)
 
                     },error:function(res){
-                        console.log("报价列表出错")    
+                        //console.log("报价列表出错")    
                     }
                 })
                 //竞价列表
          }
           
         },error:function(data){
-                console.log("网络出错")    
+                //console.log("网络出错")    
         }
     })
 }
@@ -313,7 +313,7 @@ function bzjyz(data){
             id:id,//报盘id
         },
         success: function(datas){
-            console.log(datas,"bzjyz")
+            //console.log(datas,"bzjyz")
             if(data.login_user == data.user_id){
                 $(".bidfor_cont_left .but").html("")
             }else{
@@ -338,7 +338,7 @@ function bzjyz(data){
 //保证金数据
 function bzj(){
     var bidUrls=$("input[name='bidUrl']").val()
-     console.log("d",bidUrls)
+     //console.log("d",bidUrls)
     location.href=bidUrls+"?id="+id+"&pass="+pass;
 }
 //出价接口
@@ -350,12 +350,12 @@ function yescj(){
     */
     //解除 $().off()
     $("input[name='butPassword']").off().click(function(){
-        console.log('内部事件触发')
+        //console.log('内部事件触发')
     })
     //绑定
     $("input[name='butPassword']").click(function(){
         var inputPay = $(".pay_input input[name='payPassword']").val();
-         console.log(inputPay,"-",bidprice,"报价")
+         //console.log(inputPay,"-",bidprice,"报价")
         baojiaPost(inputPay,bidprice)
     })
 }
@@ -373,7 +373,7 @@ function yescj(){
             success: function(data){
                 var url = data.returnUrl;//返回地址
                 var times = data.time;//跳转时间
-                console.log(data.success,"success")
+                //console.log(data.success,"success")
                 if(data.success==1){
                     biddetailData()
                     $(".pay_password").fadeOut()
@@ -399,7 +399,7 @@ function yescj(){
         $("#jian").click(function(){
             var pricejian=$("#num").val() 
             numPrice=parseFloat(pricejian)-parseFloat(stepprice);
-            console.log(numPrice,"numPrice")
+            //console.log(numPrice,"numPrice")
             if(numPrice>=cursprice){
                $("#num").val(numPrice.toFixed(2)); 
             }else{
