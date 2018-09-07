@@ -11,24 +11,15 @@ use \Library\views\wittyAdapter;
 use \Library\Session\Driver\Db;
 class Bootstrap extends \Yaf\Bootstrap_Abstract{
 
+    private $config ;
     public function _initConfig(Yaf\Dispatcher $dispatcher) {
 
 		//把配置保存起来
 		$this->config = Yaf\Application::app()->getConfig();
 		Yaf\Registry::set('config', $this->config);
-		define('REQUEST_METHOD', strtoupper($dispatcher->getRequest()->getMethod()));
-		define('IS_GET',        REQUEST_METHOD =='GET' ? true : false);
-		define('IS_POST',       REQUEST_METHOD =='POST' ? true : false);
-		define('IS_PUT',        REQUEST_METHOD =='PUT' ? true : false);
-		define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
-		define('IS_AJAX',       ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) ? true : false);
+		$initObj = new \nainai\appInit($dispatcher);
+		$initObj->init();
 
-		if(\Library\tool::getConfig('error')){
-			error_reporting(E_ALL);
-		}
-		else{
-			error_reporting(0);
-		}
 		//数据库方式存储session
 		ini_set('session.save_handler','user');
 		$session = new Db('admin_session',7200);
@@ -38,7 +29,7 @@ class Bootstrap extends \Yaf\Bootstrap_Abstract{
 		                         array($session, 'write'),
 		                         array($session, 'destroy'),
 		                         array($session, 'gc'));
-		
+
 		session_start();
 
 	}
