@@ -94,7 +94,7 @@ class UserPaylog
 
         $matchFlow = $this->findMatchFlow($startDate,$endDate,$graData['data']['user'],$amount);
 
-        if($matchFlow['acc_no'] && $matchFlow['status']==1){//有匹配的流水
+        if($matchFlow['status']==1){//有匹配的流水
             syslog::info("找到可用流水，流水号：".$matchFlow['bank_flow']);
             $where = array('subject'=>'jingjia','subject_id'=>$this->subject_id,'user_id'=>$this->user_id);
             $res = $this->existUpdateElseInsert($matchFlow,$where);
@@ -103,7 +103,7 @@ class UserPaylog
             }else{
                 return tool::getSuccInfo(0,'匹配失败');
             }
-        }elseif($matchFlow['acc_no'] && $matchFlow['status']==2){
+        }elseif($matchFlow['status']==2){
             return tool::getSuccInfo(4,'匹配到保证金，但金额不符合');
         }else{
             syslog::info("用户".$this->user_id."，竞价id".$this->subject_id.'的竞价没有找到保证金支付记录');
@@ -122,21 +122,7 @@ class UserPaylog
         return $data;
     }
 
-    /**
-     * 获取比对的账户信息,开户信息中的账号
-     * @param $user_id
-     * @return array
-     */
-    private function getCompareAcc($user_id){
-        $userBankObj = $this->userBankObj;
-        $bankData = $userBankObj->getActiveBankInfo($user_id);
-        if(empty($bankData)){
-            return array();
-        }
-        $compareData['acc_no'] = $bankData['card_no'];
 
-        return $compareData;
-    }
 
 
     /**
@@ -185,7 +171,8 @@ class UserPaylog
             'acc_name'=>'',
             'pay_total'=>0,
             'bank_flow'=>'',
-            'pay_time'=>''
+            'pay_time'=>'',
+            'status' =>0
         );
         if(!empty($flow)){
             foreach($flow as $item){
@@ -195,12 +182,15 @@ class UserPaylog
                 $tempAccName = $item['OP_CUST_NAME'];
                 $tempFlow = $item['TX_LOG_NO'];
                 $tempPayTime = substr($item['TX_DT'].$item['TX_TM'],0,-3);
+
+
                 if( $matchData['type']==0 && $tempAccNo==$acc_no || ($matchData['type']==1 && $tempAccName==$matchData['true_name']) ){
                     //然后再判断这个流水在pay_log表中是否存在，已存在则不能使用
 
                     $res = $this->getOneLog(array('bank_flow'=>$tempFlow));
 
                     if(empty($res)){//如果为空，该流水可用
+                        syslog::info("可用");
                         $resData['acc_no'] = $acc_no;
                         $resData['acc_name'] = $tempAccName;
                         $resData['pay_total'] = $amount;
