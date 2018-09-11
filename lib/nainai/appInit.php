@@ -34,11 +34,10 @@ class appInit
         define('IS_PUT',        REQUEST_METHOD =='PUT' ? true : false);
         define('IS_DELETE',     REQUEST_METHOD =='DELETE' ? true : false);
         define('IS_AJAX',       ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) ? true : false);
-
-        if(isset($this->config['http'])){
-            if($this->config['http']['access_control_allow']==1){
-                header("Access-Control-Allow-Origin:*");
-                header("Access-Control-Allow-Credentials:true");
+         if(isset($this->config['http'])){
+            if($this->config['http']['access_control_allow']){
+                header("Access-Control-Allow-Origin : *");
+                header("Access-Control-Allow-Credentials : true");
             }
         }
 

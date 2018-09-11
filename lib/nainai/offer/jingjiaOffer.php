@@ -732,7 +732,7 @@ class jingjiaOffer extends product{
                    }else{
                        //给竞价失败用户通知
                        if(!in_array($item['user_id'],$users)){
-                           $content = $item['true_name']."您好，很遗憾您参与的".$data['pro_name']."竞拍未竞价成功，此次竞拍的成交价为".$baojiaData[0]['price']."元/".$unit."。竞价保证金将在1个工作日内原路退还至您的账户。请关注其他竞价信息。";
+                           $content = $item['true_name']."您好，很遗憾您参与的".$data['pro_name']."竞拍未竞价成功，此次竞拍的成交价为".$baojiaData[0]['price']."元/".$unit."。竞价保证金将在3个工作日内原路退还至您的账户。请关注其他竞价信息。";
                            $member->sendShortMessage($item['user_id'],$content);
                            $users[] = $item['user_id'];
                        }
