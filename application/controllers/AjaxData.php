@@ -285,7 +285,7 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
         $query = '{
                         jingjia(id:'.$offer_id.'){
                             pro_name,
-                            max_num,accept_area,end_time,product_id,accept_area_code,user_id,
+                            max_num,accept_area,end_time,product_id,accept_area_code,user_id,pay_days,
                             product{
                                produce_area,produce_address,note,unit,
                                attribute{
@@ -405,7 +405,7 @@ class AjaxDataController extends \Yaf\Controller_Abstract{
                          },
                         },
                         jingjia(id:'.$offer_id.'){
-                            pro_name,jingjia_deposit
+                            pro_name,jingjia_deposit,pay_days
                         }
                        
                    }';
