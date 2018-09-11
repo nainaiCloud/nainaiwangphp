@@ -30,6 +30,7 @@
 	        	//console.log(bzjDatas.user.bank,"user")
 	        	$(".bzjProduct").text(bzjDatas.jingjia.pro_name);//商品名字
 	        	$(".bidbondprice .bzjPrice").text(bzjDatas.jingjia.jingjia_deposit);//需缴纳保证金
+	        	$(".payment_day").text(bzjDatas.jingjia.pay_days);
 	        	//企业用户提示
 	        	var enterTip="保证金实际缴纳金额必须同需要缴纳金额完全一致，否则造成的缴纳不成功自行负责"
 	        	//个人用户提示
@@ -69,7 +70,7 @@
 /*保证金验证*/
 function bzjyz(){
 	$.ajax({
-		/*'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',*/
+		//'url':'http://ceshi.nainaiwang.com/ajaxdata/jingjiadeposit',
 	    'url':$('input[name=jingjiaPost]').val(),
 	    'type':'get',
 	    'dataType':'json',
@@ -93,7 +94,7 @@ function clickBzj(){
             //几个参数需要注意一下
                 type: "POST",//方法类型
                 dataType: "json",//预期服务器返回的数据类型
-               /* url: "http://ceshi.nainaiwang.com/ajaxdata/alrealydeposit" ,*///匹配数据url
+                //url: "http://ceshi.nainaiwang.com/ajaxdata/alrealydeposit" ,//匹配数据url
                 url:$('input[name=bidmatch]').val(),
                 data:{
 	            	id:id,//报盘id
