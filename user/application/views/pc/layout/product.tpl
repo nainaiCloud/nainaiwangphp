@@ -14,7 +14,7 @@
     <tr>
         <td nowrap="nowrap"><span></span>商品单价：</td>
         <td>
-            <span> <input class="text" type="text" datatype="money" value="{$offer['price']}" errormsg="请正确填写单价" name="price">（含税）</span>
+            <span> <input class="text" type="text" datatype="money" value="{$offer['price']}" errormsg="请正确填写单价" name="price">（不含税）</span>
             <span></span>
         </td>
         <!--                                 <td>
@@ -26,7 +26,7 @@
     <tr>
         <td nowrap="nowrap"><span></span>会员单价：</td>
         <td>
-            <span> <input class="text" type="text" datatype="money" value="{$offer['price_vip']}" errormsg="请正确填写单价" name="price_vip">（含税）</span>
+            <span> <input class="text" type="text" datatype="money" value="{$offer['price_vip']}" errormsg="请正确填写单价" name="price_vip">（不含税）</span>
             <span></span>
         </td>
     </tr>
