@@ -80,7 +80,7 @@
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">四、成交价格与成交时间
                 <ol style=" margin-top:5px;">
-                    <li style="text-indent: 20px;">第八条 买卖双方通过交易平台电子交易系统成交的产品的含税单价为_____________元（人民币）/_<%=contDatas.product.unit%>___(单位)。（以挂牌竞价交易中买卖双方达成的交易价格为准）</li>
+                    <li style="text-indent: 20px;">第八条 买卖双方通过交易平台电子交易系统成交的产品的单价为_____________元（人民币）/_<%=contDatas.product.unit%>___(单位)。（以挂牌竞价交易中买卖双方达成的交易价格为准）</li>
                     <li style="text-indent: 20px;">第九条 成交时间:___________（以竞价交易中双方约定的竞价结束时间为准）</li>
                 </ol>
             </div>
