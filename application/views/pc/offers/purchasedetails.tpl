@@ -41,7 +41,7 @@
                 </div>
                 <div class="offer_right">
                     <ul>
-                        <li>意向价：<b> {$data['price_l']}~{$data['price_r']}</b>元/ {$data['unit']} <span class="qianse">（含税）</span></li>
+                        <li>意向价：<b> {$data['price_l']}~{$data['price_r']}</b>元/ {$data['unit']} <span class="qianse"></span></li>
                         <li>需求量： <i>{$data['quantity']}</i>  {$data['unit']}</li>
                     </ul>
 
