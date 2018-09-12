@@ -55,12 +55,12 @@
                 <div class="offer_right">
                     <ul>
 
-                        <li class="notmember hmember">市场价：<b> {$data['price']}</b>元/ {$data['unit']} <span class="qianse">（不含税）</span></li>
+                        <li class="notmember hmember">市场价：<b> {$data['price']}</b>元/ {$data['unit']} <span class="qianse"></span></li>
                         <li class="notmember ">会员价：<b> {$data['price_vip']}</b>元/ {$data['unit']} <span class="line_span"></span>
-                        <span class="qianse">（不含税）</span><a href="{url:/login/newMember@user}">去申请会员</a></li>
+                        <span class="qianse"></span><a href="{url:/login/newMember@user}">去申请会员</a></li>
 
-                       <li class="ismember" style="display:none;">会员价：<b> {$data['price_vip']}</b>元/ {$data['unit']} <span class="qianse">（不含税）</span></li>
-                       <li class="ismember hmember" style="display:none;">市场价：<span class="p_line">{$data['price']}元/ {$data['unit']}</span> <span class="qianse">（不含税）</span></li>
+                       <li class="ismember" style="display:none;">会员价：<b> {$data['price_vip']}</b>元/ {$data['unit']} <span class="qianse"></span></li>
+                       <li class="ismember hmember" style="display:none;">市场价：<span class="p_line">{$data['price']}元/ {$data['unit']}</span> <span class="qianse"></span></li>
 
 
                         <li>总数量： <i>{$data['max_num']}</i>  {$data['unit']}</li>
