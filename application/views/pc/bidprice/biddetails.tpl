@@ -171,7 +171,7 @@ var s = 0;
                             </tr>
                             <tr>
                                 <td>货款缴纳时间</td>
-                                <td>竞价成交后<%=detailData.pay_days%>天完成货款缴纳</td>
+                                <td>竞价完成后<%=detailData.pay_days%>天完成货款缴纳</td>
                             </tr>
                             <% } %>
                             </script>
