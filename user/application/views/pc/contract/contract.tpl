@@ -66,7 +66,7 @@
             </div>
             <div style="padding-left:20px; line-height:25px; margin-top:10px;">三、成交价格与成交时间
                 <ol style=" margin-top:5px;">
-                    <li style="text-indent: 20px;">第四条 买卖双方通过交易平台电子交易系统成交的产品的含税单价为_______
+                    <li style="text-indent: 20px;">第四条 买卖双方通过交易平台电子交易系统成交的产品的单价为_______
                         {if:isset($info['price_unit'])&& $info['price_unit']>0}
                              {$info['price_unit']}
                         {elseif:$info['price']>0}
