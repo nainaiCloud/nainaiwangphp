@@ -165,7 +165,7 @@
                  <th>交收时间</th>
                  <td>成交后{$info['accept_day']}天完成交收</td>
                      <th>缴费时间</th>
-                     <td>竞价结束后{$info['pay_days']}天完成货款缴纳</td>
+                     <td>竞价完成后{$info['pay_days']}天完成货款缴纳</td>
                  {else:}
                  <th></th>
                  <td></td>
