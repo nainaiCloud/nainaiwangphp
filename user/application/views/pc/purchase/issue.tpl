@@ -75,7 +75,7 @@
             <span>
                 <input class="text" style="width:90px;" type="text" errormsg="填写正确填写单价" name="price"> -
                 <input class="text" style="width:90px;" type="text" errormsg="填写正确填写单价" name="price_r">
-                (元)(含税)
+                (元)
             </span>
 
         </td>
