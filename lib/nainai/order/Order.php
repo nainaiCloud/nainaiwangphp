@@ -1641,7 +1641,11 @@ class Order{
 					$title = '等待卖方支付保证金';
 					break;
 				case self::CONTRACT_BUYER_RETAINAGE:
-					$title = '等待买方支付货款';
+                    if(empty($value['proof'])){
+                        $title = '等待买方支付货款';
+                    }else{
+                        $title = '等待卖家确认线下支付凭证';
+                    }
 					break;
 				case self::CONTRACT_CANCEL:
 					$title = '合同已被取消';
