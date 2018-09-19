@@ -129,7 +129,9 @@ class ManagerDealController extends UcenterBaseController {
         $freeFee = $freeObj->getFee($this->user_id);
 
         $fund  = new \nainai\fund\agentAccount();
-        if ($fund->getActive($this->user_id) < $freeFee) {
+        $active = $fund->getActive($this->user_id);
+       // $active = 0;
+        if ($active < $freeFee ) {
             $this->redirect(url::createUrl('/fund/cz'));
         }
 
