@@ -48,7 +48,7 @@
 				<td>{$item['mode_txt']}</td>
 				<td>{$item['submode_txt']}</td>
 				<td>{if:$item['mode']==1}
-                        {if:$item['proof']}线下支付{else:}线上支付{/if}
+                       线下支付
 				    {/if}
 				</td>
 				<td>{$item['num']}{$item['unit']}</td>

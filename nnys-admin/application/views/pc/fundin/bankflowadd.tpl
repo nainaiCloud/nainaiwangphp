@@ -76,6 +76,10 @@
                                 <span><input type="text"  class="info_input" placeholder="请输入保证金金额"  name="enbandatm"></span>
                               </div>
                               <div class="bankInfo">
+                                <span class="infoName">大写金额：</span>
+                                <span><input type="text"  class="info_input" placeholder="请输入保证金金额" disabled="disabled"  name="enbandatmM"></span>
+                              </div>
+                              <div class="bankInfo">
                                 <span class="infoName">流水号：</span>
                                 <span><input type="text" class="info_input" placeholder="请输入银行流水号" name="enbandlogno"></span>
                               </div>
@@ -153,6 +157,10 @@
                                   <span><input type="text"  class="info_input" placeholder="请输入保证金金额"  name="perbandatm"></span>
                                 </div>
                                 <div class="bankInfo">
+                                  <span class="infoName">大写金额：</span>
+                                  <span><input type="text"  class="info_input" placeholder="请输入保证金金额" disabled="disabled"  name="perbandatmM"></span>
+                                </div>
+                                <div class="bankInfo">
                                   <span class="infoName">流水号：</span>
                                   <span><input type="text" class="info_input" placeholder="请输入银行流水号" name="perbandlogno"></span>
                                 </div>
@@ -198,6 +206,10 @@
                               <div class="bankInfo">
                                 <span class="infoName">金额：</span>
                                 <span><input type="text"  class="info_input" placeholder="请输入保证金金额"  name="perbandatm"></span>
+                              </div>
+                              <div class="bankInfo">
+                                <span class="infoName">大写金额：</span>
+                                <span><input type="text"  class="info_input" placeholder="请输入保证金金额" disabled="disabled"  name="perbandatmM"></span>
                               </div>
                               <div class="bankInfo">
                                 <span class="infoName">流水号：</span>

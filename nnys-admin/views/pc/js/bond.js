@@ -35,7 +35,7 @@ $(function(){
     function bankSearch(bankUser,bankType){
 	    $.ajax({
 	        //'url':api+'/nnys-admin/balance/fundin/bankSearch',
-	        //'url':'http://192.168.13.119/nn2/nnys-admin/balance/fundin/banksearch',
+	        //'url':'http://ceshi.nainaiwang.com/nnys-admin/balance/fundin/banksearch',
 	        'url':$('input[name=bankSearch]').val(),
 	        'type':'get',
 	        'dataType':'json',
@@ -50,6 +50,11 @@ $(function(){
 	        		var enterbondData = template.render('enterbankTemplat',{enterDatas:data});
                     
                     $("#enterbondContent").html(enterbondData);
+                    $("input[name='enbandatm']").keyup(function(){
+                    	
+				       $("input[name='enbandatmM']").val(DX($(this).val()))
+				       console.log("企业大写金额",DX($(this).val()))
+				     });
                     //企业录入保证金
                     $(".enupload-btn").click(function(){
                     	var OP_ACCT_NO_32=""
@@ -75,6 +80,10 @@ $(function(){
 	        		var perbondData = template.render('perbankTemplat',{perDatas:data});
                     //console.log("个人",perbondData)
                     $("#preContent").html(perbondData); 
+                    $("input[name='perbandatm']").keyup(function(){
+                    	console.log("个人大写金额",DX($(this).val()))
+				       $("input[name='perbandatmM']").val(DX($(this).val()))
+				     });
                     preselect();//多个用户时单击选择事件
                     //个人录入保证金 
                     $(".perupload-btn").click(function(){
@@ -160,6 +169,20 @@ function preselect(){
 
 //个人用户选择end
 
+//金额转大写
+function DX(n) {
+    if (!/^(0|[1-9]\d*)(\.\d+)?$/.test(n))
+      return "数据非法";
+    var unit = "千百拾亿千百拾万千百拾元角分", str = "";
+      n += "00";
+    var p = n.indexOf('.');
+    if (p >= 0)
+      n = n.substring(0, p) + n.substr(p+1, 2);
+      unit = unit.substr(unit.length - n.length);
+    for (var i=0; i < n.length; i++)
+      str += '零壹贰叁肆伍陆柒捌玖'.charAt(n.charAt(i)) + unit.charAt(i);
+    return str.replace(/零(千|百|拾|角)/g, "零").replace(/(零)+/g, "零").replace(/零(万|亿|元)/g, "$1").replace(/(亿)万|壹(拾)/g, "$1$2").replace(/^元零?|零分/g, "").replace(/元$/g, "元整");
+}//金额转大写 end
 	//金额和流水号限制数字()
 	/*function inputCont(){
 		$('input[name=bandatm]').keyup(function(){
