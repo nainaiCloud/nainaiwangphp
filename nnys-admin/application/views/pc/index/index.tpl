@@ -258,6 +258,7 @@
                                 <li><a href="{url:balance/fundIn/checkOfflineList}" target="content">线下待审核</a></li>
                                 <li><a href="{url:balance/fundIn/checkedOfflineList}" target="content">线下已审核</a></li>
                                 <li><a href="{url:balance/fundIn/bankflowList}" target="content">银行流水</a></li>
+                                <li><a href="{url:balance/fundIn/bankflowadd}" target="content">保证金录入</a></li>
                             </ul>
                         </li>
                         <li><a target="content">出金审核</a>
