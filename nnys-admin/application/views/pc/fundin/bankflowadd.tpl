@@ -279,7 +279,7 @@ $(function(){
     })
 })
 //粘贴剪切板图片
-document.addEventListener('paste', function (event) {
+document.getElementById("ssi-previewBox").addEventListener('paste', function (event) {
     var items = (event.clipboardData || window.clipboardData).items;
     var file = null;
     if (items && items.length) {
@@ -297,6 +297,9 @@ document.addEventListener('paste', function (event) {
     if (!file) {
         log.innerHTML = '<span style="color:red;">粘贴内容非图片</span>';
         return;
+    }else{
+       log.innerHTML=""
+
     }
     // 此时file就是我们的剪切板中的图片对象
     // 如果需要预览，可以执行下面代码
