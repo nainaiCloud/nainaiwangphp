@@ -401,7 +401,6 @@ class UcenterController extends UcenterBaseController {
             if($res['success']==0){
                 die(json::encode($res));
             }
-
             $cert = new \nainai\cert\certDealer($user_id,$user_type);
 
             $res = $cert->certDealApply($accData);
