@@ -115,6 +115,14 @@
     top: 220px;
     left: 28%;
 }
+#pastTip {
+  z-index: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 240px;
+  left: 44%;
+  color: #e6cb60;
+}
 
 .ssi-removeBtn {
   margin: 5px 0 5px 0;
