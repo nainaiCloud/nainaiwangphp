@@ -45,7 +45,11 @@
                         <div id="enterbondContent"></div>
                         <script type="text/html" id="enterbankTemplat">
                           <%if(enterDatas.users!=null) { %>
-                          <% if(enterDatas.users.length==1) { %>
+                          <% if(enterDatas.users.length>0) { %>
+                          <% if(enterDatas.users.length>1) { %>
+                            <div class="enterTip" style="color: #f4626c;margin: 10px 0;">查询到的企业用户名、开户信息可能错误
+                            </div>
+                          <% } %>
                            <% if(enterDatas.users[0].dealer != null) { %>
                             <div class="select_info">
                             
@@ -304,27 +308,21 @@ document.addEventListener('paste', function (event) {
     // 如果不需要预览，上面这段可以忽略
 
     // 这里是上传
+    var formData = new FormData();
+    formData.append('file', file);
     var xhr = new XMLHttpRequest();
-    // 上传进度
-    if (xhr.upload) {
-        xhr.upload.addEventListener('progress', function (event) {
-            log.innerHTML = '正在上传，进度：' + Math.round(100 * event.loaded / event.total) / 100 + '%';
-        }, false);
-    }
-    // 上传结束
     xhr.onload = function () {
-        var responseText = xhr.responseText;
-        //log.innerHTML = '上传成功，地址是：' + responseText;
-        //alert($.parseJSON(responseText).img)
-        console.log($.parseJSON(responseText).img)
-        $("#bonduploadImg").val($.parseJSON(responseText).img)
-
-    };
-    xhr.onerror = function () {
-        log.innerHTML = '<span style="color:red;">网络异常，上传失败</span>';
+      try {
+        // 取得响应消息
+        var result =$.parseJSON(this.responseText);
+        console.log("成功",result.img)
+        $("#bonduploadImg").val(result.img)
+      } catch(err) {
+         log.innerHTML = '<span style="color:red;">网络异常，上传失败</span>';
+        console.log("错误",err)
+      }
     };
     xhr.open('POST', $('input[name=bondImg]').val(), true);
-    xhr.setRequestHeader('FILENAME', encodeURIComponent(file.name));
-    xhr.send(file);
+    xhr.send(formData);
 });//粘贴剪切板图片end
 </script>
