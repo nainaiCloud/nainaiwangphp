@@ -62,6 +62,11 @@ class QueryType extends ObjectType
                         'type' => [
                             'type'=>Types::int(),
                             'name'=>'type'
+                        ],
+                        'status'=> [
+                            'type'=>Types::int(),
+                            'name'=>'status',
+                            'description'=>'用户状态，0正常'
                         ]
                         // 'username' => Types::nonNull(Types::string())
                     ],

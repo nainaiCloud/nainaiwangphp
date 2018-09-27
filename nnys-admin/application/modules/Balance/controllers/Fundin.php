@@ -190,7 +190,7 @@ class FundinController extends InitController {
             $graphql = new \nainai\graphqls();
             if($type==1){
                 $query = '{
-                        users(page:1,pagesize:1,true_name:"'.$name.'",type:1){
+                        users(true_name:"'.$name.'",type:1,status:0){
                            id,username,true_name,mobile,type,
                            dealer(status:2){
                              status
