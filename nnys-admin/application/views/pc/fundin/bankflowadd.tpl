@@ -19,6 +19,7 @@
                     <input type="hidden" name="bondImg" value="{url:balance/fundout/upload@admin}"><!-- 上传图片接口地址 -->
                     <input type="text"  id="bonduploadImg" style="display: none"/><!-- 获取存储上传图片地址 -->
                     <input data-validate="required:" type="file" multiple id="ssi-upload"/>
+                    <p id="log"></p>
                   </div>
                 </div>
                 <div class="col-md-5">
@@ -273,4 +274,57 @@ $(function(){
          $(".bidbond_result").hide()
     })
 })
+//粘贴剪切板图片
+document.addEventListener('paste', function (event) {
+    var items = (event.clipboardData || window.clipboardData).items;
+    var file = null;
+    if (items && items.length) {
+        // 搜索剪切板items
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type.indexOf('image') !== -1) {
+                file = items[i].getAsFile();
+                break;
+            }
+        }
+    } else {
+        log.innerHTML = '<span style="color:red;">当前浏览器不支持</span>';
+        return;
+    }
+    if (!file) {
+        log.innerHTML = '<span style="color:red;">粘贴内容非图片</span>';
+        return;
+    }
+    // 此时file就是我们的剪切板中的图片对象
+    // 如果需要预览，可以执行下面代码
+    var reader = new FileReader()
+    reader.onload = function(event) {
+       $("#ssi-previewBox").append("<table class='ssi-imgToUploadTable ssi-pending'><tr><td class='ssi-upImgTd'><img src='"+ event.target.result +"' class='ssi-imgToUpload'/></td></tr></table>")
+    }
+    reader.readAsDataURL(file);
+    // 如果不需要预览，上面这段可以忽略
+
+    // 这里是上传
+    var xhr = new XMLHttpRequest();
+    // 上传进度
+    if (xhr.upload) {
+        xhr.upload.addEventListener('progress', function (event) {
+            log.innerHTML = '正在上传，进度：' + Math.round(100 * event.loaded / event.total) / 100 + '%';
+        }, false);
+    }
+    // 上传结束
+    xhr.onload = function () {
+        var responseText = xhr.responseText;
+        //log.innerHTML = '上传成功，地址是：' + responseText;
+        //alert($.parseJSON(responseText).img)
+        console.log($.parseJSON(responseText).img)
+        $("#bonduploadImg").val($.parseJSON(responseText).img)
+
+    };
+    xhr.onerror = function () {
+        log.innerHTML = '<span style="color:red;">网络异常，上传失败</span>';
+    };
+    xhr.open('POST', $('input[name=bondImg]').val(), true);
+    xhr.setRequestHeader('FILENAME', encodeURIComponent(file.name));
+    xhr.send(file);
+});//粘贴剪切板图片end
 </script>
