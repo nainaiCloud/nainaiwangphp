@@ -220,7 +220,14 @@ class FundinController extends InitController {
             $data = $graphql->query($query);
             if(isset($data['data']['users'][1])){
                 $data['data']['users'] = array_reverse($data['data']['users']);
+                foreach($data['data']['users'] as $key=>$item){
+                    if(!$item['dealer']){
+                        unset($data['data']['users'][$key]);
+                    }
+                }
             }
+
+
             die(json::encode($data['data']));
         }
         die(json::encode(array('users'=>array())));
