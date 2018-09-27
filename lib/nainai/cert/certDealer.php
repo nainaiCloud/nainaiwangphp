@@ -13,6 +13,8 @@ use \Library\Query;
 use \Library\Thumb;
 use \Library\log;
 use \Library\JSON;
+use nainai\syslog;
+
 class certDealer extends certificate{
 
 
@@ -74,8 +76,16 @@ class certDealer extends certificate{
 
         //检验公司个人信息是否符合规则
         $m = new \UserModel();
+        $userObj = new M('user');
         if($this->user_type==1){
            $check = $m->checkCompanyInfo($accData);
+           if($check){
+               $exst = $userObj->where(array('true_name'=>$accData['company_name'],'id'=>array('neq'=>$this->user_id)))->getField('id');
+               if($exst){
+                   return \Library\Tool::getSuccInfo(0,'该企业名称已注册，请勿重复');
+               }
+           }
+
         }
         else
             $check = $m->checkPersonInfo($accData);
@@ -89,6 +99,10 @@ class certDealer extends certificate{
            //     $this->certInit($reCertType);
 
             if($this->createCertApply(self::$certType,$accData,$certData)){
+                //更新user表true_name
+                $trueName = $this->user_type==1 ? $accData['company_name'] : $accData['true_name'];
+
+                $userObj->where(array('id'=>$this->user_id))->data(array('true_name'=>$trueName))->update();
                 $this->chgCertStatus($this->user_id,$certObj);//更改用户表认证状态
                 $res = $certObj->commit();
             }

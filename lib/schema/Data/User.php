@@ -76,6 +76,10 @@ class User extends Template
             $where = 'true_name=:true_name';
             $bind['true_name'] = $args['true_name'];
         }
+        if(isset($args['status'])){
+            $where .= $where==''? 'status=:status ' : ' and status=:status';
+            $bind['status'] = $args['status'];
+        }
         if(isset($args['type'])){
             $where .= $where==''? 'type=:type ' : ' and type=:type';
             $bind['type'] = $args['type'];

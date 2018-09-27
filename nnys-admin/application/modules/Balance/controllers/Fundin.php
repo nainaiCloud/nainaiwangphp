@@ -190,7 +190,7 @@ class FundinController extends InitController {
             $graphql = new \nainai\graphqls();
             if($type==1){
                 $query = '{
-                        users(page:1,pagesize:1,true_name:"'.$name.'",type:1){
+                        users(true_name:"'.$name.'",type:1,status:0){
                            id,username,true_name,mobile,type,
                            dealer(status:2){
                              status
@@ -218,6 +218,16 @@ class FundinController extends InitController {
 
 
             $data = $graphql->query($query);
+            if(isset($data['data']['users'][1])){
+                $data['data']['users'] = array_reverse($data['data']['users']);
+                foreach($data['data']['users'] as $key=>$item){
+                    if(!$item['dealer']){
+                        unset($data['data']['users'][$key]);
+                    }
+                }
+            }
+
+
             die(json::encode($data['data']));
         }
         die(json::encode(array('users'=>array())));
