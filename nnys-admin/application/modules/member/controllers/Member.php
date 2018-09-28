@@ -20,6 +20,9 @@ class MemberController extends InitController {
 		//echo $this->getViewPath();
 	}
 
+	public function addCompanyAction(){
+
+    }
 
 	/**
 	 * 获取会员列表
