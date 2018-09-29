@@ -24,6 +24,10 @@ class MemberController extends InitController {
 
     }
 
+    public function assCompanyAction(){
+
+    }
+
 	/**
 	 * 获取会员列表
 	 */
