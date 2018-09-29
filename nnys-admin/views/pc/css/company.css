@@ -1,0 +1,30 @@
+.companyInfo .companyInput{
+	display: flex;
+	margin: 10px 0;
+}
+.companyInfo .companyInput .infoTitle{
+	width: 80px;
+    line-height: 30px;
+    color: #535353;
+}
+.companyInfo .companyInput .infoText{
+   width: 200px;
+   border: solid 1px #bfbfbf;
+   padding:0 5px;
+
+}
+.companyInfo .companyInput .infoTip{
+	color:#535353;
+	padding-left: 10px;
+}
+.companyInfo .companyInput .infoBtn{
+	width: 211px;
+	height: 36px;
+	background: #32b16c;
+	border:0px;
+	border-radius: 2px;
+	color: #ffffff
+}
+.companyTable{
+	margin:20px;
+}
