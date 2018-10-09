@@ -19,7 +19,7 @@
             		</div>
             		<div class="companyInput">
             			<span class="infoTitle">企业logo：</span>
-            			<input class="infoText" type="text" placeholder="选一个字做logo"  v-model="inputtext.companyLogo">
+            			<input class="infoText" type="text" placeholder="选一个字做logo"  v-model="inputtext.companyLogo" @change="logoJud()">
             			<span class="infoTip">(必须为企业名称中的字)</span>
             		</div>
             		<div class="companyInput">
@@ -90,20 +90,38 @@ new Vue({
     	this.companyList(1)
     },
     methods:{
+    	/*各部分内容验证
+    	*companynameJud 公司名称验证
+    	*logoJud 公司logo验证
+    	*gradeJud 公司等级验证
+    	*phoneJud 手机号验证*/
     	companynameJud(){
-    		var companyName = this.inputtext.companyName//获取等级内容
+    		var companyName = this.inputtext.companyName//获取企业名称
     		console.log(companyName)
     		if(companyName==""){
-    			alert("公司名称不能为空")
-    		}
+    			this.companyTip="公司名称不能为空"
+    		}else{
+            	 this.companyTip=""
+            }
     	},
+    	logoJud(){
+            var companyName = this.inputtext.companyName
+            var companyLogo = this.inputtext.companyLogo
+            if(companyName.indexOf(companyLogo) == -1 || companyLogo.length>1){
+               this.companyTip="请输入企业名字中的某一个字"
+            }else{
+            	 this.companyTip=""
+            }
+        },
     	gradeJud(){
     		var companyCredit = this.inputtext.companyCredit//获取等级内容
 			var reg=/^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 ，判断正整数用/^[1-9]+[0-9]*]*$/
 			//判断等级是否输入的是1-5的数字
 			if(!reg.test(companyCredit)||companyCredit>5){
-				alert("请输入1-5的数字")
-			}
+				this.companyTip="请输入1-5的数字"
+			}else{
+            	 this.companyTip=""
+            }
     	},
     	phoneJud(){
     		var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;//11位手机号正则表达式
