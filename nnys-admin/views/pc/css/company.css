@@ -7,6 +7,9 @@
     line-height: 30px;
     color: #535353;
 }
+.companyInfo .companyInput .tip{
+	color: #d61d1d;
+}
 .companyInfo .companyInput .infoText{
    width: 200px;
    border: solid 1px #bfbfbf;
@@ -28,6 +31,9 @@
 .companyTable{
 	margin:20px;
 }
+.companyTable table tr td{
+	text-align: center;
+}
 
 .asscompanyInfo .companyName{
 	font-size: 14px;
@@ -37,8 +43,8 @@
 .asscompanyInfo table tr:nth-child(even){
 	background: #f3f3f3
 }
-.asscompanyInfo table tr td:last-child{
-	border-right: 1px solid #DADADA
+.asscompanyInfo table tr td:last-child ,.companyTable table tr td:last-child{
+	border-right: 1px solid #DADADA;
 }
 .yesadopt{
 	color: #32b16c;

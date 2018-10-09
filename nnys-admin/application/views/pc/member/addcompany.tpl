@@ -7,10 +7,15 @@
             </div>
             <div class="pd-20">
             	<div class="companyInfo">
+            		<!-- 增加企业接口 -->
             		<form @submit.prevent="submit">
             		<div class="companyInput">
+            			<span class="infoTitle"></span>
+            			<span class="tip">{{companyTip}}</span>
+            		</div>
+            		<div class="companyInput">
             			<span class="infoTitle">企业名称：</span>
-            			<input class="infoText" type="text" name="companyName"  v-model="inputtext.companyName">
+            			<input class="infoText" type="text" name="companyName"  v-model="inputtext.companyName" @change="companynameJud()">
             		</div>
             		<div class="companyInput">
             			<span class="infoTitle">企业logo：</span>
@@ -19,16 +24,16 @@
             		</div>
             		<div class="companyInput">
             			<span class="infoTitle">企业等级：</span>
-            			<input class="infoText" type="text"  v-model="inputtext.companyGrade">
+            			<input class="infoText" type="text" @change="gradeJud()"  v-model="inputtext.companyCredit">
             			<span class="infoTip">(等级按1-5级划分)</span>
             		</div>
             		<div class="companyInput">
             			<span class="infoTitle">联系人：</span>
-            			<input class="infoText" type="text"  v-model="inputtext.contacts">
+            			<input class="infoText" type="text"  v-model="inputtext.contact">
             		</div>
             		<div class="companyInput">
             			<span class="infoTitle">联系方式：</span>
-            			<input class="infoText" type="text"  v-model="inputtext.phone">
+            			<input class="infoText" type="text"  @change="phoneJud()" v-model="inputtext.contactPhone">
             		</div>
             		<div class="companyInput">
             			<span class="infoTitle"></span>
@@ -49,12 +54,12 @@
              			<th>企业简称</th>
              			<th>企业等级</th>
              		</tr>
-             		<tr >
-             			<td></td>
-             			<td></td>
-             			<td></td>
-             			<td></td>
-             			<td></td>
+             		<tr v-for="(companyList,index) in companyLists">
+             			<td>{{companyList.companyName}}</td>
+             			<td>{{companyList.contact}}</td>
+             			<td>{{companyList.contactPhone}}</td>
+             			<td>{{companyList.companyLogo}}</td>
+             			<td>{{companyList.companyCredit}}</td>
              		</tr>
              	</table>
              	<div class="pages_bar">
@@ -75,18 +80,88 @@ new Vue({
       return {
         inputtext:{},//表单内容
         curpage:1,//当前页码
-        allpage:10,//总页面数
-
+        allpage:1,//总页面数
+        url:'http://192.168.13.119:8081',
+        companyTip:"",
+        companyLists:{}//公司信息列表
       }
     },
     created(){
+    	this.companyList(1)
     },
     methods:{
+    	companynameJud(){
+    		var companyName = this.inputtext.companyName//获取等级内容
+    		console.log(companyName)
+    		if(companyName==""){
+    			alert("公司名称不能为空")
+    		}
+    	},
+    	gradeJud(){
+    		var companyCredit = this.inputtext.companyCredit//获取等级内容
+			var reg=/^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 ，判断正整数用/^[1-9]+[0-9]*]*$/
+			//判断等级是否输入的是1-5的数字
+			if(!reg.test(companyCredit)||companyCredit>5){
+				alert("请输入1-5的数字")
+			}
+    	},
+    	phoneJud(){
+    		var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;//11位手机号正则表达式
+    		var contactPhone = this.inputtext.contactPhone//联系方式
+    		if(!myreg.test(contactPhone)){
+				this.companyTip="请输入正确的手机号"
+			}else{
+				this.companyTip=""
+			}
+    	},
+    	//提交增加的企业信息
     	submit: function() {
-			console.log(this.inputtext);
+    		var companyName = this.inputtext.companyName
+    		var contact = this.inputtext.contact
+    		var contactPhone = this.inputtext.contactPhone
+    		var companyCredit = this.inputtext.companyCredit
+    		var companyLogo = this.inputtext.companyLogo
+    		this.companyTip=""
+    		console.log(companyName,contact,contactPhone,companyCredit,companyLogo)
+    		if(companyName!=undefined&&contact!=undefined&&contactPhone!=undefined&&companyCredit!=undefined&&companyLogo!=undefined){
+    			axios({
+			        method: 'post',
+			        url:this.url+'/userCompany/addCompany',
+			        data:this.inputtext,
+			    }).then(function(res){
+			        console.log(res.data.message)
+			    }).catch(function (res) {
+			    	console.log("错误返回信息",res)
+			    })
+			    this.companyList(1)
+    		}else{
+    			this.companyTip="以下信息不能为空"
+    		}
+    		
+		},
+		companyList(num){
+			var that =this
+			axios({
+		        method: 'get',
+		        //url:this.addcompanyUrl,
+		        url:that.url+'/userCompany/companys',
+		        params:{
+		        	page:num,
+		        	pagesize:20
+		        }
+		    }).then(function(info){
+		    	if(info.data.data!=null){
+		    		that.allpage=info.data.data.pageCount
+			        that.companyLists=info.data.data.userCompany
+			        console.log("公司列表信息",that.allpage,"列表：",that.companyLists)
+		    	}
+		    }).catch(function (info) {
+		    	console.log("错误返回信息",info)
+		    })
 		},
 		curPages(pages){
 			this.curpage=pages
+			this.companyList(pages)
 			console.log(pages)
 		}
 	

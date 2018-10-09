@@ -8,7 +8,7 @@
             <div class="mt-20 companyTable">
                 <div class="asscompanyInfo" v-for="(items,m) in companyList" v-if="items.values!=''">
                     <div class="companyName">{{items.companyName}}</div>
-                    <table class="table table-border table-bordered table-hover table-bg table-sort">
+                    <table class="table  table-border table-bordered table-hover table-bg table-sort">
                         <tr class="text-c">
                             <th>序号</th>
                             <th>关联账号</th>

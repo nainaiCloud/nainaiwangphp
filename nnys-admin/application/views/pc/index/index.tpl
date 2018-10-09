@@ -182,7 +182,7 @@
                         <a target="content">企业管理</a>
                             <ul>
                                 <li> <a href="{url:member/member/addcompany}" target="content">新增企业及列表</a></li>
-                                <li><a href="{url:member/member/asscompany}" target="content" >关联账号审核</a></li> 
+                                <li><a href="{url:member/member/asscompany}" target="content">关联账号审核</a></li> 
                             </ul>
                        
                        </li>
